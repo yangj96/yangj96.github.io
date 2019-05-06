@@ -4,8 +4,11 @@
     <title><![CDATA[Leetcode链表题目总结]]></title>
     <url>%2F2019%2F03%2F25%2Flinked-list%2F</url>
     <content type="text"><![CDATA[Leetcode链表题常用方法总结： dummy node 常用于链表的head可能被修改或删除的情况，可简化单链表没有前向指针所带来的问题，通常使用current = dummy进行遍历，最终返回 dummy-&gt;next 链表中尽量避免new新的节点，而是在原链表上直接操作地址 在插入和删除操作中使用临时变量来存储next指针 通过两个指针几何变换来解决链表长度、环检测等问题 对于一些依赖后面节点才能完成的操作，通常使用递归来解决]]></content>
+      <categories>
+        <category>Leetcode</category>
+      </categories>
       <tags>
-        <tag>Leetcode</tag>
+        <tag>linked-list</tag>
       </tags>
   </entry>
 </search>
