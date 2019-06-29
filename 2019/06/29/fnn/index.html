@@ -96,12 +96,12 @@
 
 
 
-  <meta name="description" content="本文是深度学习总结系列的第一篇，主要内容是神经网络的基础知识，最初版本翻译自：Feedforward Nets and Conv Nets (lecturer: Dario Garcia)。  本文对人工神经网络（Artificial Neural Networks）的基础内容进行介绍，主要内容包括：  神经网络发展史1.1 感知器1.2 反向传播和梯度下降 激活函数 常用参数 优化方法 正则化">
+  <meta name="description" content="本文是深度学习总结系列的第一篇，主要内容是神经网络的基础知识。系列更多文章传送门：第二篇 [Deep Learning] 卷积神经网络 CNNs；第三篇 [Deep Learning] 集成学习Ensemble Learning&amp;amp;迁移学习Transfer Learning ；第四篇 [ [Deep Learning] 递归神经网络RNN ]（https://www.jianshu.com">
 <meta property="og:type" content="article">
 <meta property="og:title" content="神经网络基础">
 <meta property="og:url" content="https://yangj96.github.io/2019/06/29/fnn/index.html">
 <meta property="og:site_name" content="Jingy&#39;s Blog">
-<meta property="og:description" content="本文是深度学习总结系列的第一篇，主要内容是神经网络的基础知识，最初版本翻译自：Feedforward Nets and Conv Nets (lecturer: Dario Garcia)。  本文对人工神经网络（Artificial Neural Networks）的基础内容进行介绍，主要内容包括：  神经网络发展史1.1 感知器1.2 反向传播和梯度下降 激活函数 常用参数 优化方法 正则化">
+<meta property="og:description" content="本文是深度学习总结系列的第一篇，主要内容是神经网络的基础知识。系列更多文章传送门：第二篇 [Deep Learning] 卷积神经网络 CNNs；第三篇 [Deep Learning] 集成学习Ensemble Learning&amp;amp;迁移学习Transfer Learning ；第四篇 [ [Deep Learning] 递归神经网络RNN ]（https://www.jianshu.com">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2764802-acc361aa37c55123.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2764802-2545868355540c91.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -121,10 +121,10 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2764802-5f352a8a37140e83.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2764802-a6e4775903391f65.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2764802-a14f3b7d6a931413.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-06-29T09:30:47.455Z">
+<meta property="og:updated_time" content="2019-06-29T09:34:13.465Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="神经网络基础">
-<meta name="twitter:description" content="本文是深度学习总结系列的第一篇，主要内容是神经网络的基础知识，最初版本翻译自：Feedforward Nets and Conv Nets (lecturer: Dario Garcia)。  本文对人工神经网络（Artificial Neural Networks）的基础内容进行介绍，主要内容包括：  神经网络发展史1.1 感知器1.2 反向传播和梯度下降 激活函数 常用参数 优化方法 正则化">
+<meta name="twitter:description" content="本文是深度学习总结系列的第一篇，主要内容是神经网络的基础知识。系列更多文章传送门：第二篇 [Deep Learning] 卷积神经网络 CNNs；第三篇 [Deep Learning] 集成学习Ensemble Learning&amp;amp;迁移学习Transfer Learning ；第四篇 [ [Deep Learning] 递归神经网络RNN ]（https://www.jianshu.com">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/2764802-acc361aa37c55123.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -422,7 +422,7 @@
                 
               
 
-              <time title="创建时间：2019-06-29 17:23:49 / 修改时间：17:30:47" itemprop="dateCreated datePublished" datetime="2019-06-29T17:23:49+08:00">2019-06-29</time>
+              <time title="创建时间：2019-06-29 17:23:49 / 修改时间：17:34:13" itemprop="dateCreated datePublished" datetime="2019-06-29T17:23:49+08:00">2019-06-29</time>
             
 
             
@@ -473,7 +473,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">9.3k</span>
+                <span title="本文字数">9.5k</span>
               
 
               
@@ -487,7 +487,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">8 分钟</span>
+                <span title="阅读时长">9 分钟</span>
               
             </div>
           
@@ -508,7 +508,7 @@
 
       
         <blockquote>
-<p>本文是深度学习总结系列的第一篇，主要内容是神经网络的基础知识，最初版本翻译自：<a href="https://upc-mai-dl.github.io/mlp-convnets-theory/" target="_blank" rel="noopener">Feedforward Nets and Conv Nets (lecturer: Dario Garcia)</a>。</p>
+<p>本文是深度学习总结系列的第一篇，主要内容是神经网络的基础知识。系列更多文章传送门：第二篇 <a href="https://www.jianshu.com/p/71e58c682513" target="_blank" rel="noopener">[Deep Learning] 卷积神经网络 CNNs</a>；第三篇 <a href="https://www.jianshu.com/p/5a26ec734982" target="_blank" rel="noopener">[Deep Learning] 集成学习Ensemble Learning&amp;迁移学习Transfer Learning </a>；第四篇 [ [Deep Learning] 递归神经网络RNN ]（<a href="https://www.jianshu.com/p/5c22b41e9f07" target="_blank" rel="noopener">https://www.jianshu.com/p/5c22b41e9f07</a>。</p>
 </blockquote>
 <p>本文对人工神经网络（Artificial Neural Networks）的基础内容进行介绍，主要内容包括：</p>
 <ol>
