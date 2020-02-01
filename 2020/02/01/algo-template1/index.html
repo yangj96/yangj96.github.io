@@ -96,20 +96,24 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Jingy&#39;s Blog">
-<meta property="og:url" content="https://yangj96.github.io/index.html">
+  <meta name="description" content="目录 二分 递归/DFS BFS 并查集 归并排序 快速排序&amp;amp;快速选择 堆 双指针 单调栈&amp;amp;单调队列  二分二分本质不是单调性，只需要区间针对某个性质能够分成两段，一段满足一段不满足即可。 找到能够划分区间左右两半的性质，如果if (check(mid)) 条件成立，判断答案在左区间还是右区间，如果答案在左区间并且mid也可能是答案，按模板1来划分；如果答案在右区间并且mid也可能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="algo-template1">
+<meta property="og:url" content="https://yangj96.github.io/2020/02/01/algo-template1/index.html">
 <meta property="og:site_name" content="Jingy&#39;s Blog">
+<meta property="og:description" content="目录 二分 递归/DFS BFS 并查集 归并排序 快速排序&amp;amp;快速选择 堆 双指针 单调栈&amp;amp;单调队列  二分二分本质不是单调性，只需要区间针对某个性质能够分成两段，一段满足一段不满足即可。 找到能够划分区间左右两半的性质，如果if (check(mid)) 条件成立，判断答案在左区间还是右区间，如果答案在左区间并且mid也可能是答案，按模板1来划分；如果答案在右区间并且mid也可能">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-01T15:03:30.059Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jingy&#39;s Blog">
+<meta name="twitter:title" content="algo-template1">
+<meta name="twitter:description" content="目录 二分 递归/DFS BFS 并查集 归并排序 快速排序&amp;amp;快速选择 堆 双指针 单调栈&amp;amp;单调队列  二分二分本质不是单调性，只需要区间针对某个性质能够分成两段，一段满足一段不满足即可。 找到能够划分区间左右两半的性质，如果if (check(mid)) 条件成立，判断答案在左区间还是右区间，如果答案在左区间并且mid也可能是答案，按模板1来划分；如果答案在右区间并且mid也可能">
 
 
 
 
 
 
-  <link rel="canonical" href="https://yangj96.github.io/">
+  <link rel="canonical" href="https://yangj96.github.io/2020/02/01/algo-template1/">
 
 
 
@@ -119,7 +123,7 @@
   };
 </script>
 
-  <title>Jingy's Blog</title>
+  <title>algo-template1 | Jingy's Blog</title>
   
 
 
@@ -167,8 +171,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -206,7 +209,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
 
     
     
@@ -340,414 +343,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yangj96.github.io/2020/02/01/algo-add/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jing Yang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jingy's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/02/01/algo-add/" class="post-title-link" itemprop="url">algo-add</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-02-01 12:45:28 / 修改时间：22:52:41" itemprop="dateCreated datePublished" datetime="2020-02-01T12:45:28+08:00">2020-02-01</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">1.3k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="初级篇"><a href="#初级篇" class="headerlink" title="初级篇"></a>初级篇</h3><h4 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h4><p>逆序对的数量</p>
-<p>分治：构成逆序对的两个数同在分治后的左侧区间或右侧区间，或者分别位于左右两个区间需要在归并时计算</p>
-<p>归并计算逆序对：对右侧区间的每个数计算左侧区间中大于它的数的个数，最后全部求和</p>
-<h4 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h4><p>时间复杂度 $O(状态数*转移方式)$</p>
-<p>空间复杂度 $O(状态数)$</p>
-<p>迷宫起点到终点的最少步数</p>
-<h4 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h4><p>空间复杂度 $O(最大递归深度)$</p>
-<h4 id="简单图论"><a href="#简单图论" class="headerlink" title="简单图论"></a>简单图论</h4><h4 id="简单数学问题"><a href="#简单数学问题" class="headerlink" title="简单数学问题"></a>简单数学问题</h4><h3 id="中级篇"><a href="#中级篇" class="headerlink" title="中级篇"></a>中级篇</h3><p>离散化</p>
-<p>区间合并</p>
-<p>线段树</p>
-<p>中级图论</p>
-<p>高级篇</p>
-<p>高级数学问题</p>
-<p>博弈论</p>
-<p>字符串</p>
-<h4 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h4><p>字符串下标从1开始，next数组从0开始；字符串下标从0开始，next数组从-1开始</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 待匹配串s，模式串p，下标从1开始</span></span><br><span class="line"><span class="keyword">int</span> n+<span class="number">1</span> = s.size();</span><br><span class="line"><span class="keyword">int</span> m+<span class="number">1</span> = p.size();</span><br><span class="line"><span class="comment">// 求next数组, next[1] = 0</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>, j = <span class="number">0</span>; i &lt;= m; i++) &#123;</span><br><span class="line">  <span class="keyword">while</span>(j &amp;&amp; p[i] != p[j+<span class="number">1</span>]) j = ne[j];</span><br><span class="line">  <span class="keyword">if</span> (p[i] == p[j+<span class="number">1</span>]) j++;</span><br><span class="line">  ne[i] = j;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// kmp匹配</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, j = <span class="number">0</span>; i &lt;= n; i++) &#123;</span><br><span class="line">  <span class="keyword">while</span>(j &amp;&amp; s[i] != p[j+<span class="number">1</span>]) j = ne[j];</span><br><span class="line">  <span class="keyword">if</span> (s[i] == p[j+<span class="number">1</span>]) j++;</span><br><span class="line">  <span class="keyword">if</span> (j == m) &#123;</span><br><span class="line">    j = ne[j];</span><br><span class="line">    <span class="comment">// 匹配成功后的逻辑</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Trie-树"><a href="#Trie-树" class="headerlink" title="Trie 树"></a>Trie 树</h4><p>高效存储和查询字符串</p>
-<p>时间复杂度$O(\log n)$，时间复杂度$O(n^2)$</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">100010</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> son[N][<span class="number">26</span>]; <span class="comment">// Trie树每个节点的字节点，此处英文字母只包含26个小写字母</span></span><br><span class="line"><span class="keyword">int</span> cnt[N];<span class="comment">// 以当前这个点结尾的单词数量</span></span><br><span class="line"><span class="keyword">int</span> idx; <span class="comment">// 表示当前使用的层数下标，0号既是空节点也是Trie树的根节点</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="built_in">string</span> str)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> p = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str.size(); i++) &#123;</span><br><span class="line">		<span class="keyword">int</span> u = str[i] - <span class="string">'a'</span>;</span><br><span class="line">		<span class="keyword">if</span> (!son[p][u]) son[p][u] = ++idx;</span><br><span class="line">    p = son[p][u];</span><br><span class="line">	&#125;</span><br><span class="line">  cnt[p] ++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">query</span><span class="params">(<span class="built_in">string</span> str)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> p = <span class="number">0</span>; </span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str.size(); i++) &#123;</span><br><span class="line">    <span class="keyword">int</span> u = str[i] - <span class="string">'a'</span>;</span><br><span class="line">    <span class="keyword">if</span> (!son[p][u]) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    p = son[p][u];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> cnt[p];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yangj96.github.io/2020/02/01/binary-tree/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jing Yang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jingy's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/02/01/binary-tree/" class="post-title-link" itemprop="url">binary-tree</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-02-01 12:35:21 / 修改时间：12:45:14" itemprop="dateCreated datePublished" datetime="2020-02-01T12:35:21+08:00">2020-02-01</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">160</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h5 id="重建二叉树"><a href="#重建二叉树" class="headerlink" title="重建二叉树"></a>重建二叉树</h5><p>递归版本</p>
-<p>利用哈希数组记录中序遍历中每个值对应的位置</p>
-<p>非递归版本</p>
-<h5 id="和为某一定值的二叉树路径"><a href="#和为某一定值的二叉树路径" class="headerlink" title="和为某一定值的二叉树路径"></a>和为某一定值的二叉树路径</h5><p>DFS</p>
-<h5 id="树的子结构"><a href="#树的子结构" class="headerlink" title="树的子结构"></a>树的子结构</h5><p>暴力匹配 找到相同的根节点 同时遍历两颗树</p>
-<h5 id="对称二叉树"><a href="#对称二叉树" class="headerlink" title="对称二叉树"></a>对称二叉树</h5><p>单队列迭代，相邻两个队列成员应该一致</p>
-<p>递归</p>
-<h5 id="同构二叉树"><a href="#同构二叉树" class="headerlink" title="同构二叉树"></a>同构二叉树</h5><p>两个队列边遍历边比较</p>
-<h5 id="翻转二叉树"><a href="#翻转二叉树" class="headerlink" title="翻转二叉树"></a>翻转二叉树</h5><h5 id="二叉树的花样遍历"><a href="#二叉树的花样遍历" class="headerlink" title="二叉树的花样遍历"></a>二叉树的花样遍历</h5><p>加层数 或更改结构体加上int layer;</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
 
   
 
@@ -779,10 +377,8 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/02/01/algo-template1/" class="post-title-link" itemprop="url">algo-template1</a>
+          <h1 class="post-title" itemprop="name headline">algo-template1
+
               
             
           </h1>
@@ -892,9 +488,7 @@
       
 
       
-        
-          
-            <h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ol>
+        <h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ol>
 <li>二分</li>
 <li>递归/DFS</li>
 <li>BFS</li>
@@ -986,8 +580,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while(x) &#123;</span><br><span class="line">	x -= lowbit(x);</span><br><span class="line">	res++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>取第k位数</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n &gt;&gt; k &amp; 1</span><br></pre></td></tr></table></figure>
-          
-        
       
     </div>
 
@@ -1010,230 +602,32 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yangj96.github.io/2019/03/25/linked-list/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jing Yang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jingy's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/25/linked-list/" class="post-title-link" itemprop="url">Leetcode链表题目总结</a>
-              
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
+              <a href="/2019/03/25/linked-list/" rel="next" title="Leetcode链表题目总结">
+                <i class="fa fa-chevron-left"></i> Leetcode链表题目总结
+              </a>
             
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
+              <a href="/2020/02/01/binary-tree/" rel="prev" title="binary-tree">
+                binary-tree <i class="fa fa-chevron-right"></i>
+              </a>
             
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-25 10:38:08" itemprop="dateCreated datePublished" datetime="2019-03-25T10:38:08+08:00">2019-03-25</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-02-01 12:24:31" itemprop="dateModified" datetime="2020-02-01T12:24:31+08:00">2020-02-01</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">772</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>Leetcode链表题常用方法总结：</p>
-<ol>
-<li>dummy node 常用于链表的head可能被修改或删除的情况，可简化单链表没有前向指针所带来的问题，通常使用current = dummy进行遍历，最终返回 dummy-&gt;next</li>
-<li>链表中尽量避免new新的节点，而是在原链表上直接操作地址</li>
-<li>在插入和删除操作中使用临时变量来存储next指针</li>
-<li>需要反转链表使，通常需要使用pre指针记录前驱节点</li>
-<li>通过两个指针几何变换来解决链表长度、环检测等问题</li>
-<li>对于一些依赖后面节点才能完成的操作，通常使用递归来解决</li>
-</ol>
-<p>常见题目：</p>
-<h5 id="O-1-时间删除节点"><a href="#O-1-时间删除节点" class="headerlink" title="O(1)时间删除节点"></a>O(1)时间删除节点</h5><h5 id="删除重复节点"><a href="#删除重复节点" class="headerlink" title="删除重复节点"></a>删除重复节点</h5><h5 id="删除倒数第k个节点"><a href="#删除倒数第k个节点" class="headerlink" title="删除倒数第k个节点"></a>删除倒数第k个节点</h5><h5 id="成对反转节点"><a href="#成对反转节点" class="headerlink" title="成对反转节点"></a>成对反转节点</h5><h5 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h5><h5 id="合并两个有序单链表"><a href="#合并两个有序单链表" class="headerlink" title="合并两个有序单链表"></a>合并两个有序单链表</h5><h5 id="链表归并排序"><a href="#链表归并排序" class="headerlink" title="链表归并排序"></a>链表归并排序</h5><h5 id="找两个链表交汇点"><a href="#找两个链表交汇点" class="headerlink" title="找两个链表交汇点"></a>找两个链表交汇点</h5><p>两个链表同时走a+b+c步</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) &#123;</span><br><span class="line">    ListNode *p = headA, *q = headB;</span><br><span class="line">    while (p != q) &#123;</span><br><span class="line">        if (p) p = p-&gt;next;</span><br><span class="line">        else p = headB;</span><br><span class="line">        if (q) q = q-&gt;next;</span><br><span class="line">        else q = headA;</span><br><span class="line">    &#125;</span><br><span class="line">    return p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="链表环的入口"><a href="#链表环的入口" class="headerlink" title="链表环的入口"></a>链表环的入口</h5><p>两指针一快一满，快指针以两倍速度行走，必定相遇在环内</p>
-<p>相遇点单步遍历直至回到相同位置，可得环的长度n</p>
-<p>两指针重新从头部以相同速度行走，一指针先走n步，两指针相遇位置即环的入口</p>
-<h5 id="复杂链表的复制"><a href="#复杂链表的复制" class="headerlink" title="复杂链表的复制"></a>复杂链表的复制</h5><p>带random指针的listNode节点的复制</p>
-<p>使用哈希表保存random指针的原节点和复制节点对应关系</p>
-<p>在原链表上穿叉复制节点</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -1243,14 +637,15 @@
   </article>
 
 
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -1271,8 +666,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -1361,6 +765,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#二分"><span class="nav-number">1.1.</span> <span class="nav-text">二分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#递归-DFS"><span class="nav-number">1.2.</span> <span class="nav-text">递归/DFS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BFS"><span class="nav-number">1.3.</span> <span class="nav-text">BFS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#并查集"><span class="nav-number">1.4.</span> <span class="nav-text">并查集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#归并排序"><span class="nav-number">1.5.</span> <span class="nav-text">归并排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#快速排序-amp-快速选择"><span class="nav-number">1.6.</span> <span class="nav-text">快速排序&amp;快速选择</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#堆"><span class="nav-number">1.7.</span> <span class="nav-text">堆</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双指针"><span class="nav-number">1.8.</span> <span class="nav-text">双指针</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单调栈"><span class="nav-number">1.9.</span> <span class="nav-text">单调栈</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单调队列"><span class="nav-number">1.10.</span> <span class="nav-text">单调队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#位运算"><span class="nav-number">1.11.</span> <span class="nav-text">位运算</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -1503,6 +924,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
 
   
 
@@ -1513,6 +938,8 @@
 
   
 
+
+  
 
 
   

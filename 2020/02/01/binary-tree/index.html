@@ -96,20 +96,25 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Jingy&#39;s Blog">
-<meta property="og:url" content="https://yangj96.github.io/categories/Leetcode/index.html">
+  <meta name="description" content="重建二叉树递归版本 利用哈希数组记录中序遍历中每个值对应的位置 非递归版本 和为某一定值的二叉树路径DFS 树的子结构暴力匹配 找到相同的根节点 同时遍历两颗树 对称二叉树单队列迭代，相邻两个队列成员应该一致 递归 同构二叉树两个队列边遍历边比较 翻转二叉树二叉树的花样遍历加层数 或更改结构体加上int layer;">
+<meta name="keywords" content="binary-tree">
+<meta property="og:type" content="article">
+<meta property="og:title" content="binary-tree">
+<meta property="og:url" content="https://yangj96.github.io/2020/02/01/binary-tree/index.html">
 <meta property="og:site_name" content="Jingy&#39;s Blog">
+<meta property="og:description" content="重建二叉树递归版本 利用哈希数组记录中序遍历中每个值对应的位置 非递归版本 和为某一定值的二叉树路径DFS 树的子结构暴力匹配 找到相同的根节点 同时遍历两颗树 对称二叉树单队列迭代，相邻两个队列成员应该一致 递归 同构二叉树两个队列边遍历边比较 翻转二叉树二叉树的花样遍历加层数 或更改结构体加上int layer;">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-01T04:45:14.216Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jingy&#39;s Blog">
+<meta name="twitter:title" content="binary-tree">
+<meta name="twitter:description" content="重建二叉树递归版本 利用哈希数组记录中序遍历中每个值对应的位置 非递归版本 和为某一定值的二叉树路径DFS 树的子结构暴力匹配 找到相同的根节点 同时遍历两颗树 对称二叉树单队列迭代，相邻两个队列成员应该一致 递归 同构二叉树两个队列边遍历边比较 翻转二叉树二叉树的花样遍历加层数 或更改结构体加上int layer;">
 
 
 
 
 
 
-  <link rel="canonical" href="https://yangj96.github.io/categories/Leetcode/">
+  <link rel="canonical" href="https://yangj96.github.io/2020/02/01/binary-tree/">
 
 
 
@@ -119,7 +124,7 @@
   };
 </script>
 
-  <title>分类: Leetcode | Jingy's Blog</title>
+  <title>binary-tree | Jingy's Blog</title>
   
 
 
@@ -167,7 +172,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -239,7 +244,7 @@
         
         
           
-          <li class="menu-item menu-item-categories menu-item-active">
+          <li class="menu-item menu-item-categories">
 
     
     
@@ -285,25 +290,6 @@
 
   
     
-
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
 
   
 
@@ -359,83 +345,232 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Leetcode<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangj96.github.io/2020/02/01/binary-tree/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jing Yang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jingy's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2020/02/01/binary-tree/" itemprop="url">
-            
-              <span itemprop="name">binary-tree</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">binary-tree
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2020-02-01T12:35:21+08:00" content="2020-02-01">
-          02-01
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-01 12:35:21 / 修改时间：12:45:14" itemprop="dateCreated datePublished" datetime="2020-02-01T12:35:21+08:00">2020-02-01</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">160</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/03/25/linked-list/" itemprop="url">
-            
-              <span itemprop="name">Leetcode链表题目总结</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-25T10:38:08+08:00" content="2019-03-25">
-          03-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
+        <h5 id="重建二叉树"><a href="#重建二叉树" class="headerlink" title="重建二叉树"></a>重建二叉树</h5><p>递归版本</p>
+<p>利用哈希数组记录中序遍历中每个值对应的位置</p>
+<p>非递归版本</p>
+<h5 id="和为某一定值的二叉树路径"><a href="#和为某一定值的二叉树路径" class="headerlink" title="和为某一定值的二叉树路径"></a>和为某一定值的二叉树路径</h5><p>DFS</p>
+<h5 id="树的子结构"><a href="#树的子结构" class="headerlink" title="树的子结构"></a>树的子结构</h5><p>暴力匹配 找到相同的根节点 同时遍历两颗树</p>
+<h5 id="对称二叉树"><a href="#对称二叉树" class="headerlink" title="对称二叉树"></a>对称二叉树</h5><p>单队列迭代，相邻两个队列成员应该一致</p>
+<p>递归</p>
+<h5 id="同构二叉树"><a href="#同构二叉树" class="headerlink" title="同构二叉树"></a>同构二叉树</h5><p>两个队列边遍历边比较</p>
+<h5 id="翻转二叉树"><a href="#翻转二叉树" class="headerlink" title="翻转二叉树"></a>翻转二叉树</h5><h5 id="二叉树的花样遍历"><a href="#二叉树的花样遍历" class="headerlink" title="二叉树的花样遍历"></a>二叉树的花样遍历</h5><p>加层数 或更改结构体加上int layer;</p>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/binary-tree/" rel="tag"># binary-tree</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/01/algo-template1/" rel="next" title="algo-template1">
+                <i class="fa fa-chevron-left"></i> algo-template1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/01/algo-add/" rel="prev" title="algo-add">
+                algo-add <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -456,8 +591,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -546,6 +690,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#重建二叉树"><span class="nav-number">1.</span> <span class="nav-text">重建二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#和为某一定值的二叉树路径"><span class="nav-number">2.</span> <span class="nav-text">和为某一定值的二叉树路径</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#树的子结构"><span class="nav-number">3.</span> <span class="nav-text">树的子结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#对称二叉树"><span class="nav-number">4.</span> <span class="nav-text">对称二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#同构二叉树"><span class="nav-number">5.</span> <span class="nav-text">同构二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#翻转二叉树"><span class="nav-number">6.</span> <span class="nav-text">翻转二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二叉树的花样遍历"><span class="nav-number">7.</span> <span class="nav-text">二叉树的花样遍历</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -688,6 +849,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
 
   
 
@@ -698,6 +863,8 @@
 
   
 
+
+  
 
 
   
