@@ -357,6 +357,297 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangj96.github.io/2020/12/31/algo-template1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jing Yang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jingy's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/12/31/algo-template1/" class="post-title-link" itemprop="url">algo-template1</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-12-31 12:33:54" itemprop="dateCreated datePublished" datetime="2020-12-31T12:33:54+08:00">2020-12-31</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-01 23:06:58" itemprop="dateModified" datetime="2020-02-01T23:06:58+08:00">2020-02-01</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">11k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">10 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ol>
+<li>二分</li>
+<li>递归/DFS</li>
+<li>BFS</li>
+<li>并查集</li>
+<li>归并排序</li>
+<li>快速排序&amp;快速选择</li>
+<li>堆</li>
+<li>双指针</li>
+<li>单调栈&amp;单调队列</li>
+</ol>
+<h4 id="二分"><a href="#二分" class="headerlink" title="二分"></a>二分</h4><p>二分本质不是单调性，只需要区间针对某个性质能够分成两段，一段满足一段不满足即可。</p>
+<p>找到能够划分区间左右两半的性质，如果if (check(mid)) 条件成立，判断答案在左区间还是右区间，如果答案在<strong>左区间并且mid也可能是答案</strong>，按模板<strong>1</strong>来划分；如果答案在<strong>右区间并且mid也可能是答案</strong>，按模板<strong>2</strong>来划分。</p>
+<p>模板1mid使用下中位数，模板2使用下中位数+1，终结条件为$low==high$</p>
+<ol>
+<li>版本1<br>最大值最小问题，第一个&gt;=target的元素<br>区间[l, r]被划分成[l, mid]和[mid + 1, r]时使用，其更新操作是r = mid或者l = mid + 1。计算mid时不需要加1。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">int bsearch_1(int l, int r)</span><br><span class="line">&#123;</span><br><span class="line">    while (l &lt; r)</span><br><span class="line">    &#123;</span><br><span class="line">        // 两个int相加减会溢出 中间加个长整型常量</span><br><span class="line">        int mid = l + 0ll + r &gt;&gt; 1;</span><br><span class="line">        // 第一个大于等于key的数 if (a[mid] &gt;= key)</span><br><span class="line">        if (check(mid)) r = mid;</span><br><span class="line">        else l = mid + 1;</span><br><span class="line">    &#125;</span><br><span class="line">    return l;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>版本2<br>最小值最大问题，最后一个&lt;= target的元素<br>区间[l, r]被划分成[l, mid - 1]和[mid, r]时使用，其更新操作是r = mid - 1或者l = mid。<br>因为r更新为mid-1，如果mid仍然计算下取整，则l和r差1时大者永远取不到，会死循环，因此计算mid时需要加1。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">int bsearch_2(int l, int r)</span><br><span class="line">&#123;</span><br><span class="line">    while (l &lt; r)</span><br><span class="line">    &#123;</span><br><span class="line">        int mid = l + 1ll + r &gt;&gt; 1;</span><br><span class="line">        // 最后一个小于等于key的数 if (a[mid] &lt;= key)</span><br><span class="line">        if (check(mid)) l = mid;</span><br><span class="line">        else r = mid - 1;</span><br><span class="line">    &#125;</span><br><span class="line">    return l;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>浮点数二分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">double bsearch_3(double l, double r)</span><br><span class="line">&#123;</span><br><span class="line">    const double eps = 1e-6;   // eps 表示精度，取决于题目对精度的要求</span><br><span class="line">    while (r - l &gt; eps)</span><br><span class="line">    &#123;</span><br><span class="line">        double mid = (l + r) / 2;</span><br><span class="line">        if (check(mid)) r = mid;</span><br><span class="line">        else l = mid;</span><br><span class="line">    &#125;</span><br><span class="line">    return l;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="递归-DFS"><a href="#递归-DFS" class="headerlink" title="递归/DFS"></a>递归/DFS</h4><p>空间复杂度 $O(最大递归深度)$</p>
+<p>指数枚举 $O(2^n)$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// 递归 状态压缩</span><br><span class="line">void dfs(int u, int state) &#123;</span><br><span class="line">    if (u == n) &#123;</span><br><span class="line">        for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">            if (state &gt;&gt; i &amp; 1) &#123;</span><br><span class="line">                cout &lt;&lt; i + 1 &lt;&lt; &quot; &quot;; </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(u + 1, state);</span><br><span class="line">    dfs(u + 1, state | 1 &lt;&lt; u);</span><br><span class="line">&#125;</span><br><span class="line">// 递推 状态压缩</span><br><span class="line">int n;</span><br><span class="line">for (int state = 0; state &lt; 1 &lt;&lt; n; state++) &#123;</span><br><span class="line">	for (int j = 0; j &lt; n; j++) &#123;</span><br><span class="line">		if (state &gt;&gt; j &amp; 1) </span><br><span class="line">			cout &lt;&lt; j + 1 &lt;&lt; &quot; &quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>组合枚举 $O(C^k_n)$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">// 递归</span><br><span class="line">int n, m;</span><br><span class="line">vector&lt;int&gt; path;</span><br><span class="line"></span><br><span class="line">void dfs(int u, int num) &#123;</span><br><span class="line">    if (num + n - u &lt; m) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    if (num == m) &#123;</span><br><span class="line">        for(int i = 0; i &lt; m; i++) &#123;</span><br><span class="line">            cout &lt;&lt; path[i] &lt;&lt; &quot; &quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">        return;</span><br><span class="line">    &#125;    </span><br><span class="line">    path.push_back(u+1);</span><br><span class="line">    dfs(u+1, num+1);</span><br><span class="line">    path.pop_back();</span><br><span class="line">    dfs(u+1, num);</span><br><span class="line">&#125;</span><br><span class="line">// 组合与顺序无关，使用state状态压缩代替path</span><br><span class="line">void dfs(int u, int num, int state) &#123;</span><br><span class="line">    if (num + n - u &lt; m) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    if (num == m) &#123;</span><br><span class="line">        for(int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">            if (state &gt;&gt; i &amp; 1)</span><br><span class="line">                cout &lt;&lt; i + 1 &lt;&lt; &quot; &quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">        return;</span><br><span class="line">    &#125;   </span><br><span class="line">    dfs(u + 1, num + 1, state | 1 &lt;&lt; u);</span><br><span class="line">    dfs(u + 1, num, state);</span><br><span class="line">&#125;</span><br><span class="line">// 非递归</span><br><span class="line">栈模拟</span><br></pre></td></tr></table></figure>
+<p>排列枚举 $O(n!)$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">int n;</span><br><span class="line">vector&lt;int&gt; path;</span><br><span class="line"></span><br><span class="line">void dfs(int u, int visited) &#123;</span><br><span class="line">    if (u == n) &#123;</span><br><span class="line">        for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">            cout &lt;&lt; path[i] &lt;&lt; &quot; &quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">        if (!(visited &gt;&gt; i &amp; 1)) &#123;</span><br><span class="line">            path.push_back(i + 1);</span><br><span class="line">            dfs(u + 1, visited | 1 &lt;&lt; i);</span><br><span class="line">            path.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h4><p>时间复杂度 $O(状态数*转移方式)$</p>
+<p>空间复杂度 $O(状态数)$</p>
+<p>迷宫起点到终点的最少步数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">const int INF = 1e8;</span><br><span class="line">typedef pair&lt;int, int&gt; PII;</span><br><span class="line">queue&lt;PII&gt; que;</span><br><span class="line">char maze[N][M];</span><br><span class="line">int d[N][M];</span><br><span class="line">int dx[4] = &#123;1, 0, -1, 0&#125;;</span><br><span class="line">int dy[4] = &#123;0, 1, 0, -1&#125;;</span><br><span class="line"></span><br><span class="line">for (int i = 0; i &lt; n; i ++) &#123;</span><br><span class="line">	for (int j = 0; j &lt; m; j++) &#123;</span><br><span class="line">		d[i][j] = INF;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int sx, sy, gx, gy;</span><br><span class="line">que.push(PII(sx, sy));</span><br><span class="line">d[sx][sy] = 0;</span><br><span class="line"></span><br><span class="line">while(!que.empty()) &#123;</span><br><span class="line">    PII p = que.top();</span><br><span class="line">    que.pop();</span><br><span class="line">	if (p.first == gx &amp;&amp; p.second == gy) break;</span><br><span class="line">	</span><br><span class="line">	for (int i = 0; i &lt; 4; i++) &#123;</span><br><span class="line">		int nx = p.first + dx[i];</span><br><span class="line">		int ny = p.second + dy[i];</span><br><span class="line">		if (nx &gt;= 0 &amp;&amp; nx &lt; n &amp;&amp; ny &gt;= 0 &amp;&amp; ny &lt; m &amp;&amp; maze[nx][ny] != &apos;#&apos;) &#123;</span><br><span class="line">			que.push(PII(nx, ny));</span><br><span class="line">			d[nx][ny] = d[p.first][p.second] + 1;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h4><p>增加树高rank数组，每次从rank小的树向rank大的树连边，避免退化</p>
+<p>路径压缩：每次查询到根节点将该节点的parent直接连到根</p>
+<p>对n个元素的并查集操作一次时间$O(α(n))$，$α$为阿克曼函数的反函数，比$O(lgn)$快。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">void init() &#123;</span><br><span class="line">	vector&lt;int&gt; par(n);</span><br><span class="line">	vector&lt;int&gt; rank(n, 0);</span><br><span class="line">	for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">		par[i] = i;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int find (int x, vector&lt;int&gt;&amp; par) &#123;</span><br><span class="line">	return par[x] == x? x : par[x] = find(par[x], par);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void unite(int x, int y, vector&lt;int&gt;&amp; par, vector&lt;int&gt;&amp; rank) &#123;</span><br><span class="line">	x = find(x, par);</span><br><span class="line">	y = find(y, par);</span><br><span class="line">	if (x == y) </span><br><span class="line">		return;</span><br><span class="line">	else if (rank[x] &lt; rank[y]) &#123;</span><br><span class="line">		par[x] = y;</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		par[y] = x;</span><br><span class="line">		// x为根且高度需加1</span><br><span class="line">		if (rank[x] == rank[y]) </span><br><span class="line">			rank[x]++;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>边带权、扩展域的并查集</p>
+<p>POJ1182 食物链</p>
+<h4 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h4><p>数组归并排序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">void mergeSort(vector&lt;int&gt;&amp; a, int l, int r) &#123;</span><br><span class="line">	if (l &gt;= r) return;</span><br><span class="line">	int mid = l + r &gt;&gt; 1;</span><br><span class="line">	mergeSort(a, l, mid);</span><br><span class="line">	mergeSort(a, mid + 1, r);</span><br><span class="line">	</span><br><span class="line">	vector&lt;int&gt; tmp(a.size());</span><br><span class="line">	int i = 0, j = l, k = mid + 1;</span><br><span class="line">	while (j &lt;= mid &amp;&amp; k &lt;= r) &#123;</span><br><span class="line">		if (a[j] &lt;= a[k]) tmp[i++] = a[j++];</span><br><span class="line">		else tmp[i++] = a[k++];</span><br><span class="line">	&#125;</span><br><span class="line">	while(j &lt;= mid) tmp[i++] = a[j++];</span><br><span class="line">	while(k &lt;= r) tmp[i++] = a[k++];</span><br><span class="line">	for (int i = l, j = 0; i &lt;= r; i++, j++) a[i] = tmp[j];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>合并两个有序链表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">struct ListNode &#123;</span><br><span class="line">	int val;</span><br><span class="line">	ListNode* next;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ListNode* mergeList(ListNode* l1, ListNode* l2) &#123;</span><br><span class="line">	ListNode* dummy = new ListNode(-1);</span><br><span class="line">	ListNode* cur = dummy;</span><br><span class="line">	while(l1 &amp;&amp; l2) &#123;</span><br><span class="line">		if (l1-&gt;val &lt;= l2-&gt;val) &#123;</span><br><span class="line">			cur-&gt;next = l1;</span><br><span class="line">			l1 = l1-&gt;next;</span><br><span class="line">			cur = cur-&gt;next;</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			cur-&gt;next = l2;</span><br><span class="line">			l2 = l2-&gt;next;</span><br><span class="line">			cur = cur-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	while(l1) &#123;</span><br><span class="line">		cur-&gt;next = l1;</span><br><span class="line">        l1 = l1-&gt;next;</span><br><span class="line">        cur = cur-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	while(l2) &#123;</span><br><span class="line">		cur-&gt;next = l2;</span><br><span class="line">        l2 = l2-&gt;next;</span><br><span class="line">        cur = cur-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	return dummy-&gt;next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>合并k个有序链表</p>
+<p>​    分治或最小堆</p>
+<p>链表归并排序</p>
+<p>逆序对的数量</p>
+<p>分治：构成逆序对的两个数同在分治后的左侧区间或右侧区间，或者分别位于左右两个区间需要在归并时计算</p>
+<p>归并计算逆序对：对右侧区间的每个数计算左侧区间中大于它的数的个数，最后全部求和</p>
+<h4 id="快速排序-amp-快速选择"><a href="#快速排序-amp-快速选择" class="headerlink" title="快速排序&amp;快速选择"></a>快速排序&amp;快速选择</h4><p>快速排序 $O(nlgn)$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">void qSort(int q[], int l, int r)</span><br><span class="line">&#123;</span><br><span class="line">    if (l &gt;= r) return;</span><br><span class="line">	// x选择q[l]或下中位数，递归子区间选[l, j], [j + 1, r]</span><br><span class="line">    int i = l - 1, j = r + 1, x = q[l + r &gt;&gt; 1];</span><br><span class="line">    while (i &lt; j)</span><br><span class="line">    &#123;</span><br><span class="line">        do i ++ ; while (q[i] &lt; x);</span><br><span class="line">        do j -- ; while (q[j] &gt; x);</span><br><span class="line">        if (i &lt; j) swap(q[i], q[j]);</span><br><span class="line">    &#125;</span><br><span class="line">    qSort(q, l, j), qSort(q, j + 1, r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>快速选择$O(n)$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">int qSelect(vector&lt;int&gt;&amp; a, int l, int r, int k) &#123;</span><br><span class="line">    if (l == r) </span><br><span class="line">        return a[l];</span><br><span class="line">    int x = a[l], i = l - 1, j = r + 1;</span><br><span class="line">    while (i &lt; j) &#123;</span><br><span class="line">        while(a[++ i] &lt; x);</span><br><span class="line">        while(a[-- j] &gt; x);</span><br><span class="line">        if (i &lt; j) &#123;</span><br><span class="line">            swap(a[i], a[j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    int cnt = j - l + 1;</span><br><span class="line">    if (cnt &gt;= k)</span><br><span class="line">        return qSelect(a, l, j, k);</span><br><span class="line">    else</span><br><span class="line">        return qSelect(a, j + 1, r, k - cnt);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h4><p>插入元素 右下插入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">heap[++size] = x;</span><br><span class="line">up(size);</span><br></pre></td></tr></table></figure>
+<p>删除堆顶 交换后删除右下元素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">heap[1] = heap[size];</span><br><span class="line">size--;</span><br><span class="line">down(1);</span><br></pre></td></tr></table></figure>
+<p>删除任一元素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">heap[k] = heap[size];</span><br><span class="line">size--;</span><br><span class="line">down(k);</span><br><span class="line">up(k);</span><br></pre></td></tr></table></figure>
+<p>$O(1)$时间建堆，数列错位相减可证明</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (int i = n / 2; i; i--) &#123;</span><br><span class="line">	down(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通用操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">void down(int u) &#123;</span><br><span class="line">	int t = u;</span><br><span class="line">	if (u * 2 &lt;= size &amp;&amp; h[u * 2] &lt; h[t]) t = u * 2; 	</span><br><span class="line">	if (u * 2 + 1 &lt;= size &amp;&amp; h[u * 2 + 1] &lt; h[t]) t = u * 2 + 1;</span><br><span class="line">	if (u != t) &#123;</span><br><span class="line">		swap(h[u], h[t]);</span><br><span class="line">		down(t);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">void up(int u) &#123;</span><br><span class="line">	while (u / 2 &amp;&amp; h[u] &lt; h[u / 2]) &#123;</span><br><span class="line">		swap(h[u], h[u / 2]);</span><br><span class="line">		u &gt;&gt;= 1;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最大堆</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">priority_queue, greater &gt; que;</span><br></pre></td></tr></table></figure>
+<p>最小堆</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">priority_queue que;</span><br></pre></td></tr></table></figure>
+<p>e.x. 前k大的数</p>
+<p>快速选择算法 $O(n)$ + 排序$O(klgk)$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; qSelect(vector&lt;int&gt;&amp; a, int l, int r, int k) &#123;</span><br><span class="line">        if (l == r) &#123;</span><br><span class="line">            vector&lt;int&gt; res(a.begin(), a.begin()+l+1);</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line">        int x = a[l], i = l - 1, j = r + 1;</span><br><span class="line">        while (i &lt; j) &#123;</span><br><span class="line">            while(a[++ i] &lt; x);</span><br><span class="line">            while(a[-- j] &gt; x);</span><br><span class="line">            if (i &lt; j) &#123;</span><br><span class="line">                swap(a[i], a[j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        int cnt = j - l + 1;</span><br><span class="line">        if (cnt &gt;= k)</span><br><span class="line">            return qSelect(a, l, j, k);</span><br><span class="line">        else</span><br><span class="line">            return qSelect(a, j + 1, r, k - cnt);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    vector&lt;int&gt; getLeastNumbers_Solution(vector&lt;int&gt; input, int k) &#123;</span><br><span class="line">        int n = input.size();</span><br><span class="line">        if (!n) return &#123;&#125;;</span><br><span class="line">        vector&lt;int&gt; res = qSelect(input, 0, n - 1, k);</span><br><span class="line">        sort(res.begin(), res.end());</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>最小堆（注意求前k大的数应该用最小堆）$O(nlgk)$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; getLeastNumbers_Solution(vector&lt;int&gt; input, int k) &#123;</span><br><span class="line">        priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt; &gt; heap;</span><br><span class="line">        for (int i = 0; i &lt; input.size(); i++) &#123;</span><br><span class="line">            heap.push(input[i]);</span><br><span class="line">            if (heap.size() &gt; k) heap.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        vector&lt;int&gt; res;</span><br><span class="line">        for (int i = 0; i &lt; k; i++) &#123;</span><br><span class="line">            res.push_back(heap.top());</span><br><span class="line">            heap.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        reverse(res.begin(), res.end());</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h4><p>利用单调性：i，j两指针保持相同的移动方向</p>
+<p>常见题型：</p>
+<p>单数组 - 满足条件的连续子序列</p>
+<p>两数组 - 关键是确定两指针的单向移动方向</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (int i = 0, j = 0; i &lt; n; i++) &#123;</span><br><span class="line">	while(j &lt; i &amp;&amp; check(i, j))</span><br><span class="line">		j++;</span><br><span class="line">	// 具体逻辑</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="单调栈"><a href="#单调栈" class="headerlink" title="单调栈"></a>单调栈</h4><p>单调性：元素下标i &lt; j 但元素值 a[i] &gt; a[j]时，a[j]必定有更长的生命周期，a[i]可被删除，因此最终栈内元素始终单调递增</p>
+<p>E.x. 求数组每个元素左边第一个比它小/大的元素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int hh = 0;</span><br><span class="line">for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">	while (hh &gt; 0 &amp;&amp; stk[hh] &gt;= a[i]) hh--;</span><br><span class="line">	stk[++hh] = a[i]; // 注意区分栈中存放下标还是元素值</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="单调队列"><a href="#单调队列" class="headerlink" title="单调队列"></a>单调队列</h4><p>常见题型：滑动窗口的最小/大值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int hh = 0, tt = -1;</span><br><span class="line">for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">	// 队头滑出</span><br><span class="line">	while(hh &lt;= tt &amp;&amp; check_out(hh, i)) hh++;</span><br><span class="line">	// 队尾保持单调性</span><br><span class="line">	while(hh &lt;= tt &amp;&amp; check(tt, i)) tt--;</span><br><span class="line">	q[++tt] = i; //注意区分队列中存放下标还是元素值</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>E.x. 滑动窗口的最大/小值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">int hh = 0, tt = -1;</span><br><span class="line">for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">    // 下标间隔判断不是队列本身，而是队头和当前元素i的下标距离</span><br><span class="line">    while(hh &lt;= tt &amp;&amp; i - q[hh] + 1 &gt; k) hh++;</span><br><span class="line">    while(hh &lt;= tt &amp;&amp; a[q[tt]] &gt;= a[i]) tt--;</span><br><span class="line">    q[ ++ tt] = i;</span><br><span class="line">    if (i &gt;= k - 1)</span><br><span class="line">    	cout &lt;&lt; a[q[hh]] &lt;&lt; &quot; &quot;;</span><br><span class="line">&#125;</span><br><span class="line">cout &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+<h4 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h4><p>取最靠右的一位1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int lowbit(int x) &#123;</span><br><span class="line">	return x &amp; -x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>二进制中1的个数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while(x) &#123;</span><br><span class="line">	x -= lowbit(x);</span><br><span class="line">	res++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>取第k位数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n &gt;&gt; k &amp; 1</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yangj96.github.io/2020/02/01/algo-add/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -707,285 +998,6 @@
 <h5 id="同构二叉树"><a href="#同构二叉树" class="headerlink" title="同构二叉树"></a>同构二叉树</h5><p>两个队列边遍历边比较</p>
 <h5 id="翻转二叉树"><a href="#翻转二叉树" class="headerlink" title="翻转二叉树"></a>翻转二叉树</h5><h5 id="二叉树的花样遍历"><a href="#二叉树的花样遍历" class="headerlink" title="二叉树的花样遍历"></a>二叉树的花样遍历</h5><p>加层数 或更改结构体加上int layer;</p>
 
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yangj96.github.io/2020/02/01/algo-template1/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jing Yang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jingy's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/02/01/algo-template1/" class="post-title-link" itemprop="url">algo-template1</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-02-01 12:33:54 / 修改时间：23:03:30" itemprop="dateCreated datePublished" datetime="2020-02-01T12:33:54+08:00">2020-02-01</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">11k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">10 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ol>
-<li>二分</li>
-<li>递归/DFS</li>
-<li>BFS</li>
-<li>并查集</li>
-<li>归并排序</li>
-<li>快速排序&amp;快速选择</li>
-<li>堆</li>
-<li>双指针</li>
-<li>单调栈&amp;单调队列</li>
-</ol>
-<h4 id="二分"><a href="#二分" class="headerlink" title="二分"></a>二分</h4><p>二分本质不是单调性，只需要区间针对某个性质能够分成两段，一段满足一段不满足即可。</p>
-<p>找到能够划分区间左右两半的性质，如果if (check(mid)) 条件成立，判断答案在左区间还是右区间，如果答案在<strong>左区间并且mid也可能是答案</strong>，按模板<strong>1</strong>来划分；如果答案在<strong>右区间并且mid也可能是答案</strong>，按模板<strong>2</strong>来划分。</p>
-<p>模板1mid使用下中位数，模板2使用下中位数+1，终结条件为$low==high$</p>
-<ol>
-<li>版本1<br>最大值最小问题，第一个&gt;=target的元素<br>区间[l, r]被划分成[l, mid]和[mid + 1, r]时使用，其更新操作是r = mid或者l = mid + 1。计算mid时不需要加1。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">int bsearch_1(int l, int r)</span><br><span class="line">&#123;</span><br><span class="line">    while (l &lt; r)</span><br><span class="line">    &#123;</span><br><span class="line">        // 两个int相加减会溢出 中间加个长整型常量</span><br><span class="line">        int mid = l + 0ll + r &gt;&gt; 1;</span><br><span class="line">        // 第一个大于等于key的数 if (a[mid] &gt;= key)</span><br><span class="line">        if (check(mid)) r = mid;</span><br><span class="line">        else l = mid + 1;</span><br><span class="line">    &#125;</span><br><span class="line">    return l;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li>版本2<br>最小值最大问题，最后一个&lt;= target的元素<br>区间[l, r]被划分成[l, mid - 1]和[mid, r]时使用，其更新操作是r = mid - 1或者l = mid。<br>因为r更新为mid-1，如果mid仍然计算下取整，则l和r差1时大者永远取不到，会死循环，因此计算mid时需要加1。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">int bsearch_2(int l, int r)</span><br><span class="line">&#123;</span><br><span class="line">    while (l &lt; r)</span><br><span class="line">    &#123;</span><br><span class="line">        int mid = l + 1ll + r &gt;&gt; 1;</span><br><span class="line">        // 最后一个小于等于key的数 if (a[mid] &lt;= key)</span><br><span class="line">        if (check(mid)) l = mid;</span><br><span class="line">        else r = mid - 1;</span><br><span class="line">    &#125;</span><br><span class="line">    return l;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>浮点数二分</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">double bsearch_3(double l, double r)</span><br><span class="line">&#123;</span><br><span class="line">    const double eps = 1e-6;   // eps 表示精度，取决于题目对精度的要求</span><br><span class="line">    while (r - l &gt; eps)</span><br><span class="line">    &#123;</span><br><span class="line">        double mid = (l + r) / 2;</span><br><span class="line">        if (check(mid)) r = mid;</span><br><span class="line">        else l = mid;</span><br><span class="line">    &#125;</span><br><span class="line">    return l;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="递归-DFS"><a href="#递归-DFS" class="headerlink" title="递归/DFS"></a>递归/DFS</h4><p>空间复杂度 $O(最大递归深度)$</p>
-<p>指数枚举 $O(2^n)$</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// 递归 状态压缩</span><br><span class="line">void dfs(int u, int state) &#123;</span><br><span class="line">    if (u == n) &#123;</span><br><span class="line">        for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">            if (state &gt;&gt; i &amp; 1) &#123;</span><br><span class="line">                cout &lt;&lt; i + 1 &lt;&lt; &quot; &quot;; </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(u + 1, state);</span><br><span class="line">    dfs(u + 1, state | 1 &lt;&lt; u);</span><br><span class="line">&#125;</span><br><span class="line">// 递推 状态压缩</span><br><span class="line">int n;</span><br><span class="line">for (int state = 0; state &lt; 1 &lt;&lt; n; state++) &#123;</span><br><span class="line">	for (int j = 0; j &lt; n; j++) &#123;</span><br><span class="line">		if (state &gt;&gt; j &amp; 1) </span><br><span class="line">			cout &lt;&lt; j + 1 &lt;&lt; &quot; &quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>组合枚举 $O(C^k_n)$</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">// 递归</span><br><span class="line">int n, m;</span><br><span class="line">vector&lt;int&gt; path;</span><br><span class="line"></span><br><span class="line">void dfs(int u, int num) &#123;</span><br><span class="line">    if (num + n - u &lt; m) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    if (num == m) &#123;</span><br><span class="line">        for(int i = 0; i &lt; m; i++) &#123;</span><br><span class="line">            cout &lt;&lt; path[i] &lt;&lt; &quot; &quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">        return;</span><br><span class="line">    &#125;    </span><br><span class="line">    path.push_back(u+1);</span><br><span class="line">    dfs(u+1, num+1);</span><br><span class="line">    path.pop_back();</span><br><span class="line">    dfs(u+1, num);</span><br><span class="line">&#125;</span><br><span class="line">// 组合与顺序无关，使用state状态压缩代替path</span><br><span class="line">void dfs(int u, int num, int state) &#123;</span><br><span class="line">    if (num + n - u &lt; m) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    if (num == m) &#123;</span><br><span class="line">        for(int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">            if (state &gt;&gt; i &amp; 1)</span><br><span class="line">                cout &lt;&lt; i + 1 &lt;&lt; &quot; &quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">        return;</span><br><span class="line">    &#125;   </span><br><span class="line">    dfs(u + 1, num + 1, state | 1 &lt;&lt; u);</span><br><span class="line">    dfs(u + 1, num, state);</span><br><span class="line">&#125;</span><br><span class="line">// 非递归</span><br><span class="line">栈模拟</span><br></pre></td></tr></table></figure>
-<p>排列枚举 $O(n!)$</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">int n;</span><br><span class="line">vector&lt;int&gt; path;</span><br><span class="line"></span><br><span class="line">void dfs(int u, int visited) &#123;</span><br><span class="line">    if (u == n) &#123;</span><br><span class="line">        for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">            cout &lt;&lt; path[i] &lt;&lt; &quot; &quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">        if (!(visited &gt;&gt; i &amp; 1)) &#123;</span><br><span class="line">            path.push_back(i + 1);</span><br><span class="line">            dfs(u + 1, visited | 1 &lt;&lt; i);</span><br><span class="line">            path.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h4><p>时间复杂度 $O(状态数*转移方式)$</p>
-<p>空间复杂度 $O(状态数)$</p>
-<p>迷宫起点到终点的最少步数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">const int INF = 1e8;</span><br><span class="line">typedef pair&lt;int, int&gt; PII;</span><br><span class="line">queue&lt;PII&gt; que;</span><br><span class="line">char maze[N][M];</span><br><span class="line">int d[N][M];</span><br><span class="line">int dx[4] = &#123;1, 0, -1, 0&#125;;</span><br><span class="line">int dy[4] = &#123;0, 1, 0, -1&#125;;</span><br><span class="line"></span><br><span class="line">for (int i = 0; i &lt; n; i ++) &#123;</span><br><span class="line">	for (int j = 0; j &lt; m; j++) &#123;</span><br><span class="line">		d[i][j] = INF;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int sx, sy, gx, gy;</span><br><span class="line">que.push(PII(sx, sy));</span><br><span class="line">d[sx][sy] = 0;</span><br><span class="line"></span><br><span class="line">while(!que.empty()) &#123;</span><br><span class="line">    PII p = que.top();</span><br><span class="line">    que.pop();</span><br><span class="line">	if (p.first == gx &amp;&amp; p.second == gy) break;</span><br><span class="line">	</span><br><span class="line">	for (int i = 0; i &lt; 4; i++) &#123;</span><br><span class="line">		int nx = p.first + dx[i];</span><br><span class="line">		int ny = p.second + dy[i];</span><br><span class="line">		if (nx &gt;= 0 &amp;&amp; nx &lt; n &amp;&amp; ny &gt;= 0 &amp;&amp; ny &lt; m &amp;&amp; maze[nx][ny] != &apos;#&apos;) &#123;</span><br><span class="line">			que.push(PII(nx, ny));</span><br><span class="line">			d[nx][ny] = d[p.first][p.second] + 1;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h4><p>增加树高rank数组，每次从rank小的树向rank大的树连边，避免退化</p>
-<p>路径压缩：每次查询到根节点将该节点的parent直接连到根</p>
-<p>对n个元素的并查集操作一次时间$O(α(n))$，$α$为阿克曼函数的反函数，比$O(lgn)$快。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">void init() &#123;</span><br><span class="line">	vector&lt;int&gt; par(n);</span><br><span class="line">	vector&lt;int&gt; rank(n, 0);</span><br><span class="line">	for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">		par[i] = i;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int find (int x, vector&lt;int&gt;&amp; par) &#123;</span><br><span class="line">	return par[x] == x? x : par[x] = find(par[x], par);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void unite(int x, int y, vector&lt;int&gt;&amp; par, vector&lt;int&gt;&amp; rank) &#123;</span><br><span class="line">	x = find(x, par);</span><br><span class="line">	y = find(y, par);</span><br><span class="line">	if (x == y) </span><br><span class="line">		return;</span><br><span class="line">	else if (rank[x] &lt; rank[y]) &#123;</span><br><span class="line">		par[x] = y;</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		par[y] = x;</span><br><span class="line">		// x为根且高度需加1</span><br><span class="line">		if (rank[x] == rank[y]) </span><br><span class="line">			rank[x]++;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>边带权、扩展域的并查集</p>
-<p>POJ1182 食物链</p>
-<h4 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h4><p>数组归并排序</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">void mergeSort(vector&lt;int&gt;&amp; a, int l, int r) &#123;</span><br><span class="line">	if (l &gt;= r) return;</span><br><span class="line">	int mid = l + r &gt;&gt; 1;</span><br><span class="line">	mergeSort(a, l, mid);</span><br><span class="line">	mergeSort(a, mid + 1, r);</span><br><span class="line">	</span><br><span class="line">	vector&lt;int&gt; tmp(a.size());</span><br><span class="line">	int i = 0, j = l, k = mid + 1;</span><br><span class="line">	while (j &lt;= mid &amp;&amp; k &lt;= r) &#123;</span><br><span class="line">		if (a[j] &lt;= a[k]) tmp[i++] = a[j++];</span><br><span class="line">		else tmp[i++] = a[k++];</span><br><span class="line">	&#125;</span><br><span class="line">	while(j &lt;= mid) tmp[i++] = a[j++];</span><br><span class="line">	while(k &lt;= r) tmp[i++] = a[k++];</span><br><span class="line">	for (int i = l, j = 0; i &lt;= r; i++, j++) a[i] = tmp[j];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>合并两个有序链表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">struct ListNode &#123;</span><br><span class="line">	int val;</span><br><span class="line">	ListNode* next;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ListNode* mergeList(ListNode* l1, ListNode* l2) &#123;</span><br><span class="line">	ListNode* dummy = new ListNode(-1);</span><br><span class="line">	ListNode* cur = dummy;</span><br><span class="line">	while(l1 &amp;&amp; l2) &#123;</span><br><span class="line">		if (l1-&gt;val &lt;= l2-&gt;val) &#123;</span><br><span class="line">			cur-&gt;next = l1;</span><br><span class="line">			l1 = l1-&gt;next;</span><br><span class="line">			cur = cur-&gt;next;</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			cur-&gt;next = l2;</span><br><span class="line">			l2 = l2-&gt;next;</span><br><span class="line">			cur = cur-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	while(l1) &#123;</span><br><span class="line">		cur-&gt;next = l1;</span><br><span class="line">        l1 = l1-&gt;next;</span><br><span class="line">        cur = cur-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	while(l2) &#123;</span><br><span class="line">		cur-&gt;next = l2;</span><br><span class="line">        l2 = l2-&gt;next;</span><br><span class="line">        cur = cur-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	return dummy-&gt;next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>合并k个有序链表</p>
-<p>​    分治或最小堆</p>
-<p>链表归并排序</p>
-<p>逆序对的数量</p>
-<p>分治：构成逆序对的两个数同在分治后的左侧区间或右侧区间，或者分别位于左右两个区间需要在归并时计算</p>
-<p>归并计算逆序对：对右侧区间的每个数计算左侧区间中大于它的数的个数，最后全部求和</p>
-<h4 id="快速排序-amp-快速选择"><a href="#快速排序-amp-快速选择" class="headerlink" title="快速排序&amp;快速选择"></a>快速排序&amp;快速选择</h4><p>快速排序 $O(nlgn)$</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">void qSort(int q[], int l, int r)</span><br><span class="line">&#123;</span><br><span class="line">    if (l &gt;= r) return;</span><br><span class="line">	// x选择q[l]或下中位数，递归子区间选[l, j], [j + 1, r]</span><br><span class="line">    int i = l - 1, j = r + 1, x = q[l + r &gt;&gt; 1];</span><br><span class="line">    while (i &lt; j)</span><br><span class="line">    &#123;</span><br><span class="line">        do i ++ ; while (q[i] &lt; x);</span><br><span class="line">        do j -- ; while (q[j] &gt; x);</span><br><span class="line">        if (i &lt; j) swap(q[i], q[j]);</span><br><span class="line">    &#125;</span><br><span class="line">    qSort(q, l, j), qSort(q, j + 1, r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>快速选择$O(n)$</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">int qSelect(vector&lt;int&gt;&amp; a, int l, int r, int k) &#123;</span><br><span class="line">    if (l == r) </span><br><span class="line">        return a[l];</span><br><span class="line">    int x = a[l], i = l - 1, j = r + 1;</span><br><span class="line">    while (i &lt; j) &#123;</span><br><span class="line">        while(a[++ i] &lt; x);</span><br><span class="line">        while(a[-- j] &gt; x);</span><br><span class="line">        if (i &lt; j) &#123;</span><br><span class="line">            swap(a[i], a[j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    int cnt = j - l + 1;</span><br><span class="line">    if (cnt &gt;= k)</span><br><span class="line">        return qSelect(a, l, j, k);</span><br><span class="line">    else</span><br><span class="line">        return qSelect(a, j + 1, r, k - cnt);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h4><p>插入元素 右下插入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">heap[++size] = x;</span><br><span class="line">up(size);</span><br></pre></td></tr></table></figure>
-<p>删除堆顶 交换后删除右下元素</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">heap[1] = heap[size];</span><br><span class="line">size--;</span><br><span class="line">down(1);</span><br></pre></td></tr></table></figure>
-<p>删除任一元素</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">heap[k] = heap[size];</span><br><span class="line">size--;</span><br><span class="line">down(k);</span><br><span class="line">up(k);</span><br></pre></td></tr></table></figure>
-<p>$O(1)$时间建堆，数列错位相减可证明</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (int i = n / 2; i; i--) &#123;</span><br><span class="line">	down(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>通用操作</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">void down(int u) &#123;</span><br><span class="line">	int t = u;</span><br><span class="line">	if (u * 2 &lt;= size &amp;&amp; h[u * 2] &lt; h[t]) t = u * 2; 	</span><br><span class="line">	if (u * 2 + 1 &lt;= size &amp;&amp; h[u * 2 + 1] &lt; h[t]) t = u * 2 + 1;</span><br><span class="line">	if (u != t) &#123;</span><br><span class="line">		swap(h[u], h[t]);</span><br><span class="line">		down(t);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">void up(int u) &#123;</span><br><span class="line">	while (u / 2 &amp;&amp; h[u] &lt; h[u / 2]) &#123;</span><br><span class="line">		swap(h[u], h[u / 2]);</span><br><span class="line">		u &gt;&gt;= 1;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>最大堆</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">priority_queue, greater &gt; que;</span><br></pre></td></tr></table></figure>
-<p>最小堆</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">priority_queue que;</span><br></pre></td></tr></table></figure>
-<p>e.x. 前k大的数</p>
-<p>快速选择算法 $O(n)$ + 排序$O(klgk)$</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; qSelect(vector&lt;int&gt;&amp; a, int l, int r, int k) &#123;</span><br><span class="line">        if (l == r) &#123;</span><br><span class="line">            vector&lt;int&gt; res(a.begin(), a.begin()+l+1);</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line">        int x = a[l], i = l - 1, j = r + 1;</span><br><span class="line">        while (i &lt; j) &#123;</span><br><span class="line">            while(a[++ i] &lt; x);</span><br><span class="line">            while(a[-- j] &gt; x);</span><br><span class="line">            if (i &lt; j) &#123;</span><br><span class="line">                swap(a[i], a[j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        int cnt = j - l + 1;</span><br><span class="line">        if (cnt &gt;= k)</span><br><span class="line">            return qSelect(a, l, j, k);</span><br><span class="line">        else</span><br><span class="line">            return qSelect(a, j + 1, r, k - cnt);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    vector&lt;int&gt; getLeastNumbers_Solution(vector&lt;int&gt; input, int k) &#123;</span><br><span class="line">        int n = input.size();</span><br><span class="line">        if (!n) return &#123;&#125;;</span><br><span class="line">        vector&lt;int&gt; res = qSelect(input, 0, n - 1, k);</span><br><span class="line">        sort(res.begin(), res.end());</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>最小堆（注意求前k大的数应该用最小堆）$O(nlgk)$</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; getLeastNumbers_Solution(vector&lt;int&gt; input, int k) &#123;</span><br><span class="line">        priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt; &gt; heap;</span><br><span class="line">        for (int i = 0; i &lt; input.size(); i++) &#123;</span><br><span class="line">            heap.push(input[i]);</span><br><span class="line">            if (heap.size() &gt; k) heap.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        vector&lt;int&gt; res;</span><br><span class="line">        for (int i = 0; i &lt; k; i++) &#123;</span><br><span class="line">            res.push_back(heap.top());</span><br><span class="line">            heap.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        reverse(res.begin(), res.end());</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h4 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h4><p>利用单调性：i，j两指针保持相同的移动方向</p>
-<p>常见题型：</p>
-<p>单数组 - 满足条件的连续子序列</p>
-<p>两数组 - 关键是确定两指针的单向移动方向</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (int i = 0, j = 0; i &lt; n; i++) &#123;</span><br><span class="line">	while(j &lt; i &amp;&amp; check(i, j))</span><br><span class="line">		j++;</span><br><span class="line">	// 具体逻辑</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="单调栈"><a href="#单调栈" class="headerlink" title="单调栈"></a>单调栈</h4><p>单调性：元素下标i &lt; j 但元素值 a[i] &gt; a[j]时，a[j]必定有更长的生命周期，a[i]可被删除，因此最终栈内元素始终单调递增</p>
-<p>E.x. 求数组每个元素左边第一个比它小/大的元素</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int hh = 0;</span><br><span class="line">for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">	while (hh &gt; 0 &amp;&amp; stk[hh] &gt;= a[i]) hh--;</span><br><span class="line">	stk[++hh] = a[i]; // 注意区分栈中存放下标还是元素值</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="单调队列"><a href="#单调队列" class="headerlink" title="单调队列"></a>单调队列</h4><p>常见题型：滑动窗口的最小/大值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int hh = 0, tt = -1;</span><br><span class="line">for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">	// 队头滑出</span><br><span class="line">	while(hh &lt;= tt &amp;&amp; check_out(hh, i)) hh++;</span><br><span class="line">	// 队尾保持单调性</span><br><span class="line">	while(hh &lt;= tt &amp;&amp; check(tt, i)) tt--;</span><br><span class="line">	q[++tt] = i; //注意区分队列中存放下标还是元素值</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>E.x. 滑动窗口的最大/小值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">int hh = 0, tt = -1;</span><br><span class="line">for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">    // 下标间隔判断不是队列本身，而是队头和当前元素i的下标距离</span><br><span class="line">    while(hh &lt;= tt &amp;&amp; i - q[hh] + 1 &gt; k) hh++;</span><br><span class="line">    while(hh &lt;= tt &amp;&amp; a[q[tt]] &gt;= a[i]) tt--;</span><br><span class="line">    q[ ++ tt] = i;</span><br><span class="line">    if (i &gt;= k - 1)</span><br><span class="line">    	cout &lt;&lt; a[q[hh]] &lt;&lt; &quot; &quot;;</span><br><span class="line">&#125;</span><br><span class="line">cout &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
-<h4 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h4><p>取最靠右的一位1</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int lowbit(int x) &#123;</span><br><span class="line">	return x &amp; -x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>二进制中1的个数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while(x) &#123;</span><br><span class="line">	x -= lowbit(x);</span><br><span class="line">	res++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>取第k位数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n &gt;&gt; k &amp; 1</span><br></pre></td></tr></table></figure>
           
         
       
