@@ -96,25 +96,24 @@
 
 
 
-  <meta name="description" content="重建二叉树递归版本 利用哈希数组记录中序遍历中每个值对应的位置 非递归版本 和为某一定值的二叉树路径DFS 树的子结构暴力匹配 找到相同的根节点 同时遍历两颗树 对称二叉树单队列迭代，相邻两个队列成员应该一致 递归 同构二叉树两个队列边遍历边比较 翻转二叉树二叉树的花样遍历加层数 或更改结构体加上int layer;">
-<meta name="keywords" content="binary-tree">
+  <meta name="description" content="目录 离散化  前缀和/差分  区间合并  线段树  中级图论">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Leetcode二叉树题目总结">
-<meta property="og:url" content="https://yangj96.github.io/2020/02/01/binary-tree/index.html">
+<meta property="og:title" content="算法模版-中级篇">
+<meta property="og:url" content="https://yangj96.github.io/2020/02/03/algo-template2/index.html">
 <meta property="og:site_name" content="Jingy&#39;s Blog">
-<meta property="og:description" content="重建二叉树递归版本 利用哈希数组记录中序遍历中每个值对应的位置 非递归版本 和为某一定值的二叉树路径DFS 树的子结构暴力匹配 找到相同的根节点 同时遍历两颗树 对称二叉树单队列迭代，相邻两个队列成员应该一致 递归 同构二叉树两个队列边遍历边比较 翻转二叉树二叉树的花样遍历加层数 或更改结构体加上int layer;">
+<meta property="og:description" content="目录 离散化  前缀和/差分  区间合并  线段树  中级图论">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-01T15:10:24.046Z">
+<meta property="og:updated_time" content="2020-02-03T14:08:07.478Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Leetcode二叉树题目总结">
-<meta name="twitter:description" content="重建二叉树递归版本 利用哈希数组记录中序遍历中每个值对应的位置 非递归版本 和为某一定值的二叉树路径DFS 树的子结构暴力匹配 找到相同的根节点 同时遍历两颗树 对称二叉树单队列迭代，相邻两个队列成员应该一致 递归 同构二叉树两个队列边遍历边比较 翻转二叉树二叉树的花样遍历加层数 或更改结构体加上int layer;">
+<meta name="twitter:title" content="算法模版-中级篇">
+<meta name="twitter:description" content="目录 离散化  前缀和/差分  区间合并  线段树  中级图论">
 
 
 
 
 
 
-  <link rel="canonical" href="https://yangj96.github.io/2020/02/01/binary-tree/">
+  <link rel="canonical" href="https://yangj96.github.io/2020/02/03/algo-template2/">
 
 
 
@@ -124,7 +123,7 @@
   };
 </script>
 
-  <title>Leetcode二叉树题目总结 | Jingy's Blog</title>
+  <title>算法模版-中级篇 | Jingy's Blog</title>
   
 
 
@@ -361,7 +360,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yangj96.github.io/2020/02/01/binary-tree/">
+    <link itemprop="mainEntityOfPage" href="https://yangj96.github.io/2020/02/03/algo-template2/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jing Yang">
@@ -378,7 +377,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Leetcode二叉树题目总结
+          <h1 class="post-title" itemprop="name headline">算法模版-中级篇
 
               
             
@@ -404,7 +403,7 @@
                 
               
 
-              <time title="创建时间：2020-02-01 12:35:21 / 修改时间：23:10:24" itemprop="dateCreated datePublished" datetime="2020-02-01T12:35:21+08:00">2020-02-01</time>
+              <time title="创建时间：2020-02-03 19:39:44 / 修改时间：22:08:07" itemprop="dateCreated datePublished" datetime="2020-02-03T19:39:44+08:00">2020-02-03</time>
             
 
             
@@ -426,7 +425,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
 
                 
                 
@@ -455,7 +454,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">160</span>
+                <span title="本文字数">34</span>
               
 
               
@@ -489,15 +488,18 @@
       
 
       
-        <h5 id="重建二叉树"><a href="#重建二叉树" class="headerlink" title="重建二叉树"></a>重建二叉树</h5><p>递归版本</p>
-<p>利用哈希数组记录中序遍历中每个值对应的位置</p>
-<p>非递归版本</p>
-<h5 id="和为某一定值的二叉树路径"><a href="#和为某一定值的二叉树路径" class="headerlink" title="和为某一定值的二叉树路径"></a>和为某一定值的二叉树路径</h5><p>DFS</p>
-<h5 id="树的子结构"><a href="#树的子结构" class="headerlink" title="树的子结构"></a>树的子结构</h5><p>暴力匹配 找到相同的根节点 同时遍历两颗树</p>
-<h5 id="对称二叉树"><a href="#对称二叉树" class="headerlink" title="对称二叉树"></a>对称二叉树</h5><p>单队列迭代，相邻两个队列成员应该一致</p>
-<p>递归</p>
-<h5 id="同构二叉树"><a href="#同构二叉树" class="headerlink" title="同构二叉树"></a>同构二叉树</h5><p>两个队列边遍历边比较</p>
-<h5 id="翻转二叉树"><a href="#翻转二叉树" class="headerlink" title="翻转二叉树"></a>翻转二叉树</h5><h5 id="二叉树的花样遍历"><a href="#二叉树的花样遍历" class="headerlink" title="二叉树的花样遍历"></a>二叉树的花样遍历</h5><p>加层数 或更改结构体加上int layer;</p>
+        <h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ol>
+<li><p>离散化</p>
+</li>
+<li><p>前缀和/差分</p>
+</li>
+<li><p>区间合并</p>
+</li>
+<li><p>线段树</p>
+</li>
+<li><p>中级图论</p>
+</li>
+</ol>
 
       
     </div>
@@ -519,12 +521,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/binary-tree/" rel="tag"># binary-tree</a>
-          
-        </div>
-      
 
       
       
@@ -534,8 +530,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/25/linked-list/" rel="next" title="Leetcode链表题目总结">
-                <i class="fa fa-chevron-left"></i> Leetcode链表题目总结
+              <a href="/2020/02/01/algo-add/" rel="next" title="算法模版-增补">
+                <i class="fa fa-chevron-left"></i> 算法模版-增补
               </a>
             
           </div>
@@ -544,8 +540,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/02/01/algo-add/" rel="prev" title="算法模版-增补">
-                算法模版-增补 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/12/31/algo-template1/" rel="prev" title="算法模版-初级篇">
+                算法模版-初级篇 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -701,7 +697,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#重建二叉树"><span class="nav-number">1.</span> <span class="nav-text">重建二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#和为某一定值的二叉树路径"><span class="nav-number">2.</span> <span class="nav-text">和为某一定值的二叉树路径</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#树的子结构"><span class="nav-number">3.</span> <span class="nav-text">树的子结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#对称二叉树"><span class="nav-number">4.</span> <span class="nav-text">对称二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#同构二叉树"><span class="nav-number">5.</span> <span class="nav-text">同构二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#翻转二叉树"><span class="nav-number">6.</span> <span class="nav-text">翻转二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二叉树的花样遍历"><span class="nav-number">7.</span> <span class="nav-text">二叉树的花样遍历</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li></ol></div>
             
 
           </div>
