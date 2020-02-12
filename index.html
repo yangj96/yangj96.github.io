@@ -419,7 +419,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-03 19:42:15" itemprop="dateModified" datetime="2020-02-03T19:42:15+08:00">2020-02-03</time>
+                <time title="修改时间：2020-02-11 17:11:16" itemprop="dateModified" datetime="2020-02-11T17:11:16+08:00">2020-02-11</time>
               
             
           </span>
@@ -465,7 +465,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">16k</span>
+                <span title="本文字数">15k</span>
               
 
               
@@ -509,12 +509,12 @@
 <li>归并排序</li>
 <li>快速排序&amp;快速选择</li>
 <li>堆</li>
-<li>双指针</li>
 <li>单调栈</li>
 <li>单调队列</li>
 <li>位运算</li>
 <li>初级图论</li>
 <li>高精度</li>
+<li>初级数论</li>
 </ol>
 <h4 id="二分"><a href="#二分" class="headerlink" title="二分"></a>二分</h4><p>二分本质不是单调性，只需要区间针对某个性质能够分成两段，一段满足一段不满足即可。</p>
 <p>找到能够划分区间左右两半的性质，如果if (check(mid)) 条件成立，判断答案在左区间还是右区间，如果答案在<strong>左区间并且mid也可能是答案</strong>，按模板<strong>1</strong>来划分；如果答案在<strong>右区间并且mid也可能是答案</strong>，按模板<strong>2</strong>来划分。</p>
@@ -595,10 +595,10 @@
 <p><code>while(c.size() &gt; 1 &amp;&amp; c.back() == 0) c.pop_back();</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">bool cmp(vector&lt;int&gt; &amp; a, vector&lt;int&gt; &amp; b) &#123;</span><br><span class="line">    if (a.size() != b.size()) </span><br><span class="line">        return a.size() &gt; b.size();</span><br><span class="line">    for (int i = a.size() - 1; i &gt;= 0; i--) &#123;</span><br><span class="line">        if (a[i] != b[i])</span><br><span class="line">            return a[i] &gt; b[i];</span><br><span class="line">    &#125;</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vector&lt;int&gt; sub(vector&lt;int&gt; &amp;a, vector&lt;int&gt; &amp;b) &#123;</span><br><span class="line">    int t = 0;</span><br><span class="line">    vector&lt;int&gt; c;</span><br><span class="line">    for (int i = 0; i &lt; a.size(); i++) &#123;</span><br><span class="line">        t = a[i] - t;</span><br><span class="line">        if (i &lt; b.size()) t -= b[i];</span><br><span class="line">        c.push_back((t + 10) % 10);</span><br><span class="line">        if (t &lt; 0) t = 1;</span><br><span class="line">        else t = 0;</span><br><span class="line">    &#125;</span><br><span class="line">    while(c.size() &gt; 1 &amp;&amp; c.back() == 0) c.pop_back();</span><br><span class="line">    return c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    string a, b;</span><br><span class="line">    cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">    vector&lt;int&gt; A;</span><br><span class="line">    vector&lt;int&gt; B;</span><br><span class="line">    vector&lt;int&gt; C;</span><br><span class="line">    for (int i = a.size() - 1; i &gt;= 0; i--) &#123;</span><br><span class="line">        A.push_back(a[i] - &apos;0&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">    for (int i = b.size() - 1; i &gt;= 0; i--) &#123;</span><br><span class="line">        B.push_back(b[i] - &apos;0&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">    if (cmp(A, B)) C = sub(A, B);</span><br><span class="line">    else &#123;</span><br><span class="line">        C = sub(B, A);</span><br><span class="line">        cout &lt;&lt; &quot;-&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    for (int i = C.size() - 1; i &gt;= 0; i--) &#123;</span><br><span class="line">        cout &lt;&lt; C[i];</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="高精度乘法"><a href="#高精度乘法" class="headerlink" title="高精度乘法"></a>高精度乘法</h5><p>高精度乘整数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; mul(vector&lt;int&gt; &amp;a, int b) &#123;</span><br><span class="line">    vector&lt;int&gt; c;</span><br><span class="line">    int t = 0;</span><br><span class="line">    for (int i = 0; i &lt; a.size() || t; i++) &#123;</span><br><span class="line">        if (i &lt; a.size()) t += a[i] * b;</span><br><span class="line">        c.push_back(t % 10);</span><br><span class="line">        t /= 10;</span><br><span class="line">    &#125;</span><br><span class="line">    return c;</span><br><span class="line">&#125;</span><br><span class="line">int main() &#123;</span><br><span class="line">    string a;</span><br><span class="line">    int b;</span><br><span class="line">    cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">    vector&lt;int&gt; A;</span><br><span class="line">    for (int i = a.size() - 1; i &gt;= 0; i--) &#123;</span><br><span class="line">        A.push_back(a[i] - &apos;0&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    vector&lt;int&gt; c = mul(A, b);</span><br><span class="line">    for (int i = c.size() - 1; i &gt;= 0; i--) &#123;</span><br><span class="line">        cout &lt;&lt; c[i];</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; mul(vector&lt;int&gt; &amp;a, int b) &#123;</span><br><span class="line">    vector&lt;int&gt; c;</span><br><span class="line">    int t = 0;</span><br><span class="line">    for (int i = 0; i &lt; a.size() || t; i++) &#123;</span><br><span class="line">        if (i &lt; a.size()) t += a[i] * b;</span><br><span class="line">        c.push_back(t % 10);</span><br><span class="line">        t /= 10;</span><br><span class="line">    &#125;</span><br><span class="line">    return c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>高精度乘高精度</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; res(alen + blen, 0);</span><br><span class="line">// i*j存放i+j</span><br><span class="line">for (int i = 0; i &lt; alen; i++) &#123;</span><br><span class="line">  for (int j = 0; j &lt; blen; j++) &#123;</span><br><span class="line">  	res[i + j] += a[i] * b[j];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">int g = 0;</span><br><span class="line">for (int i = 0; i &lt; (int)res.size(); i++) &#123;</span><br><span class="line">	int tmp = res[i] + g;</span><br><span class="line">	res[i] = tmp % BASE;</span><br><span class="line">	g = tmp / BASE;</span><br><span class="line">&#125;</span><br><span class="line">while (res.size() &gt; 1 &amp;&amp; res.back() == 0) &#123;</span><br><span class="line">	res.pop_back();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; mul(vector&lt;int&gt; &amp;a, vector&lt;int&gt; &amp;b) &#123;</span><br><span class="line">    vector&lt;int&gt; res(alen + blen, 0);</span><br><span class="line">    // i*j存放i+j</span><br><span class="line">    for (int i = 0; i &lt; alen; i++) &#123;</span><br><span class="line">        for (int j = 0; j &lt; blen; j++) &#123;</span><br><span class="line">  	          res[i + j] += a[i] * b[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    int t = 0;</span><br><span class="line">    for (int i = 0; i &lt; (int)res.size(); i++) &#123;</span><br><span class="line">	      t += res[i];</span><br><span class="line">	      res[i] = t % BASE;</span><br><span class="line">	      t /= BASE;</span><br><span class="line">    &#125;</span><br><span class="line">    while (res.size() &gt; 1 &amp;&amp; res.back() == 0) &#123;</span><br><span class="line">        res.pop_back();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="高精度除法"><a href="#高精度除法" class="headerlink" title="高精度除法"></a>高精度除法</h5>
           
         
       
@@ -699,12 +699,24 @@
                 
               
 
-              <time title="创建时间：2020-02-03 19:39:44 / 修改时间：22:08:07" itemprop="dateCreated datePublished" datetime="2020-02-03T19:39:44+08:00">2020-02-03</time>
+              <time title="创建时间：2020-02-03 19:39:44" itemprop="dateCreated datePublished" datetime="2020-02-03T19:39:44+08:00">2020-02-03</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-11 17:23:30" itemprop="dateModified" datetime="2020-02-11T17:23:30+08:00">2020-02-11</time>
               
             
           </span>
@@ -750,7 +762,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">34</span>
+                <span title="本文字数">515</span>
               
 
               
@@ -787,17 +799,18 @@
         
           
             <h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ol>
-<li><p>离散化</p>
-</li>
-<li><p>前缀和/差分</p>
-</li>
-<li><p>区间合并</p>
-</li>
-<li><p>线段树</p>
-</li>
-<li><p>中级图论</p>
-</li>
+<li>双指针/尺取法</li>
+<li>离散化</li>
+<li>前缀和/差分</li>
+<li>区间合并</li>
+<li>线段树</li>
+<li>中级图论</li>
 </ol>
+<h4 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h4><h4 id="前缀和-差分"><a href="#前缀和-差分" class="headerlink" title="前缀和/差分"></a>前缀和/差分</h4><h5 id="一维前缀和"><a href="#一维前缀和" class="headerlink" title="一维前缀和"></a>一维前缀和</h5><p><code>s[0] = a[0] = 0</code></p>
+<p><code>s[i] = s[i-1] + a[i];</code></p>
+<p>求区间[l, r]元素和<code>s[r] - s[l-1]</code></p>
+<h5 id="二维前缀和"><a href="#二维前缀和" class="headerlink" title="二维前缀和"></a>二维前缀和</h5><h5 id="一维差分"><a href="#一维差分" class="headerlink" title="一维差分"></a>一维差分</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h5 id="二维差分"><a href="#二维差分" class="headerlink" title="二维差分"></a>二维差分</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">const int N = 1005; // 注意数组从1开始且设计N+1，N至少要大于等于2 </span><br><span class="line">int b[N][N];</span><br><span class="line"></span><br><span class="line">void modify(int x1, int y1, int x2, int y2, int c) &#123;</span><br><span class="line">    b[x1][y1] += c;</span><br><span class="line">    b[x2+1][y1] -= c;</span><br><span class="line">    b[x1][y2+1] -= c;</span><br><span class="line">    b[x2+1][y2+1] += c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 复原原矩阵更新值</span><br><span class="line">for (int i = 1; i &lt;= n; i++) &#123;</span><br><span class="line">  for (int j = 1; j &lt;= m; j++) &#123;</span><br><span class="line">  	b[i][j] += b[i-1][j] + b[i][j-1] - b[i-1][j-1];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
