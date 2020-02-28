@@ -631,7 +631,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-28 12:56:14" itemprop="dateModified" datetime="2020-02-28T12:56:14+08:00">2020-02-28</time>
+                <time title="修改时间：2020-02-28 12:57:27" itemprop="dateModified" datetime="2020-02-28T12:57:27+08:00">2020-02-28</time>
               
             
           </span>
@@ -815,214 +815,6 @@
 <h5 id="状态压缩DP"><a href="#状态压缩DP" class="headerlink" title="状态压缩DP"></a>状态压缩DP</h5><p>状态表示中的某一下标表示的是有状压state表示的集合</p>
 <h6 id="骨牌的完美覆盖"><a href="#骨牌的完美覆盖" class="headerlink" title="骨牌的完美覆盖"></a>骨牌的完美覆盖</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;cstring&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N = 12, M = 1 &lt;&lt; 12;</span><br><span class="line">long long f[N][M];</span><br><span class="line">bool st[M];</span><br><span class="line"></span><br><span class="line">bool check(int j, int k, int n) &#123;</span><br><span class="line">    int x = j | k;</span><br><span class="line">    int cnt = 0;</span><br><span class="line">    // 下面做法错误，因为没有考虑二进制状态表示中前导0为奇数个的情况</span><br><span class="line">    // do &#123;</span><br><span class="line">    //     if (x % 2 == 0) cnt ++;</span><br><span class="line">    //     else &#123;</span><br><span class="line">    //         if (cnt &amp; 1) return false;</span><br><span class="line">    //         cnt = 0;</span><br><span class="line">    //     &#125;</span><br><span class="line">    //     x /= 2;</span><br><span class="line">    // &#125; while(x);</span><br><span class="line">    // if (cnt &amp; 1) return false;</span><br><span class="line">    for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">        if (x &gt;&gt; i &amp; 1) &#123;</span><br><span class="line">            if (cnt &amp; 1) return false;</span><br><span class="line">            cnt = 0;</span><br><span class="line">        &#125; else cnt ++;</span><br><span class="line">    &#125;</span><br><span class="line">    if (cnt &amp; 1) return false;</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    int n, m;</span><br><span class="line">    while (cin &gt;&gt; n &gt;&gt; m &amp;&amp; n || m) &#123;</span><br><span class="line">        memset(f, 0, sizeof f);</span><br><span class="line">        f[0][0] = 1;</span><br><span class="line">        </span><br><span class="line">        for (int j = 0; j &lt; (1 &lt;&lt; n); j++) &#123;</span><br><span class="line">            int cnt = 0;</span><br><span class="line">            st[j] = true;</span><br><span class="line">            for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">                if (j &gt;&gt; i &amp; 1) &#123;</span><br><span class="line">                    if (cnt &amp; 1) &#123; </span><br><span class="line">                        st[j]=false; </span><br><span class="line">                        break;</span><br><span class="line">                    &#125;</span><br><span class="line">                    cnt = 0;</span><br><span class="line">                &#125; else cnt ++;</span><br><span class="line">            &#125;</span><br><span class="line">            if (cnt &amp; 1) st[j] = false;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        for (int i = 1; i &lt;= m; i++) &#123;</span><br><span class="line">            for (int j = 0; j &lt; (1 &lt;&lt; n); j++) &#123;</span><br><span class="line">                for (int k = 0; k &lt; (1 &lt;&lt; n); k++) &#123;</span><br><span class="line">                    // j 和 k 同一位不都为1</span><br><span class="line">                    // j 和 k 不能为连续奇数个0</span><br><span class="line">                    if (!(j &amp; k) &amp;&amp; st[j | k]) &#123;</span><br><span class="line">                        f[i][j] += f[i-1][k];</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;    </span><br><span class="line">        </span><br><span class="line">        cout &lt;&lt; f[m][0] &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h6 id="最短Hamilton路径"><a href="#最短Hamilton路径" class="headerlink" title="最短Hamilton路径"></a>最短Hamilton路径</h6><h5 id="树形DP"><a href="#树形DP" class="headerlink" title="树形DP"></a>树形DP</h5><p>没有上司的舞会</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yangj96.github.io/2020/02/01/algo-add/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jing Yang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jingy's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/02/01/algo-add/" class="post-title-link" itemprop="url">算法模版-增补</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-02-01 12:45:28 / 修改时间：23:09:57" itemprop="dateCreated datePublished" datetime="2020-02-01T12:45:28+08:00">2020-02-01</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">1.3k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="初级篇"><a href="#初级篇" class="headerlink" title="初级篇"></a>初级篇</h3><h4 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h4><p>逆序对的数量</p>
-<p>分治：构成逆序对的两个数同在分治后的左侧区间或右侧区间，或者分别位于左右两个区间需要在归并时计算</p>
-<p>归并计算逆序对：对右侧区间的每个数计算左侧区间中大于它的数的个数，最后全部求和</p>
-<h4 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h4><p>时间复杂度 $O(状态数*转移方式)$</p>
-<p>空间复杂度 $O(状态数)$</p>
-<p>迷宫起点到终点的最少步数</p>
-<h4 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h4><p>空间复杂度 $O(最大递归深度)$</p>
-<h4 id="简单图论"><a href="#简单图论" class="headerlink" title="简单图论"></a>简单图论</h4><h4 id="简单数学问题"><a href="#简单数学问题" class="headerlink" title="简单数学问题"></a>简单数学问题</h4><h3 id="中级篇"><a href="#中级篇" class="headerlink" title="中级篇"></a>中级篇</h3><p>离散化</p>
-<p>区间合并</p>
-<p>线段树</p>
-<p>中级图论</p>
-<p>高级篇</p>
-<p>高级数学问题</p>
-<p>博弈论</p>
-<p>字符串</p>
-<h4 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h4><p>字符串下标从1开始，next数组从0开始；字符串下标从0开始，next数组从-1开始</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 待匹配串s，模式串p，下标从1开始</span></span><br><span class="line"><span class="keyword">int</span> n+<span class="number">1</span> = s.size();</span><br><span class="line"><span class="keyword">int</span> m+<span class="number">1</span> = p.size();</span><br><span class="line"><span class="comment">// 求next数组, next[1] = 0</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>, j = <span class="number">0</span>; i &lt;= m; i++) &#123;</span><br><span class="line">  <span class="keyword">while</span>(j &amp;&amp; p[i] != p[j+<span class="number">1</span>]) j = ne[j];</span><br><span class="line">  <span class="keyword">if</span> (p[i] == p[j+<span class="number">1</span>]) j++;</span><br><span class="line">  ne[i] = j;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// kmp匹配</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, j = <span class="number">0</span>; i &lt;= n; i++) &#123;</span><br><span class="line">  <span class="keyword">while</span>(j &amp;&amp; s[i] != p[j+<span class="number">1</span>]) j = ne[j];</span><br><span class="line">  <span class="keyword">if</span> (s[i] == p[j+<span class="number">1</span>]) j++;</span><br><span class="line">  <span class="keyword">if</span> (j == m) &#123;</span><br><span class="line">    j = ne[j];</span><br><span class="line">    <span class="comment">// 匹配成功后的逻辑</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Trie-树"><a href="#Trie-树" class="headerlink" title="Trie 树"></a>Trie 树</h4><p>高效存储和查询字符串</p>
-<p>时间复杂度$O(\log n)$，时间复杂度$O(n^2)$</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">100010</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> son[N][<span class="number">26</span>]; <span class="comment">// Trie树每个节点的字节点，此处英文字母只包含26个小写字母</span></span><br><span class="line"><span class="keyword">int</span> cnt[N];<span class="comment">// 以当前这个点结尾的单词数量</span></span><br><span class="line"><span class="keyword">int</span> idx; <span class="comment">// 表示当前使用的层数下标，0号既是空节点也是Trie树的根节点</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="built_in">string</span> str)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> p = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str.size(); i++) &#123;</span><br><span class="line">		<span class="keyword">int</span> u = str[i] - <span class="string">'a'</span>;</span><br><span class="line">		<span class="keyword">if</span> (!son[p][u]) son[p][u] = ++idx;</span><br><span class="line">    p = son[p][u];</span><br><span class="line">	&#125;</span><br><span class="line">  cnt[p] ++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">query</span><span class="params">(<span class="built_in">string</span> str)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> p = <span class="number">0</span>; </span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str.size(); i++) &#123;</span><br><span class="line">    <span class="keyword">int</span> u = str[i] - <span class="string">'a'</span>;</span><br><span class="line">    <span class="keyword">if</span> (!son[p][u]) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    p = son[p][u];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> cnt[p];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -1899,7 +1691,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1984,7 +1776,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">41k</span>
+    <span title="站点总字数">39k</span>
   
 
   
@@ -1993,7 +1785,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">37 分钟</span>
+    <span title="站点阅读时长">36 分钟</span>
   
 </div>
 
