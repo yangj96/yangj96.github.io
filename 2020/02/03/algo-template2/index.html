@@ -104,7 +104,7 @@
 <meta property="og:description" content="目录 双指针/尺取法 单调栈 单调队列 离散化 区间贪心问题 前缀和/差分 树状数组 线段树 图论 KMP Trie树 动态规划  双指针利用单调性：i，j两指针保持相同的移动方向 常见题型： 单数组 - 满足条件的连续子序列 两数组 - 关键是确定两指针的单向移动方向 12345for (int i = 0, j = 0; i &amp;lt; n; i++) &amp;#123;	while(j &amp;lt; i">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/0082zybply1gc2qahne9fj31760a0agz.jpg">
-<meta property="og:updated_time" content="2020-03-02T15:16:56.651Z">
+<meta property="og:updated_time" content="2020-03-02T15:37:41.299Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法模版-中级篇">
 <meta name="twitter:description" content="目录 双指针/尺取法 单调栈 单调队列 离散化 区间贪心问题 前缀和/差分 树状数组 线段树 图论 KMP Trie树 动态规划  双指针利用单调性：i，j两指针保持相同的移动方向 常见题型： 单数组 - 满足条件的连续子序列 两数组 - 关键是确定两指针的单向移动方向 12345for (int i = 0, j = 0; i &amp;lt; n; i++) &amp;#123;	while(j &amp;lt; i">
@@ -405,7 +405,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-03-02 23:16:56" itemprop="dateModified" datetime="2020-03-02T23:16:56+08:00">2020-03-02</time>
+                <time title="修改时间：2020-03-02 23:37:41" itemprop="dateModified" datetime="2020-03-02T23:37:41+08:00">2020-03-02</time>
               
             
           </span>
@@ -590,10 +590,10 @@
 <h6 id="计数问题"><a href="#计数问题" class="headerlink" title="计数问题"></a>计数问题</h6><p>给定两个整数 a 和 b，求 a 和 b 之间的所有数字中x的出现次数，x属于0到9</p>
 <p>count(int n, int x) 假设一个数为abcdefg，对1 &lt;= pppxqqq &lt;= abcdefg分类讨论：</p>
 <ul>
-<li><p>如果ppp = 000 到 abc-1（且x不为0）:</p>
+<li><p>如果ppp = 000 到 abc-1:</p>
 <ul>
 <li>如果x不为0, qqq可以取000到999, cnt = abc * 1000</li>
-<li>如果x为0, qqq可以取001到999, cnt = abc * 999</li>
+<li>如果x为0, qqq可以取000到999, 但由于x为0,ppp不能为0只能从001到abc-1, cnt = (abc-1)* 1000</li>
 </ul>
 </li>
 <li><p>如果ppp = abc :</p>
