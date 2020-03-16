@@ -96,19 +96,19 @@
 
 
 
-  <meta name="description" content="字符串的最大公因子  长度满足最大公约数，暴力检查a和b串或者判断a+b == b+a  多数元素  分治 随机化  最长上升子序列优化  最长上升子序列的个数  最长上升连续子序列   最长连续序列  排序 暴力枚举+哈希 并查集  划分和相等的k个子集  分发糖果     矩阵中的增长路径  动态规划和拓扑排序的关系  黄金矿工  不同的子序列">
+  <meta name="description" content="字符串的最大公因子  长度满足最大公约数，暴力检查a和b串或者判断a+b == b+a  多数元素  分治 随机化  最长上升子序列优化  最长上升子序列的个数  最长上升连续子序列   最长连续序列  排序 暴力枚举+哈希 并查集  划分和相等的k个子集   分发糖果    矩阵中的增长路径  动态规划和拓扑排序的关系  不同的子序列">
 <meta name="keywords" content="Leetcode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Leetcode笔记">
 <meta property="og:url" content="https://yangj96.github.io/2020/03/15/leetcode-notes/index.html">
 <meta property="og:site_name" content="Jingy&#39;s Blog">
-<meta property="og:description" content="字符串的最大公因子  长度满足最大公约数，暴力检查a和b串或者判断a+b == b+a  多数元素  分治 随机化  最长上升子序列优化  最长上升子序列的个数  最长上升连续子序列   最长连续序列  排序 暴力枚举+哈希 并查集  划分和相等的k个子集  分发糖果     矩阵中的增长路径  动态规划和拓扑排序的关系  黄金矿工  不同的子序列">
+<meta property="og:description" content="字符串的最大公因子  长度满足最大公约数，暴力检查a和b串或者判断a+b == b+a  多数元素  分治 随机化  最长上升子序列优化  最长上升子序列的个数  最长上升连续子序列   最长连续序列  排序 暴力枚举+哈希 并查集  划分和相等的k个子集   分发糖果    矩阵中的增长路径  动态规划和拓扑排序的关系  不同的子序列">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTly1gcuq9u9ieij311o0kwq6k.jpg">
-<meta property="og:updated_time" content="2020-03-15T15:07:35.649Z">
+<meta property="og:updated_time" content="2020-03-16T07:17:13.656Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Leetcode笔记">
-<meta name="twitter:description" content="字符串的最大公因子  长度满足最大公约数，暴力检查a和b串或者判断a+b == b+a  多数元素  分治 随机化  最长上升子序列优化  最长上升子序列的个数  最长上升连续子序列   最长连续序列  排序 暴力枚举+哈希 并查集  划分和相等的k个子集  分发糖果     矩阵中的增长路径  动态规划和拓扑排序的关系  黄金矿工  不同的子序列">
+<meta name="twitter:description" content="字符串的最大公因子  长度满足最大公约数，暴力检查a和b串或者判断a+b == b+a  多数元素  分治 随机化  最长上升子序列优化  最长上升子序列的个数  最长上升连续子序列   最长连续序列  排序 暴力枚举+哈希 并查集  划分和相等的k个子集   分发糖果    矩阵中的增长路径  动态规划和拓扑排序的关系  不同的子序列">
 <meta name="twitter:image" content="https://tva1.sinaimg.cn/large/00831rSTly1gcuq9u9ieij311o0kwq6k.jpg">
 
 
@@ -389,12 +389,24 @@
                 
               
 
-              <time title="创建时间：2020-03-15 12:08:15 / 修改时间：23:07:35" itemprop="dateCreated datePublished" datetime="2020-03-15T12:08:15+08:00">2020-03-15</time>
+              <time title="创建时间：2020-03-15 12:08:15" itemprop="dateCreated datePublished" datetime="2020-03-15T12:08:15+08:00">2020-03-15</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-03-16 15:17:13" itemprop="dateModified" datetime="2020-03-16T15:17:13+08:00">2020-03-16</time>
               
             
           </span>
@@ -422,7 +434,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">179</span>
+                <span title="本文字数">172</span>
               
 
               
@@ -479,10 +491,10 @@
 <p>暴力枚举+哈希</p>
 <p>并查集</p>
 <ul>
-<li><p>划分和相等的k个子集</p>
-</li>
-<li><p>分发糖果</p>
-</li>
+<li>划分和相等的k个子集</li>
+</ul>
+<ul>
+<li>分发糖果</li>
 </ul>
 <p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gcuq9u9ieij311o0kwq6k.jpg" alt="左-右&amp;右-左两次贪心"></p>
 <ul>
@@ -490,10 +502,7 @@
 </ul>
 <p>动态规划和拓扑排序的关系</p>
 <ul>
-<li><p>黄金矿工</p>
-</li>
-<li><p>不同的子序列</p>
-</li>
+<li>不同的子序列</li>
 </ul>
 
       
@@ -698,7 +707,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">66k</span>
+    <span title="站点总字数">68k</span>
   
 
   
@@ -707,7 +716,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">1:01</span>
+    <span title="站点阅读时长">1:02</span>
   
 </div>
 
