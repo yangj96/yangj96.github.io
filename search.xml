@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[算法题Bug集锦]]></title>
+    <url>%2F2020%2F03%2F21%2Fcommon-error%2F</url>
+    <content type="text"><![CDATA[循环结束条件，忘记break，例如双指针循环条件 12345while (j &lt; n) if (a[i] == a[j]) j++;条件直接&amp;&amp;在while判断内，如果采用if形式循环内注意结束条件 递归结束条件 for循环指针直接跳转 123456for (int i = 0; i &lt; n; i++) &#123; int j; ... i = j;&#125;for循环执行后i++，下一循环i实际上位j+1]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[Leetcode笔记]]></title>
     <url>%2F2020%2F03%2F15%2Fleetcode-notes%2F</url>
     <content type="text"><![CDATA[字符串的最大公因子 长度满足最大公约数，暴力检查a和b串或者判断a+b == b+a 多数元素 分治 随机化 最长上升子序列优化 最长上升子序列的个数 最长上升连续子序列 最长连续序列 排序 暴力枚举+哈希 并查集 划分和相等的k个子集 分发糖果 矩阵中的增长路径 动态规划和拓扑排序的关系 不同的子序列]]></content>

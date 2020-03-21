@@ -340,6 +340,188 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangj96.github.io/2020/03/21/common-error/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jing Yang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jingy's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/03/21/common-error/" class="post-title-link" itemprop="url">算法题Bug集锦</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-03-21 15:37:43 / 修改时间：15:42:58" itemprop="dateCreated datePublished" datetime="2020-03-21T15:37:43+08:00">2020-03-21</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">231</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li><p>循环结束条件，忘记break，例如双指针循环条件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">while (j &lt; n) </span><br><span class="line">	if (a[i] == a[j])</span><br><span class="line">		j++;</span><br><span class="line"></span><br><span class="line">条件直接&amp;&amp;在while判断内，如果采用if形式循环内注意结束条件</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="2">
+<li><p>递归结束条件</p>
+</li>
+<li><p>for循环指针直接跳转</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">	int j;</span><br><span class="line">	...</span><br><span class="line">	i = j;</span><br><span class="line">&#125;</span><br><span class="line">for循环执行后i++，下一循环i实际上位j+1</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yangj96.github.io/2020/03/15/leetcode-notes/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -402,7 +584,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-03-16 15:17:13" itemprop="dateModified" datetime="2020-03-16T15:17:13+08:00">2020-03-16</time>
+                <time title="修改时间：2020-03-21 15:36:33" itemprop="dateModified" datetime="2020-03-21T15:36:33+08:00">2020-03-21</time>
               
             
           </span>
@@ -620,7 +802,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-03-16 19:43:01" itemprop="dateModified" datetime="2020-03-16T19:43:01+08:00">2020-03-16</time>
+                <time title="修改时间：2020-03-21 15:36:33" itemprop="dateModified" datetime="2020-03-21T15:36:33+08:00">2020-03-21</time>
               
             
           </span>
@@ -991,7 +1173,7 @@ int getMissingNumber(vector&lt;int&gt;&amp; nums) {
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-03-17 11:42:33" itemprop="dateModified" datetime="2020-03-17T11:42:33+08:00">2020-03-17</time>
+                <time title="修改时间：2020-03-21 15:36:33" itemprop="dateModified" datetime="2020-03-21T15:36:33+08:00">2020-03-21</time>
               
             
           </span>
@@ -1383,7 +1565,7 @@ int getMissingNumber(vector&lt;int&gt;&amp; nums) {
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-03-05 23:32:38" itemprop="dateModified" datetime="2020-03-05T23:32:38+08:00">2020-03-05</time>
+                <time title="修改时间：2020-03-21 15:36:33" itemprop="dateModified" datetime="2020-03-21T15:36:33+08:00">2020-03-21</time>
               
             
           </span>
@@ -1730,7 +1912,7 @@ vector&lt;vector&lt;int&gt;&gt; printFromTopToBottom(TreeNode* root) {
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-03-16 16:25:43" itemprop="dateModified" datetime="2020-03-16T16:25:43+08:00">2020-03-16</time>
+                <time title="修改时间：2020-03-21 15:36:33" itemprop="dateModified" datetime="2020-03-21T15:36:33+08:00">2020-03-21</time>
               
             
           </span>
@@ -2095,7 +2277,7 @@ vector&lt;vector&lt;int&gt;&gt; printFromTopToBottom(TreeNode* root) {
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-03-05 23:36:27" itemprop="dateModified" datetime="2020-03-05T23:36:27+08:00">2020-03-05</time>
+                <time title="修改时间：2020-03-21 15:36:33" itemprop="dateModified" datetime="2020-03-21T15:36:33+08:00">2020-03-21</time>
               
             
           </span>
@@ -2299,7 +2481,7 @@ vector&lt;vector&lt;int&gt;&gt; printFromTopToBottom(TreeNode* root) {
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2397,7 +2579,7 @@ vector&lt;vector&lt;int&gt;&gt; printFromTopToBottom(TreeNode* root) {
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">70k</span>
+    <span title="站点总字数">71k</span>
   
 
   
