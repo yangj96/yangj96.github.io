@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[算法题Bug集锦]]></title>
+    <title><![CDATA[面试复盘]]></title>
     <url>%2F2020%2F03%2F21%2Fcommon-error%2F</url>
-    <content type="text"><![CDATA[循环结束条件，忘记break，例如双指针循环条件 12345while (j &lt; n) if (a[i] == a[j]) j++;条件直接&amp;&amp;在while判断内，如果采用if形式循环内注意结束条件 for循环指针直接跳转 123456for (int i = 0; i &lt; n; i++) &#123; int j; ... i = j;&#125;for循环执行后i++，下一循环i实际上位j+1]]></content>
+    <content type="text"><![CDATA[​ 近期面试反省，虽然这段时间一直在积极准备算法题，但发现真正面试时尝试白板编程实现bug-free还是存在不少问题，在面试氛围下进行肉眼debug也比平常更难发现错误。这说明代码实现的熟练度还是不够，日常的训练缺少肉眼debug争取一次性通过的练习，仍然比较依赖编译器和调试过程，故这里对自己常见的失误和bug进行记录以供自我提醒。 循环结束条件，忘记break，例如双指针循环条件 12345while (j &lt; n) if (a[i] == a[j]) j++;条件直接&amp;&amp;在while判断内，如果采用if形式循环内注意结束条件 for循环指针直接跳转，忘记惯写的i++ 123456for (int i = 0; i &lt; n; i++) &#123; int j; ... i = j;&#125;for循环执行后i++，因此i应该等于j-1才能在下次循环从j起始]]></content>
   </entry>
   <entry>
     <title><![CDATA[Leetcode笔记]]></title>

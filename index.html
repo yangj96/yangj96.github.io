@@ -360,7 +360,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2020/03/21/common-error/" class="post-title-link" itemprop="url">算法题Bug集锦</a>
+                <a href="/2020/03/21/common-error/" class="post-title-link" itemprop="url">面试复盘</a>
               
             
           </h1>
@@ -385,7 +385,7 @@
                 
               
 
-              <time title="创建时间：2020-03-21 15:37:43 / 修改时间：15:53:14" itemprop="dateCreated datePublished" datetime="2020-03-21T15:37:43+08:00">2020-03-21</time>
+              <time title="创建时间：2020-03-21 15:37:43 / 修改时间：18:09:34" itemprop="dateCreated datePublished" datetime="2020-03-21T15:37:43+08:00">2020-03-21</time>
             
 
             
@@ -418,7 +418,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">223</span>
+                <span title="本文字数">412</span>
               
 
               
@@ -454,14 +454,15 @@
       
         
           
-            <ol>
+            <p>​    近期面试反省，虽然这段时间一直在积极准备算法题，但发现真正面试时尝试白板编程实现bug-free还是存在不少问题，在面试氛围下进行肉眼debug也比平常更难发现错误。这说明代码实现的熟练度还是不够，日常的训练缺少肉眼debug争取一次性通过的练习，仍然比较依赖编译器和调试过程，故这里对自己常见的失误和bug进行记录以供自我提醒。</p>
+<ol>
 <li><p>循环结束条件，忘记break，例如双指针循环条件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">while (j &lt; n) </span><br><span class="line">	if (a[i] == a[j])</span><br><span class="line">		j++;</span><br><span class="line"></span><br><span class="line">条件直接&amp;&amp;在while判断内，如果采用if形式循环内注意结束条件</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <ol start="2">
-<li><p>for循环指针直接跳转</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">	int j;</span><br><span class="line">	...</span><br><span class="line">	i = j;</span><br><span class="line">&#125;</span><br><span class="line">for循环执行后i++，下一循环i实际上位j+1</span><br></pre></td></tr></table></figure>
+<li><p>for循环指针直接跳转，忘记惯写的i++</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">	int j;</span><br><span class="line">	...</span><br><span class="line">	i = j;</span><br><span class="line">&#125;</span><br><span class="line">for循环执行后i++，因此i应该等于j-1才能在下次循环从j起始</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 
@@ -2577,7 +2578,7 @@ vector&lt;vector&lt;int&gt;&gt; printFromTopToBottom(TreeNode* root) {
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">70k</span>
+    <span title="站点总字数">71k</span>
   
 
   
