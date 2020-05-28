@@ -340,6 +340,411 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangj96.github.io/2020/05/28/mf/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jing Yang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jingy's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/28/mf/" class="post-title-link" itemprop="url">矩阵分解MF原理</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-28 19:07:58 / 修改时间：22:07:00" itemprop="dateCreated datePublished" datetime="2020-05-28T19:07:58+08:00">2020-05-28</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/RecSys/" itemprop="url" rel="index"><span itemprop="name">RecSys</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">532</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="MF原理概述"><a href="#MF原理概述" class="headerlink" title="MF原理概述"></a>MF原理概述</h4><p>MF将$n<em>m$评分矩阵分解为$n</em>k$的用户矩阵和$k*m$的item矩阵，其中k为隐类别的维度，两矩阵对应行列向量的内积表示该user对该item的评分。学习过程将user矩阵和item矩阵设为未知量，通过其表示的用户对item预测的评分和实际评分差异的最小化学习。</p>
+<h4 id="显示矩阵分解和隐式矩阵分解"><a href="#显示矩阵分解和隐式矩阵分解" class="headerlink" title="显示矩阵分解和隐式矩阵分解"></a>显示矩阵分解和隐式矩阵分解</h4><p>显示矩阵分解使用用户明确评分的显示数据，隐式矩阵分解使用浏览点击等互动行为的隐式用户数据。隐式矩阵分解数据量几乎覆盖所有用户，不会导致数据有偏，效果一般更好。</p>
+<h4 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h4><p>目标函数为最小化预测评分和实际评分的差值平方和和正则项之和，$r_{ui}$表示用户u对item i的评分，$x_u$表示用户u向量，$y_i$表示item i向量。求解X和Y采用交替最小二乘法。</p>
+<h4 id="工程实现优化"><a href="#工程实现优化" class="headerlink" title="工程实现优化"></a>工程实现优化</h4><p>对于隐矩阵分解，$r_{ui}$需要引入置信度$c_{ui} = 1 + \alpha r_{ui}$，并利用置信度构成的对角阵对角线大部分元素都是1的特点优化计算复杂度。</p>
+<h4 id="增量矩阵分解算法"><a href="#增量矩阵分解算法" class="headerlink" title="增量矩阵分解算法"></a>增量矩阵分解算法</h4><p>不同用户以及不同item间的计算都是相互独立的，因此可以并行计算。当新用户或者新item出现式，也可以使用该用户或item的历史数据和训练集上收敛时学到的Y/X计算新用户或item的向量。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangj96.github.io/2020/05/28/kg-recsys/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jing Yang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jingy's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/28/kg-recsys/" class="post-title-link" itemprop="url">知识图谱在推荐系统的应用</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-28 17:09:09 / 修改时间：18:33:00" itemprop="dateCreated datePublished" datetime="2020-05-28T17:09:09+08:00">2020-05-28</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/RecSys/" itemprop="url" rel="index"><span itemprop="name">RecSys</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">704</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>知识图谱引入推荐系统的两类方式：</p>
+<h4 id="基于特征的方法"><a href="#基于特征的方法" class="headerlink" title="基于特征的方法"></a>基于特征的方法</h4><p>利用知识图谱得到实体、关系的embedding</p>
+<p>学习方式：</p>
+<ul>
+<li>分别学习</li>
+</ul>
+<p>DKN（Deep Knowledge-aware Network）</p>
+<p>首先通过实体链接将新闻标题文本中实体链接到知识图谱，获得实体的实体特征和上下文实体特征（所有一跳邻居节点的实体上下文特征的均值）。</p>
+<p>将新闻标题词向量、实体向量、实体上下文向量作为多通道使用CNN融合得到candidate的embedding；用户历史兴趣通过attention机制结合candidate embedding学习不同的权重作为user embedding；Candidate embedding和user embedding经过concat通过mlp预测点击率。</p>
+<ul>
+<li>交替学习（多任务学习）</li>
+</ul>
+<p>MKR（Multi-task ）</p>
+<p>推荐网络使用user和item特征预测点击率；知识图谱网络使用三元组的头节点和关系表示作为输入预测尾节点；两者通过交叉特征共享单元链接，然后分别固定一侧网络参数交替训练。</p>
+<ul>
+<li>联合学习（end2end）</li>
+</ul>
+<p>CKE（collaborative knowledge base embedding）</p>
+<p>知识图谱实体表示和图像表示、文本表示三类目标函数与协同过滤结合得到联合损失函数训练</p>
+<p>Ripple Network</p>
+<p>以用户历史记录为中心在图谱上扩散，并在扩散过程中衰减得到item embedding和user embedding，使用联合损失函数训练</p>
+<p>KGAT</p>
+<p>GCN建模，邻居节点使用注意力机制融合，使用联合损失函数训练</p>
+<h4 id="基于结构的方法"><a href="#基于结构的方法" class="headerlink" title="基于结构的方法"></a>基于结构的方法</h4><p>利用知识图谱使用bfs、dfs得到多跳关联实体</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yangj96.github.io/2020/03/21/common-error/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -595,7 +1000,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-03-21 15:52:45" itemprop="dateModified" datetime="2020-03-21T15:52:45+08:00">2020-03-21</time>
+                <time title="修改时间：2020-05-28 22:10:52" itemprop="dateModified" datetime="2020-05-28T22:10:52+08:00">2020-05-28</time>
               
             
           </span>
@@ -677,8 +1082,9 @@
       
         
           
-            <h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ol start="4">
+            <h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ol>
 <li>离散化</li>
+<li>二分判定</li>
 <li>区间合并/区间贪心调度</li>
 <li>前缀和/差分</li>
 <li>树状数组</li>
@@ -694,6 +1100,8 @@
 <p>线段坐标离散化</p>
 <p>每个端点需要考虑其本身和前后两点，从而将线段压缩</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">int compress(vector&lt;int&gt; &amp;x1, vector&lt;int&gt; &amp;x2, int w) &#123;</span><br><span class="line">	vector&lt;int&gt; all;</span><br><span class="line">	for (int i = 0; i &lt; x1.size(); i++) &#123;</span><br><span class="line">		for (int d = -1; d &lt;= 1; d++) &#123;</span><br><span class="line">			int tx1 = x1[i] + d, tx2 = x2[i] + d;</span><br><span class="line">			if (tx1 &gt;= 1 &amp;&amp; tx1 &lt;= w) all.push_back(tx1);</span><br><span class="line">			if (tx2 &gt;= 1 &amp;&amp; tx2 &lt;= w) all.push_back(tx2);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	sort(all.begin(), all.end());</span><br><span class="line">	all.erase(unique(all.begin(), all.end()), all.end());</span><br><span class="line">	</span><br><span class="line">	for (int i = 0; i &lt; x1.size(); i++) &#123;</span><br><span class="line">		x1[i] = find(all.begin(), all.end(), x1[i]) - all.begin();</span><br><span class="line">		x2[i] = find(all.begin(), all.end(), x2[i]) - all.begin();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	return all.size();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="二分判定"><a href="#二分判定" class="headerlink" title="二分判定"></a>二分判定</h4><p>给定N个数，将其分为X组，每组K = N / X个数且需要保证K个数互不重复，求出每组最大数和最小数间的差值，求能够实现的所有组该差值总和的最小值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">bool check(int n, int k, vector&lt;int&gt;&amp; a, int mid) &#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int xGroup(int n, int k, vector&lt;int&gt;&amp; a) &#123;</span><br><span class="line">	int maxn = 0, minn = 2e9;</span><br><span class="line">	for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">		minn = min(a[i], minn);</span><br><span class="line">		maxn = max(a[i], maxn);</span><br><span class="line">	&#125;</span><br><span class="line">	int l = 0, r = (maxn - minn) * (n / k);</span><br><span class="line">	while (l &lt; r) &#123;</span><br><span class="line">		int mid = l + r &gt;&gt; 1;</span><br><span class="line">		if (check(n, k, a, mid)) r = mid;</span><br><span class="line">		else l = mid + 1;</span><br><span class="line">	&#125;</span><br><span class="line">	return l;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="区间问题"><a href="#区间问题" class="headerlink" title="区间问题"></a>区间问题</h4><h5 id="区间合并"><a href="#区间合并" class="headerlink" title="区间合并"></a>区间合并</h5><p>按区间左端点排序</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">void merge(vector&lt;PII&gt; &amp; segs) &#123;</span><br><span class="line">    vector&lt;PII&gt; res;</span><br><span class="line">    sort(segs.begin(), segs.end());</span><br><span class="line">    int st = -2e9, ed = -2e9; </span><br><span class="line">    for(auto seg : segs) &#123;</span><br><span class="line">        if (ed &lt; seg.first) &#123;</span><br><span class="line">            if (st != -2e9) </span><br><span class="line">                res.push_back(&#123;st, ed&#125;);</span><br><span class="line">            st = seg.first;</span><br><span class="line">            ed = seg.second;</span><br><span class="line">        &#125;</span><br><span class="line">        else </span><br><span class="line">            ed = max(ed, seg.second);</span><br><span class="line">    &#125;</span><br><span class="line">    if (st != -2e9) &#123;</span><br><span class="line">        res.push_back(&#123;st, ed&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    segs = res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="区间覆盖问题"><a href="#区间覆盖问题" class="headerlink" title="区间覆盖问题"></a>区间覆盖问题</h5><h6 id="求覆盖各区间的最少点数-每个区间至少包含一个点"><a href="#求覆盖各区间的最少点数-每个区间至少包含一个点" class="headerlink" title="求覆盖各区间的最少点数(每个区间至少包含一个点)"></a>求覆盖各区间的最少点数(每个区间至少包含一个点)</h6><p>按区间右端点排序，选取最右点</p>
@@ -987,7 +1395,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-03-21 15:52:45" itemprop="dateModified" datetime="2020-03-21T15:52:45+08:00">2020-03-21</time>
+                <time title="修改时间：2020-05-28 22:09:57" itemprop="dateModified" datetime="2020-05-28T22:09:57+08:00">2020-05-28</time>
               
             
           </span>
@@ -1033,7 +1441,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">27k</span>
+                <span title="本文字数">28k</span>
               
 
               
@@ -1071,6 +1479,9 @@
           
             <h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ol>
 <li>二分</li>
+<li>双指针</li>
+<li>单调栈</li>
+<li>单调队列</li>
 <li>归并排序</li>
 <li>快速排序&amp;快速选择</li>
 <li>堆</li>
@@ -1142,7 +1553,7 @@
 <h5 id="前k大的数"><a href="#前k大的数" class="headerlink" title="前k大的数"></a>前k大的数</h5><p>快速选择算法 $O(n)$ + 排序$O(klgk)$</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; qSelect(vector&lt;int&gt;&amp; a, int l, int r, int k) &#123;</span><br><span class="line">        if (l == r) &#123;</span><br><span class="line">            vector&lt;int&gt; res(a.begin(), a.begin()+l+1);</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line">        int x = a[l], i = l - 1, j = r + 1;</span><br><span class="line">        while (i &lt; j) &#123;</span><br><span class="line">            while(a[++ i] &lt; x);</span><br><span class="line">            while(a[-- j] &gt; x);</span><br><span class="line">            if (i &lt; j) &#123;</span><br><span class="line">                swap(a[i], a[j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        int cnt = j - l + 1;</span><br><span class="line">        if (cnt &gt;= k)</span><br><span class="line">            return qSelect(a, l, j, k);</span><br><span class="line">        else</span><br><span class="line">            return qSelect(a, j + 1, r, k - cnt);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    vector&lt;int&gt; getLeastNumbers_Solution(vector&lt;int&gt; input, int k) &#123;</span><br><span class="line">        int n = input.size();</span><br><span class="line">        if (!n) return &#123;&#125;;</span><br><span class="line">        vector&lt;int&gt; res = qSelect(input, 0, n - 1, k);</span><br><span class="line">        sort(res.begin(), res.end());</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>最小堆（注意求前k大的数应该用最小堆）$O(nlgk)$</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; getLeastNumbers_Solution(vector&lt;int&gt; input, int k) &#123;</span><br><span class="line">        priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt; &gt; heap;</span><br><span class="line">        for (int i = 0; i &lt; input.size(); i++) &#123;</span><br><span class="line">            heap.push(input[i]);</span><br><span class="line">            if (heap.size() &gt; k) heap.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        vector&lt;int&gt; res;</span><br><span class="line">        for (int i = 0; i &lt; k; i++) &#123;</span><br><span class="line">            res.push_back(heap.top());</span><br><span class="line">            heap.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        reverse(res.begin(), res.end());</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; getLastNumbers_Solution(vector&lt;int&gt; input, int k) &#123;</span><br><span class="line">        priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt; &gt; heap;</span><br><span class="line">        for (int i = 0; i &lt; input.size(); i++) &#123;</span><br><span class="line">            // heap.push(input[i]);</span><br><span class="line">            // if (heap.size() &gt; k) heap.pop();</span><br><span class="line">            if (heap.size() &lt; k) &#123;</span><br><span class="line">                heap.push(input[i]);</span><br><span class="line">            &#125; else if (input[i] &gt; heap.top()) &#123;</span><br><span class="line">                heap.push(input[i]);</span><br><span class="line">                heap.pop();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        vector&lt;int&gt; res;</span><br><span class="line">        for (int i = 0; i &lt; k; i++) &#123;</span><br><span class="line">            res.push_back(heap.top());</span><br><span class="line">            heap.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        reverse(res.begin(), res.end());</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <h5 id="数据流的中位数"><a href="#数据流的中位数" class="headerlink" title="数据流的中位数"></a>数据流的中位数</h5><p>维护一个最大堆来存放较小一半的数和一个最小堆来存放较大一半的树，保证两个堆的数目保持一致或最多差一，如果两堆顶逆序交换即可。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">priority_queue&lt;int&gt; maxHeap;</span><br><span class="line">priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; minHeap;</span><br><span class="line">void insert(int num)&#123;</span><br><span class="line">    maxHeap.push(num);</span><br><span class="line">    if (minHeap.size() &amp;&amp; minHeap.top() &lt; maxHeap.top()) &#123;</span><br><span class="line">        auto p = minHeap.top(), q = maxHeap.top();</span><br><span class="line">        minHeap.pop(); maxHeap.pop();</span><br><span class="line">        minHeap.push(q);</span><br><span class="line">        maxHeap.push(p);</span><br><span class="line">    &#125;</span><br><span class="line">    if (maxHeap.size() - minHeap.size() &gt; 1) &#123;</span><br><span class="line">        minHeap.push(maxHeap.top());</span><br><span class="line">        maxHeap.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">double getMedian()&#123;</span><br><span class="line">    if (maxHeap.size() + minHeap.size() &amp; 1) return maxHeap.top();</span><br><span class="line">    else return (maxHeap.top() + minHeap.top()) / 2.0; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="回溯法"><a href="#回溯法" class="headerlink" title="回溯法"></a>回溯法</h4><p>DFS回溯需要恢复状态主要是考虑每次枚举状态转移时当前起始点应保持一致，如果枚举导致其发生变化则需要恢复起始状态</p>
@@ -1941,7 +2352,7 @@ int getMissingNumber(vector&lt;int&gt;&amp; nums) {
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-03-23 10:37:16" itemprop="dateModified" datetime="2020-03-23T10:37:16+08:00">2020-03-23</time>
+                <time title="修改时间：2020-04-08 10:57:15" itemprop="dateModified" datetime="2020-04-08T10:57:15+08:00">2020-04-08</time>
               
             
           </span>
@@ -2492,7 +2903,7 @@ vector&lt;vector&lt;int&gt;&gt; printFromTopToBottom(TreeNode* root) {
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2509,7 +2920,9 @@ vector&lt;vector&lt;int&gt;&gt; printFromTopToBottom(TreeNode* root) {
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -2590,7 +3003,7 @@ vector&lt;vector&lt;int&gt;&gt; printFromTopToBottom(TreeNode* root) {
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">71k</span>
+    <span title="站点总字数">73k</span>
   
 
   
@@ -2599,7 +3012,7 @@ vector&lt;vector&lt;int&gt;&gt; printFromTopToBottom(TreeNode* root) {
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">1:04</span>
+    <span title="站点阅读时长">1:06</span>
   
 </div>
 

@@ -96,20 +96,24 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Jingy&#39;s Blog">
-<meta property="og:url" content="https://yangj96.github.io/archives/2019/10/index.html">
+  <meta name="description" content="知识图谱引入推荐系统的两类方式： 基于特征的方法利用知识图谱得到实体、关系的embedding 学习方式：  分别学习  DKN（Deep Knowledge-aware Network） 首先通过实体链接将新闻标题文本中实体链接到知识图谱，获得实体的实体特征和上下文实体特征（所有一跳邻居节点的实体上下文特征的均值）。 将新闻标题词向量、实体向量、实体上下文向量作为多通道使用CNN融合得到cand">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知识图谱在推荐系统的应用">
+<meta property="og:url" content="https://yangj96.github.io/2020/05/28/kg-recsys/index.html">
 <meta property="og:site_name" content="Jingy&#39;s Blog">
+<meta property="og:description" content="知识图谱引入推荐系统的两类方式： 基于特征的方法利用知识图谱得到实体、关系的embedding 学习方式：  分别学习  DKN（Deep Knowledge-aware Network） 首先通过实体链接将新闻标题文本中实体链接到知识图谱，获得实体的实体特征和上下文实体特征（所有一跳邻居节点的实体上下文特征的均值）。 将新闻标题词向量、实体向量、实体上下文向量作为多通道使用CNN融合得到cand">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-05-28T10:33:00.103Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jingy&#39;s Blog">
+<meta name="twitter:title" content="知识图谱在推荐系统的应用">
+<meta name="twitter:description" content="知识图谱引入推荐系统的两类方式： 基于特征的方法利用知识图谱得到实体、关系的embedding 学习方式：  分别学习  DKN（Deep Knowledge-aware Network） 首先通过实体链接将新闻标题文本中实体链接到知识图谱，获得实体的实体特征和上下文实体特征（所有一跳邻居节点的实体上下文特征的均值）。 将新闻标题词向量、实体向量、实体上下文向量作为多通道使用CNN融合得到cand">
 
 
 
 
 
 
-  <link rel="canonical" href="https://yangj96.github.io/archives/2019/10/">
+  <link rel="canonical" href="https://yangj96.github.io/2020/05/28/kg-recsys/">
 
 
 
@@ -119,7 +123,7 @@
   };
 </script>
 
-  <title>归档 | Jingy's Blog</title>
+  <title>知识图谱在推荐系统的应用 | Jingy's Blog</title>
   
 
 
@@ -167,7 +171,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -239,7 +243,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
 
     
     
@@ -268,22 +272,6 @@
 
   
     
-
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
 
   
 
@@ -339,78 +327,241 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        嗯..! 目前共计 9 篇日志。 继续努力。
-      </span>
-      
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
-
-        
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangj96.github.io/2020/05/28/kg-recsys/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jing Yang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jingy's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2019/10/01/binary-tree/" itemprop="url">
-            
-              <span itemprop="name">Leetcode二叉树题目总结</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">知识图谱在推荐系统的应用
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-01T12:35:21+08:00" content="2019-10-01">
-          10-01
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-28 17:09:09 / 修改时间：18:33:00" itemprop="dateCreated datePublished" datetime="2020-05-28T17:09:09+08:00">2020-05-28</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/RecSys/" itemprop="url" rel="index"><span itemprop="name">RecSys</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">704</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <p>知识图谱引入推荐系统的两类方式：</p>
+<h4 id="基于特征的方法"><a href="#基于特征的方法" class="headerlink" title="基于特征的方法"></a>基于特征的方法</h4><p>利用知识图谱得到实体、关系的embedding</p>
+<p>学习方式：</p>
+<ul>
+<li>分别学习</li>
+</ul>
+<p>DKN（Deep Knowledge-aware Network）</p>
+<p>首先通过实体链接将新闻标题文本中实体链接到知识图谱，获得实体的实体特征和上下文实体特征（所有一跳邻居节点的实体上下文特征的均值）。</p>
+<p>将新闻标题词向量、实体向量、实体上下文向量作为多通道使用CNN融合得到candidate的embedding；用户历史兴趣通过attention机制结合candidate embedding学习不同的权重作为user embedding；Candidate embedding和user embedding经过concat通过mlp预测点击率。</p>
+<ul>
+<li>交替学习（多任务学习）</li>
+</ul>
+<p>MKR（Multi-task ）</p>
+<p>推荐网络使用user和item特征预测点击率；知识图谱网络使用三元组的头节点和关系表示作为输入预测尾节点；两者通过交叉特征共享单元链接，然后分别固定一侧网络参数交替训练。</p>
+<ul>
+<li>联合学习（end2end）</li>
+</ul>
+<p>CKE（collaborative knowledge base embedding）</p>
+<p>知识图谱实体表示和图像表示、文本表示三类目标函数与协同过滤结合得到联合损失函数训练</p>
+<p>Ripple Network</p>
+<p>以用户历史记录为中心在图谱上扩散，并在扩散过程中衰减得到item embedding和user embedding，使用联合损失函数训练</p>
+<p>KGAT</p>
+<p>GCN建模，邻居节点使用注意力机制融合，使用联合损失函数训练</p>
+<h4 id="基于结构的方法"><a href="#基于结构的方法" class="headerlink" title="基于结构的方法"></a>基于结构的方法</h4><p>利用知识图谱使用bfs、dfs得到多跳关联实体</p>
+
+      
     </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/21/common-error/" rel="next" title="面试复盘">
+                <i class="fa fa-chevron-left"></i> 面试复盘
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/28/mf/" rel="prev" title="矩阵分解MF原理">
+                矩阵分解MF原理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -431,8 +582,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -521,6 +681,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#基于特征的方法"><span class="nav-number">1.</span> <span class="nav-text">基于特征的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于结构的方法"><span class="nav-number">2.</span> <span class="nav-text">基于结构的方法</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -663,6 +840,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
 
   
 
@@ -673,6 +854,8 @@
 
   
 
+
+  
 
 
   

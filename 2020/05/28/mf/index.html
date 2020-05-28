@@ -96,20 +96,24 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Jingy&#39;s Blog">
-<meta property="og:url" content="https://yangj96.github.io/archives/2019/10/index.html">
+  <meta name="description" content="MF原理概述MF将$nm$评分矩阵分解为$nk$的用户矩阵和$k*m$的item矩阵，其中k为隐类别的维度，两矩阵对应行列向量的内积表示该user对该item的评分。学习过程将user矩阵和item矩阵设为未知量，通过其表示的用户对item预测的评分和实际评分差异的最小化学习。 显示矩阵分解和隐式矩阵分解显示矩阵分解使用用户明确评分的显示数据，隐式矩阵分解使用浏览点击等互动行为的隐式用户数据。隐式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="矩阵分解MF原理">
+<meta property="og:url" content="https://yangj96.github.io/2020/05/28/mf/index.html">
 <meta property="og:site_name" content="Jingy&#39;s Blog">
+<meta property="og:description" content="MF原理概述MF将$nm$评分矩阵分解为$nk$的用户矩阵和$k*m$的item矩阵，其中k为隐类别的维度，两矩阵对应行列向量的内积表示该user对该item的评分。学习过程将user矩阵和item矩阵设为未知量，通过其表示的用户对item预测的评分和实际评分差异的最小化学习。 显示矩阵分解和隐式矩阵分解显示矩阵分解使用用户明确评分的显示数据，隐式矩阵分解使用浏览点击等互动行为的隐式用户数据。隐式">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-05-28T14:07:00.418Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jingy&#39;s Blog">
+<meta name="twitter:title" content="矩阵分解MF原理">
+<meta name="twitter:description" content="MF原理概述MF将$nm$评分矩阵分解为$nk$的用户矩阵和$k*m$的item矩阵，其中k为隐类别的维度，两矩阵对应行列向量的内积表示该user对该item的评分。学习过程将user矩阵和item矩阵设为未知量，通过其表示的用户对item预测的评分和实际评分差异的最小化学习。 显示矩阵分解和隐式矩阵分解显示矩阵分解使用用户明确评分的显示数据，隐式矩阵分解使用浏览点击等互动行为的隐式用户数据。隐式">
 
 
 
 
 
 
-  <link rel="canonical" href="https://yangj96.github.io/archives/2019/10/">
+  <link rel="canonical" href="https://yangj96.github.io/2020/05/28/mf/">
 
 
 
@@ -119,7 +123,7 @@
   };
 </script>
 
-  <title>归档 | Jingy's Blog</title>
+  <title>矩阵分解MF原理 | Jingy's Blog</title>
   
 
 
@@ -167,7 +171,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -239,7 +243,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
 
     
     
@@ -268,22 +272,6 @@
 
   
     
-
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
 
   
 
@@ -339,78 +327,218 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        嗯..! 目前共计 9 篇日志。 继续努力。
-      </span>
-      
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
-
-        
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangj96.github.io/2020/05/28/mf/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jing Yang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jingy's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2019/10/01/binary-tree/" itemprop="url">
-            
-              <span itemprop="name">Leetcode二叉树题目总结</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">矩阵分解MF原理
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-01T12:35:21+08:00" content="2019-10-01">
-          10-01
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-28 19:07:58 / 修改时间：22:07:00" itemprop="dateCreated datePublished" datetime="2020-05-28T19:07:58+08:00">2020-05-28</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/RecSys/" itemprop="url" rel="index"><span itemprop="name">RecSys</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">532</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <h4 id="MF原理概述"><a href="#MF原理概述" class="headerlink" title="MF原理概述"></a>MF原理概述</h4><p>MF将$n<em>m$评分矩阵分解为$n</em>k$的用户矩阵和$k*m$的item矩阵，其中k为隐类别的维度，两矩阵对应行列向量的内积表示该user对该item的评分。学习过程将user矩阵和item矩阵设为未知量，通过其表示的用户对item预测的评分和实际评分差异的最小化学习。</p>
+<h4 id="显示矩阵分解和隐式矩阵分解"><a href="#显示矩阵分解和隐式矩阵分解" class="headerlink" title="显示矩阵分解和隐式矩阵分解"></a>显示矩阵分解和隐式矩阵分解</h4><p>显示矩阵分解使用用户明确评分的显示数据，隐式矩阵分解使用浏览点击等互动行为的隐式用户数据。隐式矩阵分解数据量几乎覆盖所有用户，不会导致数据有偏，效果一般更好。</p>
+<h4 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h4><p>目标函数为最小化预测评分和实际评分的差值平方和和正则项之和，$r_{ui}$表示用户u对item i的评分，$x_u$表示用户u向量，$y_i$表示item i向量。求解X和Y采用交替最小二乘法。</p>
+<h4 id="工程实现优化"><a href="#工程实现优化" class="headerlink" title="工程实现优化"></a>工程实现优化</h4><p>对于隐矩阵分解，$r_{ui}$需要引入置信度$c_{ui} = 1 + \alpha r_{ui}$，并利用置信度构成的对角阵对角线大部分元素都是1的特点优化计算复杂度。</p>
+<h4 id="增量矩阵分解算法"><a href="#增量矩阵分解算法" class="headerlink" title="增量矩阵分解算法"></a>增量矩阵分解算法</h4><p>不同用户以及不同item间的计算都是相互独立的，因此可以并行计算。当新用户或者新item出现式，也可以使用该用户或item的历史数据和训练集上收敛时学到的Y/X计算新用户或item的向量。</p>
+
+      
     </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/28/kg-recsys/" rel="next" title="知识图谱在推荐系统的应用">
+                <i class="fa fa-chevron-left"></i> 知识图谱在推荐系统的应用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -431,8 +559,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -521,6 +658,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#MF原理概述"><span class="nav-number">1.</span> <span class="nav-text">MF原理概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#显示矩阵分解和隐式矩阵分解"><span class="nav-number">2.</span> <span class="nav-text">显示矩阵分解和隐式矩阵分解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标函数"><span class="nav-number">3.</span> <span class="nav-text">目标函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工程实现优化"><span class="nav-number">4.</span> <span class="nav-text">工程实现优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#增量矩阵分解算法"><span class="nav-number">5.</span> <span class="nav-text">增量矩阵分解算法</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -663,6 +817,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
 
   
 
@@ -673,6 +831,8 @@
 
   
 
+
+  
 
 
   
