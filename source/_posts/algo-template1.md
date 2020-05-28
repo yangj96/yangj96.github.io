@@ -8,18 +8,21 @@ categories: Algorithm
 ### 目录
 
 1. 二分
-2. 归并排序
-3. 快速排序&快速选择
-4. 堆
-5. 双指针/尺取法
-6. 单调栈/单调队列
-7. 回溯
-8. 递归/DFS
-9. BFS
-10. 并查集
-11. 位运算
-12. 高精度
-13. 初级数论
+2. 双指针
+3. 单调栈
+4. 单调队列
+5. 归并排序
+6. 快速排序&快速选择
+7. 堆
+8. 双指针/尺取法
+9. 单调栈/单调队列
+10. 回溯
+11. 递归/DFS
+12. BFS
+13. 并查集
+14. 位运算
+15. 高精度
+16. 初级数论
 
 #### 二分
 
@@ -449,11 +452,17 @@ public:
 最小堆（注意求前k大的数应该用最小堆）$O(nlgk)$
 
 ```
-vector<int> getLeastNumbers_Solution(vector<int> input, int k) {
+vector<int> getLastNumbers_Solution(vector<int> input, int k) {
         priority_queue<int, vector<int>, greater<int> > heap;
         for (int i = 0; i < input.size(); i++) {
-            heap.push(input[i]);
-            if (heap.size() > k) heap.pop();
+            // heap.push(input[i]);
+            // if (heap.size() > k) heap.pop();
+            if (heap.size() < k) {
+                heap.push(input[i]);
+            } else if (input[i] > heap.top()) {
+                heap.push(input[i]);
+                heap.pop();
+            }
         }
         vector<int> res;
         for (int i = 0; i < k; i++) {

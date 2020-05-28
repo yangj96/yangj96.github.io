@@ -5,15 +5,16 @@ categories: Algorithm
 ---
 
 ### 目录
-4. 离散化
-5. 区间合并/区间贪心调度
-6. 前缀和/差分
-7. 树状数组
-8. 线段树
-9. 图论
-10. 字符串匹配
-11. Trie树
-12. 动态规划
+1. 离散化
+2. 二分判定
+3. 区间合并/区间贪心调度
+4. 前缀和/差分
+5. 树状数组
+6. 线段树
+7. 图论
+8. 字符串匹配
+9. Trie树
+10. 动态规划
 
 #### 离散化
 
@@ -70,7 +71,30 @@ int compress(vector<int> &x1, vector<int> &x2, int w) {
 }
 ```
 
+#### 二分判定
 
+给定N个数，将其分为X组，每组K = N / X个数且需要保证K个数互不重复，求出每组最大数和最小数间的差值，求能够实现的所有组该差值总和的最小值
+
+```
+bool check(int n, int k, vector<int>& a, int mid) {
+	
+}
+
+int xGroup(int n, int k, vector<int>& a) {
+	int maxn = 0, minn = 2e9;
+	for (int i = 0; i < n; i++) {
+		minn = min(a[i], minn);
+		maxn = max(a[i], maxn);
+	}
+	int l = 0, r = (maxn - minn) * (n / k);
+	while (l < r) {
+		int mid = l + r >> 1;
+		if (check(n, k, a, mid)) r = mid;
+		else l = mid + 1;
+	}
+	return l;
+}
+```
 
 #### 区间问题
 

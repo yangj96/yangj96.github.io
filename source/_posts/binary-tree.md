@@ -160,6 +160,8 @@ bool isSymmetric(TreeNode* root) {
         if (!l || !r) return !l && !r;
         return l->val == r->val && dfs(l->right, r->left) && dfs(l->left, r->right);
     }
+
+
 ##### 二叉树的深度
 
     int treeDepth(TreeNode* root) {
