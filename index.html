@@ -385,7 +385,7 @@
                 
               
 
-              <time title="创建时间：2020-05-28 19:07:58 / 修改时间：22:07:00" itemprop="dateCreated datePublished" datetime="2020-05-28T19:07:58+08:00">2020-05-28</time>
+              <time title="创建时间：2020-05-28 19:07:58 / 修改时间：23:03:17" itemprop="dateCreated datePublished" datetime="2020-05-28T19:07:58+08:00">2020-05-28</time>
             
 
             
@@ -436,7 +436,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">532</span>
+                <span title="本文字数">779</span>
               
 
               
@@ -475,8 +475,13 @@
             <h4 id="MF原理概述"><a href="#MF原理概述" class="headerlink" title="MF原理概述"></a>MF原理概述</h4><p>MF将$n<em>m$评分矩阵分解为$n</em>k$的用户矩阵和$k*m$的item矩阵，其中k为隐类别的维度，两矩阵对应行列向量的内积表示该user对该item的评分。学习过程将user矩阵和item矩阵设为未知量，通过其表示的用户对item预测的评分和实际评分差异的最小化学习。</p>
 <h4 id="显示矩阵分解和隐式矩阵分解"><a href="#显示矩阵分解和隐式矩阵分解" class="headerlink" title="显示矩阵分解和隐式矩阵分解"></a>显示矩阵分解和隐式矩阵分解</h4><p>显示矩阵分解使用用户明确评分的显示数据，隐式矩阵分解使用浏览点击等互动行为的隐式用户数据。隐式矩阵分解数据量几乎覆盖所有用户，不会导致数据有偏，效果一般更好。</p>
 <h4 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h4><p>目标函数为最小化预测评分和实际评分的差值平方和和正则项之和，$r_{ui}$表示用户u对item i的评分，$x_u$表示用户u向量，$y_i$表示item i向量。求解X和Y采用交替最小二乘法。</p>
+<p>$x_u$的求解表达式为：</p>
+<p>$y_i$的求解表达式为：</p>
 <h4 id="工程实现优化"><a href="#工程实现优化" class="headerlink" title="工程实现优化"></a>工程实现优化</h4><p>对于隐矩阵分解，$r_{ui}$需要引入置信度$c_{ui} = 1 + \alpha r_{ui}$，并利用置信度构成的对角阵对角线大部分元素都是1的特点优化计算复杂度。</p>
 <h4 id="增量矩阵分解算法"><a href="#增量矩阵分解算法" class="headerlink" title="增量矩阵分解算法"></a>增量矩阵分解算法</h4><p>不同用户以及不同item间的计算都是相互独立的，因此可以并行计算。当新用户或者新item出现式，也可以使用该用户或item的历史数据和训练集上收敛时学到的Y/X计算新用户或item的向量。</p>
+<h4 id="扩展应用"><a href="#扩展应用" class="headerlink" title="扩展应用"></a>扩展应用</h4><h5 id="基于行为的MF召回"><a href="#基于行为的MF召回" class="headerlink" title="基于行为的MF召回"></a>基于行为的MF召回</h5><p>MF除了可以利用用户对item的评分矩阵进行基于内容的召回外，也可以利用item-item的共现矩阵进行基于行为的召回。基于item-item共现矩阵的MF召回类似于Glove通过词-词共现矩阵求解词向量的方法。$c_{ij} = \alpha log(1+r_{ij})$</p>
+<p>如果使用user-it</p>
+<p>em共现矩阵进行学习，热门item的向量绝对值会普遍高于点击量少的item，因此后续向量相似度的计算不够准确。</p>
 
           
         
