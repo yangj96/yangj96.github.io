@@ -10,7 +10,7 @@ categories: Algorithm
 1. 二分
 2. 双指针
 3. 单调栈
-4. 单调队列
+4. 单调
 5. 归并排序
 6. 快速排序&快速选择
 7. 堆
@@ -108,7 +108,31 @@ for (int i = 0, j = 0; i < n; i++) {
 }
 ```
 
+##### 最长无重复字符子串
 
+注意check的条件是`cnt[a[i]]`意味着只需要检查新加入的最右端元素的出现次数
+
+```
+const int N = 100010;
+int a[N], cnt[N];
+
+int main() {
+    int n;
+    cin >> n;
+    for (int i = 0; i < n ;i++) {
+        cin >> a[i];
+    }
+    int res = 0;
+    for (int i = 0, j = 0; i < n; i++) {
+        cnt[a[i]]++;
+        while(j < i && cnt[a[i]] > 1) cnt[a[j++]]--;
+        res = max(res, i - j + 1);
+    }
+    cout << res << endl;
+}
+```
+
+##### 
 
 #### 单调栈
 
@@ -124,7 +148,42 @@ for (int i = 0; i < n; i++) {
 }
 ```
 
+##### 接雨水
 
+```
+int trap(vector<int>& a) {
+    int n = a.size();
+    stack<int> st;
+    int res = 0;
+    for (int i = 0; i < n; i++) {
+        while (!st.empty() && a[i] >= a[st.top()]) {
+            int t = st.top();
+            st.pop();
+            if (st.empty()) break;
+            res += (min(a[i], a[st.top()]) - a[t]) * (i - st.top() - 1);
+        } 
+        st.push(i);
+    }
+    return res;
+}
+```
+
+##### 柱状图最大矩形面积
+
+```
+def largestRectangleArea(self, heights) -> int:
+    stack = []
+    heights = [0] + heights + [0]
+    n = len(heights)
+    res = 0
+    for i in range(n):
+        # print(stack)
+        while stack and heights[stack[-1]] > heights[i]:
+            cur = stack.pop()
+            res = max(res, (i - stack[-1] - 1) * heights[cur])
+        stack.append(i)
+    return res
+```
 
 #### 单调队列
 
@@ -161,32 +220,6 @@ cout << endl;
 滑动窗口right指针右移至所有字符被覆盖，然后left指针右移至满足条件最大值，直至right移动到末尾
 
 ##### 找到字符串中所有给定子串的字母异位子串
-
-##### 无重复字符的最长子串
-
-##### 最长无重复字符子串
-
-注意check的条件是`cnt[a[i]]`意味着只需要检查新加入的最右端元素的出现次数
-
-```
-const int N = 100010;
-int a[N], cnt[N];
-
-int main() {
-    int n;
-    cin >> n;
-    for (int i = 0; i < n ;i++) {
-        cin >> a[i];
-    }
-    int res = 0;
-    for (int i = 0, j = 0; i < n; i++) {
-        cnt[a[i]]++;
-        while(j < i && cnt[a[i]] > 1) cnt[a[j++]]--;
-        res = max(res, i - j + 1);
-    }
-    cout << res << endl;
-}
-```
 
 ##### 和最大的子数组
 
@@ -450,6 +483,8 @@ public:
 ```
 
 最小堆（注意求前k大的数应该用最小堆）$O(nlgk)$
+
+C++优先队列默认为最大堆，greater为最小堆
 
 ```
 vector<int> getLastNumbers_Solution(vector<int> input, int k) {

@@ -23,6 +23,30 @@ categories: Algorithm
         }
         return a[l];
     }
+二维数组查找
+
+```
+class Solution {
+public:
+    bool searchArray(vector<vector<int>> array, int target) {
+        int n = array.size();
+        if (!n) return false;
+        int m = array[0].size();
+        if (!m) return false;
+        
+        for (int i = 0, j = m - 1; i < n && j >= 0;) {
+            int t = array[i][j];
+            if (t == target) return true;
+            if (t > target) j--;
+            else i++;
+        }
+        return false;
+    }
+};
+```
+
+
+
 ##### 找到数组中的重复数字
 
 置换法
@@ -115,6 +139,10 @@ int getMissingNumber(vector<int> &nums) {
          }
     }
 ##### 数组中出现次数超过一半的数字
+
+hash计数
+
+排序，输出位于len/2位置的元素
 
 多数投票问题，Boyer-Moore Majority Vote Algorithm，时间复杂度为 O(N)
 
