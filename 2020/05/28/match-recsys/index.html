@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="通用召回（非个性化）全局热门召回 热门即以全局后验统计概率估计用户点击的概率 热点事件bert召回 实时爬取新闻话题并对其进行bert向量预存，使用DBSCAN进行密度聚类，每个聚类中心作为事件向量根据热度时间等计算热度值；在item的bert向量中检索相似向量召回 CB召回(content-based)属性标签召回tag、cate倒排 倒排优化： 问题：1. 点击率倒排，头部标题党；完成率倒排，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="推荐系统召回算法总结">
+<meta property="og:url" content="https://yangj96.github.io/2020/05/28/match-recsys/index.html">
+<meta property="og:site_name" content="Jingy&#39;s Blog">
+<meta property="og:description" content="通用召回（非个性化）全局热门召回 热门即以全局后验统计概率估计用户点击的概率 热点事件bert召回 实时爬取新闻话题并对其进行bert向量预存，使用DBSCAN进行密度聚类，每个聚类中心作为事件向量根据热度时间等计算热度值；在item的bert向量中检索相似向量召回 CB召回(content-based)属性标签召回tag、cate倒排 倒排优化： 问题：1. 点击率倒排，头部标题党；完成率倒排，">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-06-30T04:03:20.805Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="推荐系统召回算法总结">
+<meta name="twitter:description" content="通用召回（非个性化）全局热门召回 热门即以全局后验统计概率估计用户点击的概率 热点事件bert召回 实时爬取新闻话题并对其进行bert向量预存，使用DBSCAN进行密度聚类，每个聚类中心作为事件向量根据热度时间等计算热度值；在item的bert向量中检索相似向量召回 CB召回(content-based)属性标签召回tag、cate倒排 倒排优化： 问题：1. 点击率倒排，头部标题党；完成率倒排，">
+
+
+
+
+
+
+  <link rel="canonical" href="https://yangj96.github.io/2020/05/28/match-recsys/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>推荐系统召回算法总结 | Jingy's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jingy's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+  
+
+  
+
+  <a href="https://github.com/yangj96" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill: #222; color: #fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangj96.github.io/2020/05/28/match-recsys/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jing Yang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jingy's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">推荐系统召回算法总结
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-28 22:23:24" itemprop="dateCreated datePublished" datetime="2020-05-28T22:23:24+08:00">2020-05-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-30 12:03:20" itemprop="dateModified" datetime="2020-06-30T12:03:20+08:00">2020-06-30</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/RecSys/" itemprop="url" rel="index"><span itemprop="name">RecSys</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">6.1k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">6 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="通用召回（非个性化）"><a href="#通用召回（非个性化）" class="headerlink" title="通用召回（非个性化）"></a>通用召回（非个性化）</h4><p>全局热门召回</p>
+<p>热门即以全局后验统计概率估计用户点击的概率</p>
+<p>热点事件bert召回</p>
+<p>实时爬取新闻话题并对其进行bert向量预存，使用DBSCAN进行密度聚类，每个聚类中心作为事件向量根据热度时间等计算热度值；在item的bert向量中检索相似向量召回</p>
+<h4 id="CB召回-content-based"><a href="#CB召回-content-based" class="headerlink" title="CB召回(content-based)"></a>CB召回(content-based)</h4><h5 id="属性标签召回"><a href="#属性标签召回" class="headerlink" title="属性标签召回"></a>属性标签召回</h5><p>tag、cate倒排</p>
+<p>倒排优化：</p>
+<p>问题：1. 点击率倒排，头部标题党；完成率倒排，头部短视频 2.后验指标置信度 3.倒排的优化目标与线上目标不一致，例如离线统计窗口的后验值和线上排序的状态并不契合，新的内容很难进入倒排的头部等</p>
+<p>解决方案：</p>
+<p>1.资源的后验分布与资源本身的类型有关，因此将视频根据时长和类别组合分桶，在桶内做z–score归一化，将完成率的分布收缩到准正态分布</p>
+<p>2.置信阈值的判定</p>
+<p>1）用分发趋势预估阈值的值-&gt;直接预估完成率，facebook热度预估模型</p>
+<p>2）优化方差，在视频分发曲线上确定阈值点A，并在阈值点后取B点计算两点差值，累计所有人的差值和，求出总和最小的点作为阈值点</p>
+<p>或CTR平滑，解决曝光量小导致的ctr置信度低的问题</p>
+<p>1）手工平滑</p>
+<p>将曝光分段，每段取24小时内的数据min-max归一化</p>
+<p>2）指数平滑</p>
+<p>$I_j = I_j, j =1$</p>
+<p>$I_j = \beta I_j + (1 - \beta)I_{j-1}, j &gt; 1$</p>
+<p>$I_N = \beta I_N + (1 - \beta) I_{N-1} = \beta I_N + \beta(1-\beta)I_{N-1} + … + \beta(1-\beta)^j I_{N-j} + … + \beta(1-\beta)^{N-1}I_1$</p>
+<p>对曝光&lt;1000的数据不召回</p>
+<p>3）Wilson平滑</p>
+<p>一般效果最好</p>
+<p>4）贝叶斯平滑</p>
+<p>$ctr = (C_i + \alpha) / (I_i + \alpha + \beta) $</p>
+<p>$\alpha$和$\beta$采用矩估计</p>
+<p>总体而言，随着曝光次数的增加，对应的点击率是下降的，因此点击率需要考虑分发带来的衰减；不同类目下点击的行为也应有不同的权重，小众类目的点击比大众类目更有意义，tfidf；时间衰减可以修正处在置信阈值边界的兴趣点，即着时间推移没有新增兴趣表达的误判行为会逐渐衰减到阈值以下；对某一类目连续发生大量展现未点击的行为需要对其权重作降权。</p>
+<p>3.倒排的优化 - 从统计到函数的趋势</p>
+<p>使用视频信息构建模型，以倒排的目标（实际的完成率/点击率作为优化目标，以及时拟合线上的状况同时增加一定的泛化能力</p>
+<p>聚焦置信点击率的后验值能够最大化提升推荐效果</p>
+<p>触发tag、cate的优化：</p>
+<p>用户不同的互动行为差异化权重</p>
+<p>多term召回/多维度：</p>
+<p>考虑内容的多维度属性，例如将内容的多个tag综合推荐而不是针对每个tag单独做倒排，即将用户的tag标签和内容的tag标签构造为sentence进行训练。</p>
+<p>序列建模同时又会引入不同行为的序列权重的差异-&gt;更改word2vec的label生成逻辑和样本构造</p>
+<p>word2vec优化<br>增量skip-gram 负采样</p>
+<h5 id="基于内容的MF召回"><a href="#基于内容的MF召回" class="headerlink" title="基于内容的MF召回"></a>基于内容的MF召回</h5><p>基于内容的MF召回是通过评分矩阵经过矩阵分解和最小化目标函数学习得到用户和item的向量（对比：传统基于行为过滤的协同过滤方法是基于共现矩阵）</p>
+<h4 id="CF召回（协同过滤）"><a href="#CF召回（协同过滤）" class="headerlink" title="CF召回（协同过滤）"></a>CF召回（协同过滤）</h4><h5 id="Memory-based-CF"><a href="#Memory-based-CF" class="headerlink" title="Memory-based CF"></a>Memory-based CF</h5><p>Item-based CF</p>
+<p>划分窗口利用用户的点击历史，以窗口内内容id出现的条件概率作为后验预估</p>
+<p>问题： 热点视频和大多数视频的共现概率都很高</p>
+<p>解决：基于共现统计的cf在分母上乘视频的分发量抵消降权；item2vec本身集成word2vec高频负采样，这和数据的整体分布相关，如果参数设置不合理，分布和参数空间不match会折损训练效果；还有完成率建模带来的时长的bias，通常需要时长调权，归一化等</p>
+<p>User-based CF</p>
+<p>用户的相似度度量</p>
+<p>jaccard对大数据量而言计算困难-&gt;simHash</p>
+<p>用户list2list建模，利用孪生网络（适合稀疏分类问题）以用户是否为同一个用户作为label提供监督，在线召回使用bagging，不同用户间的差异化权重可以利用attention机制等学习。</p>
+<h5 id="Model-based-CF"><a href="#Model-based-CF" class="headerlink" title="Model-based CF"></a>Model-based CF</h5><p>基于MF、SVD、pLSA、LDA的CF</p>
+<h6 id="DSSM-DeepCF-MatchNet"><a href="#DSSM-DeepCF-MatchNet" class="headerlink" title="DSSM/DeepCF/MatchNet"></a>DSSM/DeepCF/MatchNet</h6><p>DSSM双塔，用户点击做正样本，全局随机采样负样本</p>
+<p>如果使用展现未点击作负样本，召回结果会偏向热门，为什么？</p>
+<p>DSSM优化</p>
+<ul>
+<li>user和item特征交叉</li>
+</ul>
+<p>uid的embedding直接连到瓶颈层把doc向量作增维，强化uid记忆性。为什么不连vid特征？</p>
+<ul>
+<li>增加attention、FM等结构增强模型表达能力，增加side-info</li>
+</ul>
+<p>在user侧增加attention，学习用户session内不同类型行为的权重</p>
+<p>在item侧增加side info以强化长尾item特征缓解高热和attention，学习不同side info属性信息的主次</p>
+<p>融合FM特征</p>
+<ul>
+<li>pair-wise双塔提升模型预测能力</li>
+<li>multi-view DSSM 结合多业务信息丰富用户表达</li>
+<li>多塔多目标，结合多业务指标</li>
+</ul>
+<p>CF的问题：</p>
+<p>Icf时效性，新视频不容易出，即i2i 如果使用共现概率会存在新item的冷启动问题，但如果i2i基于内容本身的相似度，则可以很容易召回新的item。同理ucf会存在新用户和新item的冷启动问题。</p>
+<p>解决方案：</p>
+<p>icf中引入泛化特征side info，利用side info的共现信息。</p>
+<p>lookalike 用户点击的一系列视频，其中某一个新视频可以通过邻近点击视频向量加权平均近似求得</p>
+<h6 id="EGES"><a href="#EGES" class="headerlink" title="EGES"></a>EGES</h6><p>在行为向量基础上增加side info构成语义行为向量，以解决用户行为数量少的item的冷启动</p>
+<p>用concat、avg pooling、self-attention和transformer encoder的方法融合side info</p>
+<p><strong>Base Graph Embedding（BGE）</strong><br> user 的行为序列构建网络结构，并将网络定义为有向有权图。其中：根据行为的时间间隔，将一个 user 的行为序列分割为多个session进行deepwalk<br><strong>Graph Embedding with Side Information（GES）</strong><br>该方案增加 item 的额外信息（例如category, brand, price等）丰富 item 表征力度。根据 EGES的算法框架可知：<br>（1）item 和 side information（例如category, brand, price等） 的 Embedding 是通过 word2vec 算法一起训练得到的。如果分开训练，得到的item_embedding和category_embedding（brand_embedding， price_embedding）不在一个向量空间中，做运算无意义。<br>即：通过 DeepWalk 方案得到 item 的游走序列，同时得到对应的category（brand, price）序列。然后将所有序列数据放到word2vec模型中进行训练。<br>（2）针对每个 item，将得到：item_embedding，category_embedding，brand_embedding，price_embedding 等 embedding 信息。将这些 embedding 信息求均值来表示该 item<br><strong>Enhanced Graph Embedding with Side Information（EGES）</strong><br>组合表示 item_embedding 时，对 item 和 side information（例如category, brand, price等）的embedding施加不同的权重，用改进的word2vec算法（Weighted Skip-Gram）确定模型的参数。<br>Sparse Features代表 item 和 side information 的ID信息；<br>Dense Embeddings 表示 item 和 side information 的 embedding 信息；<br>alpha分别代表 item 和 side information 的 embedding 权重；<br>Sampled Softmax Classifier中的N代表采样的负样本（见论文中的Algorithm 2 Weighted Skip-Gram描述的第8行），P代表正样本（某个item周边上下n个item均为正样本，在模型中表示时不区分远近）；</p>
+<h6 id="Youtube-DNN"><a href="#Youtube-DNN" class="headerlink" title="Youtube DNN"></a>Youtube DNN</h6><p><strong>训练集</strong><br>对每个用户提取等数量的训练样本，防止高度活跃用户对于loss的过度影响。<br><strong>测试集</strong><br>YouTube为什么不采用经典的随机留一法（random holdout），而是一定要把用户最近的一次观看行为作为测试集，避免引入future information，产生与事实不符的数据穿越。<br>video embedding的时候，要直接把大量长尾的video直接用0向量代替<br><strong>输入处理：</strong><br>样本通过spark处理为tfrecord，传至ceph，输入采用Dataset多线程读取</p>
+<p><strong>特征处理：</strong></p>
+<p>多值离散特征，例如历史播放列表、搜索词表：获取每个词的embedding平均求和得到固定长度隐向量</p>
+<p>单值离散特征，例如地理位置，获取固定长度embedding向量</p>
+<p>单值连续特征：年龄、性别：年龄构造平方、开方项</p>
+<p><strong>模型结构：</strong></p>
+<p>将上述三类特征concat，传入三层全连接层，使用ReLU函数，输入固定维度的user向量。</p>
+<p><strong>损失函数：</strong></p>
+<p>损失函数为softmax多分类交叉熵。将一次训练样本的播放vid作为正样本，多分类问题的类目个数为vid的数量，最后一层输出的user向量和vid向量的内积加上偏置表示user对该vid的感兴趣程度$z_i = u ·I_i + b_i$，然后通过softmax函数将所有感兴趣程度转化为概率：</p>
+<p>$p_i = \frac{e^{z_i}}{\Sigma_j e^{z_j} }$，利用交叉熵得到损失函数：$L=- \Sigma_i y_i·log(p_i)$，其中$y_i$是一个vid数量维度的one-hot向量，只有被播放的视频对应一维是1，其余为0，可以采用负采样降低0的维度数量。</p>
+<p><strong>输出：</strong></p>
+<p>DNN 最后一层为user的embedding表示，softmax的权重为item的embedding表示</p>
+<p><strong>线上serving：</strong></p>
+<p>使用faiss进行topk search</p>
+<p>Faiss支持l2欧式距离和IP内积的方式，但基于内积的方式需要user和item向量均是归一化向量，但youtube DNN模型训练时不进行向量的l2归一化，因此需要使用在原向量中增加一维，将内积问题转换为欧式距离问题来解决</p>
+<p>MIP(maximum inner product)2NN(nearest neighbor)<a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/XboxInnerProduct.pdf" target="_blank" rel="noopener">https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/XboxInnerProduct.pdf</a></p>
+<p><strong>样本不平衡问题</strong></p>
+<p>使用Focal Loss</p>
+<p>clip gradient 可以缓解梯度爆炸 / 防止出现网络训练中出现NaN</p>
+<p>Triplet loss通常配合OHEM(online hard example mining)</p>
+<p>权值共享： 多个特征的同一概念embedding的look_up table共享</p>
+<p>基于牛顿冷却定律的时间衰减</p>
+<p><strong>负采样</strong></p>
+<ol>
+<li><p>tf.sample_softmax_loss调用log_uniform_candidate_sampler负采样，数值越小被采样的概率越大，因此对于vid，按照其在所有用户播放历史中出现的次数降序排列，标号越小出现次数越大，0保留用于替换确实值。但这样也会导致头部效应。可以采用word2vec论文或源码中的高频采样公式构造样本：</p>
+<p>$ran = (\sqrt{\frac{x}{0.001}} + 1)*(0.001/x)$，使高频词被保留的概率更小。</p>
+</li>
+<li><p>NEG（negative）采样代替softmax，tf.nn.learned_unigram_candidate_sampler。噪声对比估计(NCE,Noise-Contrastive Estimation)，它将点击样本的softmax变为多个二分类logistic问题。由于softmax具有sum-to-one的性质，最大化点击样本的概率必然能导致最小化非点击样本的概率，而二分类logistic则没有这个性质，所以需要人为指定负样本，NCE就是一种<strong>根据热度随机选取负样本</strong>的技术，通过优化NCE损失，可以快速地训练得到模型的所有参数。在实践中，我们采用了TensorFlow提供的函数tf.nn.nce_loss去做候选采样并计算NCE损失。</p>
+</li>
+</ol>
+<p><strong>user embedding和item embedding如何保证在同一个空间</strong><br>和dssm类似，都是通过内积限制两个embedding在相同空间，在CF中可以通过矩阵分解得到user和vedio的向量表示，这里最后的softmax相当于广义矩阵分解，模型最后一层隐层就是user embedding，通过u*v得到vedio的概率，v就是vedio embedding，只不过这里用来作为softmax层的权重；最后一层输出的user向量和vid向量的内积加上偏置表示user对该vid的感兴趣程度，然后通过softmax函数将所有感兴趣程度转化为概率</p>
+<p><strong>和排序模型的差异：</strong><br>引入另一套DNN作为ranking model的目的就是引入更多描述视频、用户以及二者之间关系的特征，例如language embedding: 用户语言的embedding和当前视频语言的embedding<br>time since last watch: 自上次观看同channel视频的时间</p>
+<p>previous impressions: 该视频已经被曝光给该用户的次数</p>
+<p>example age，倾向于新视频，sample log距离当前时间，预测时置为0保证预测时处于训练的最后一刻<br>此外，ranking model不采用经典的logistic regression当作输出层，而是采用了weighted logistic regression</p>
+<h4 id="召回的评估问题"><a href="#召回的评估问题" class="headerlink" title="召回的评估问题"></a>召回的评估问题</h4><p>相关性高能否代表召回效果有提升？</p>
+<p>相关性提升到80以上后应该更关注效果</p>
+<p>召回占比的提升</p>
+<p>排序时这一路召回q值的提升还要关注其分布，是否均值变小方差变大，以及这路召回的uniq占比</p>
+<p>MRR指标</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/28/mf/" rel="next" title="矩阵分解MF原理">
+                <i class="fa fa-chevron-left"></i> 矩阵分解MF原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/01/multi-task-recsys/" rel="prev" title="多任务学习在推荐系统中的应用">
+                多任务学习在推荐系统中的应用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jing Yang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:jingy.ella@gmail.com" title="E-Mail &rarr; mailto:jingy.ella@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#通用召回（非个性化）"><span class="nav-number">1.</span> <span class="nav-text">通用召回（非个性化）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CB召回-content-based"><span class="nav-number">2.</span> <span class="nav-text">CB召回(content-based)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#属性标签召回"><span class="nav-number">2.1.</span> <span class="nav-text">属性标签召回</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基于内容的MF召回"><span class="nav-number">2.2.</span> <span class="nav-text">基于内容的MF召回</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CF召回（协同过滤）"><span class="nav-number">3.</span> <span class="nav-text">CF召回（协同过滤）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Memory-based-CF"><span class="nav-number">3.1.</span> <span class="nav-text">Memory-based CF</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Model-based-CF"><span class="nav-number">3.2.</span> <span class="nav-text">Model-based CF</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#DSSM-DeepCF-MatchNet"><span class="nav-number">3.2.1.</span> <span class="nav-text">DSSM/DeepCF/MatchNet</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#EGES"><span class="nav-number">3.2.2.</span> <span class="nav-text">EGES</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Youtube-DNN"><span class="nav-number">3.2.3.</span> <span class="nav-text">Youtube DNN</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#召回的评估问题"><span class="nav-number">4.</span> <span class="nav-text">召回的评估问题</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jing Yang</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">84k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">1:16</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v6.7.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=6.7.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
