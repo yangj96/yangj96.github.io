@@ -96,17 +96,17 @@
 
 
 
-  <meta name="description" content="近期面试反省，虽然这段时间一直在积极准备算法题，但发现真正面试时尝试白板编程实现bug-free还是存在不少问题，在面试氛围下进行肉眼debug也比平常更难发现错误。这说明代码实现的熟练度还是不够，日常的训练缺少肉眼debug争取一次性通过的练习，仍然比较依赖编译器和调试过程，故这里对自己常见的失误和bug进行记录以供自我提醒。  循环结束条件，忘记break，例如双指针循环条件 12345whi">
+  <meta name="description" content="近期面试反省，虽然这段时间一直在积极准备算法题，但发现真正面试时尝试白板编程实现bug-free还是存在不少问题，在面试氛围下进行肉眼debug也比平常更难发现错误。这说明代码实现的熟练度还是不够，日常的训练缺少肉眼debug争取一次性通过的练习，仍然比较依赖编译器和调试过程，故这里对自己常见的失误和bug进行记录以供自我提醒。  循环结束条件，忘记break，例如双指针循环条件 12345678">
 <meta property="og:type" content="article">
 <meta property="og:title" content="面试复盘">
 <meta property="og:url" content="https://yangj96.github.io/2020/03/21/common-error/index.html">
 <meta property="og:site_name" content="Jingy&#39;s Blog">
-<meta property="og:description" content="近期面试反省，虽然这段时间一直在积极准备算法题，但发现真正面试时尝试白板编程实现bug-free还是存在不少问题，在面试氛围下进行肉眼debug也比平常更难发现错误。这说明代码实现的熟练度还是不够，日常的训练缺少肉眼debug争取一次性通过的练习，仍然比较依赖编译器和调试过程，故这里对自己常见的失误和bug进行记录以供自我提醒。  循环结束条件，忘记break，例如双指针循环条件 12345whi">
+<meta property="og:description" content="近期面试反省，虽然这段时间一直在积极准备算法题，但发现真正面试时尝试白板编程实现bug-free还是存在不少问题，在面试氛围下进行肉眼debug也比平常更难发现错误。这说明代码实现的熟练度还是不够，日常的训练缺少肉眼debug争取一次性通过的练习，仍然比较依赖编译器和调试过程，故这里对自己常见的失误和bug进行记录以供自我提醒。  循环结束条件，忘记break，例如双指针循环条件 12345678">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-23T02:34:15.093Z">
+<meta property="og:updated_time" content="2020-07-21T02:46:16.767Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试复盘">
-<meta name="twitter:description" content="近期面试反省，虽然这段时间一直在积极准备算法题，但发现真正面试时尝试白板编程实现bug-free还是存在不少问题，在面试氛围下进行肉眼debug也比平常更难发现错误。这说明代码实现的熟练度还是不够，日常的训练缺少肉眼debug争取一次性通过的练习，仍然比较依赖编译器和调试过程，故这里对自己常见的失误和bug进行记录以供自我提醒。  循环结束条件，忘记break，例如双指针循环条件 12345whi">
+<meta name="twitter:description" content="近期面试反省，虽然这段时间一直在积极准备算法题，但发现真正面试时尝试白板编程实现bug-free还是存在不少问题，在面试氛围下进行肉眼debug也比平常更难发现错误。这说明代码实现的熟练度还是不够，日常的训练缺少肉眼debug争取一次性通过的练习，仍然比较依赖编译器和调试过程，故这里对自己常见的失误和bug进行记录以供自我提醒。  循环结束条件，忘记break，例如双指针循环条件 12345678">
 
 
 
@@ -403,7 +403,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-03-23 10:34:15" itemprop="dateModified" datetime="2020-03-23T10:34:15+08:00">2020-03-23</time>
+                <time title="修改时间：2020-07-21 10:46:16" itemprop="dateModified" datetime="2020-07-21T10:46:16+08:00">2020-07-21</time>
               
             
           </span>
@@ -431,7 +431,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">407</span>
+                <span title="本文字数">632</span>
               
 
               
@@ -468,12 +468,14 @@
         <p>近期面试反省，虽然这段时间一直在积极准备算法题，但发现真正面试时尝试白板编程实现bug-free还是存在不少问题，在面试氛围下进行肉眼debug也比平常更难发现错误。这说明代码实现的熟练度还是不够，日常的训练缺少肉眼debug争取一次性通过的练习，仍然比较依赖编译器和调试过程，故这里对自己常见的失误和bug进行记录以供自我提醒。</p>
 <ol>
 <li><p>循环结束条件，忘记break，例如双指针循环条件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">while (j &lt; n) </span><br><span class="line">	if (a[i] == a[j])</span><br><span class="line">		j++;</span><br><span class="line"></span><br><span class="line">条件直接&amp;&amp;在while判断内，如果采用if形式循环内注意结束条件</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">while (j &lt; n &amp;&amp; a[i] == a[j]) &#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line">// 条件直接&amp;&amp;在while判断内, 如果采用if形式循环内注意结束条件,否则如果不落在if条件中则会死循环</span><br><span class="line">while (j &lt; n) &#123;</span><br><span class="line">	if (a[i] == a[j])</span><br><span class="line">		j++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <ol start="2">
 <li><p>for循环指针直接跳转，忘记惯写的i++</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">	int j;</span><br><span class="line">	...</span><br><span class="line">	i = j;</span><br><span class="line">&#125;</span><br><span class="line">for循环执行后i++，因此i应该等于j-1才能在下次循环从j起始</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>二分必须sorted array或至少满足区间两端划分性质，例如重建二叉树，在中序遍历中寻找根节点值的位置，可以通过预处理建立中序数组值和下标的哈希表O(1)时间查找；如果存在重复元素那只能暴力遍历搜索，因为中序数组的无序性也无法使用lower_bound。</p>
 </li>
 </ol>
 
@@ -683,7 +685,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">84k</span>
+    <span title="站点总字数">85k</span>
   
 
   
@@ -692,7 +694,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">1:16</span>
+    <span title="站点阅读时长">1:18</span>
   
 </div>
 
