@@ -4,11 +4,25 @@ date: 2020-06-08 21:14:22
 categories: Deep Learning
 ---
 
-##### 过拟合的解决方法
+### 常见面试问题
+
+##### 过拟合/欠拟合
 
 过拟合的表现：
 
+看loss
 
+train loss 不断下降，test loss不断下降，说明网络仍在学习;
+
+train loss 不断下降，test loss趋于不变，说明网络过拟合;
+
+train loss 趋于不变，test loss不断下降，说明数据集100%有问题;
+
+train loss 趋于不变，test loss趋于不变，说明学习遇到瓶颈，需要减小学习率或批量数目;
+
+train loss 不断上升，test loss不断上升，说明网络结构设计不当，训练超参数设置不当，数据集经过清洗等问题
+
+过拟合的解决方法：
 
 降低模型复杂度，例如神经网络：减少网络层、神经元个数决策树；降低树的深度、剪枝
 
@@ -182,9 +196,83 @@ target statistic
 
 采用same padding填充行数为 f - n % s
 
-参数数量：filter_size * filter_size * out_channel + out_channel(每个out_channel对应一个偏置量)
+参数数量：filter_size * filter_size * out_channel + out_channel(每个out_channel对应一个偏置量) 
 
- 
+
+
+### 字节面试复盘
+
+MLP代替点积的效果一定好？（推翻NCF的最新论文）
+
+如何证明NN能学到特征交叉？
+
+特征交叉的方式有哪些？
+
+如何设计实验证明BN对ICS有效？
+
+不同场景embedding怎么保证嵌入空间一致性？
+
+（跨场景的vid embedding的使用方式）
+
+召回离线评估
+
+如何设计多样性评价指标？
+
+召回阶段和排序阶段的样本构造差异？
+
+随机负采样和曝光未点击负采样哪种方式效果更好？
+
+TF模型的上线方式（不用tf-serving）
+
+Xgb解决分类和回归问题的差异？多分类下节点的分裂方式？
+
+线上线下不一致问题的坑有哪些？如何解决？
+
+
+
+合并k个有序链表
+
+字符串s匹配pattern串
+
+python实现lr，kmeans
+
+找到数组中第一个未出现的正整数 LC41
+
+
+
+### 百度面试复盘
+
+推荐系统的bias有哪些？
+
+bias 和时长/分发量消偏平滑间的差异
+
+Parameter Server的实现原理
+
+分布式一致性 数据并行/模型并行
+
+解释共轭分布
+
+TDM召回
+
+EE召回的abtest结果分析，baseline过低？
+
+python实现bandit算法
+
+FM 优化后复杂度O(KN) VS FM的训练复杂度？
+
+
+
+手写一个栈，以O(1)时间维护栈中最大值
+
+
+
+
+
+
+
+
+
+
 
 
 
