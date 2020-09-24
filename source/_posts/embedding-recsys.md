@@ -10,7 +10,7 @@ categories: RecSys
 
 ![image-20200525165327642](/Users/jingy/Library/Application Support/typora-user-images/image-20200525165327642.png)
 
-
+https://mp.weixin.qq.com/s/8Mx8CznNBlJ6adlwXbcHXQ
 
 embedding相当于one hot的平滑，one hot相当于embedding的max-pooling
 

@@ -1,5 +1,5 @@
 ---
-
+ 
 title: 算法模版-初级篇
 date: 2019-12-31 12:33:54
 categories: Algorithm
@@ -1458,6 +1458,24 @@ int sieve(int n) {
 	return p;
 }
 ```
+
+![image-20200903155157579](/Users/bytedance/Library/Application Support/typora-user-images/image-20200903155157579.png)
+
+```
+vector<int> primes;
+bool st[N];
+void get_primes(int n) {
+    for (int i = 2; i <= n; i ++ ) {
+        if (!st[i]) primes[cnt ++ ] = i;
+        for (int j = 0; primes[j] <= n / i; j ++ ) {
+            st[primes[j] * i] = true;
+            if (i % primes[j] == 0) break;
+        }
+    }
+}
+```
+
+
 
 
 
