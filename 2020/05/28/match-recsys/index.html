@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="Jingy&#39;s Blog">
 <meta property="og:description" content="通用召回（非个性化）全局热门召回 热门即以全局后验统计概率估计用户点击的概率 热点事件bert召回 实时爬取新闻话题并对其进行bert向量预存，使用DBSCAN进行密度聚类，每个聚类中心作为事件向量根据热度时间等计算热度值；在item的bert向量中检索相似向量召回 CB召回(content-based)属性标签召回tag、cate倒排 倒排优化： 问题：1. 点击率倒排，头部标题党；完成率倒排，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-06-30T04:03:20.805Z">
+<meta property="og:updated_time" content="2020-10-19T04:22:25.175Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="推荐系统召回算法总结">
 <meta name="twitter:description" content="通用召回（非个性化）全局热门召回 热门即以全局后验统计概率估计用户点击的概率 热点事件bert召回 实时爬取新闻话题并对其进行bert向量预存，使用DBSCAN进行密度聚类，每个聚类中心作为事件向量根据热度时间等计算热度值；在item的bert向量中检索相似向量召回 CB召回(content-based)属性标签召回tag、cate倒排 倒排优化： 问题：1. 点击率倒排，头部标题党；完成率倒排，">
@@ -403,7 +403,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 12:03:20" itemprop="dateModified" datetime="2020-06-30T12:03:20+08:00">2020-06-30</time>
+                <time title="修改时间：2020-10-19 12:22:25" itemprop="dateModified" datetime="2020-10-19T12:22:25+08:00">2020-10-19</time>
               
             
           </span>
@@ -449,7 +449,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">6.1k</span>
+                <span title="本文字数">6.2k</span>
               
 
               
@@ -529,7 +529,9 @@
 <p>用户list2list建模，利用孪生网络（适合稀疏分类问题）以用户是否为同一个用户作为label提供监督，在线召回使用bagging，不同用户间的差异化权重可以利用attention机制等学习。</p>
 <h5 id="Model-based-CF"><a href="#Model-based-CF" class="headerlink" title="Model-based CF"></a>Model-based CF</h5><p>基于MF、SVD、pLSA、LDA的CF</p>
 <h6 id="DSSM-DeepCF-MatchNet"><a href="#DSSM-DeepCF-MatchNet" class="headerlink" title="DSSM/DeepCF/MatchNet"></a>DSSM/DeepCF/MatchNet</h6><p>DSSM双塔，用户点击做正样本，全局随机采样负样本</p>
-<p>如果使用展现未点击作负样本，召回结果会偏向热门，为什么？</p>
+<p>如果使用展现未点击作负样本，召回结果会偏向热门</p>
+<p>这样采样的方式，最终的结果，就是boost 高热，也就是实际更好（假设系统没有问题）的候选，会放大预估分，实际差一些的候选，会缩小预估分，最终有一定的概率能取到最优；</p>
+<p>召回和排序阶段选取样本的差异</p>
 <p>DSSM优化</p>
 <ul>
 <li>user和item特征交叉</li>
@@ -705,7 +707,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -726,9 +728,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -814,7 +814,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -826,7 +826,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">85k</span>
+    <span title="站点总字数">86k</span>
   
 
   

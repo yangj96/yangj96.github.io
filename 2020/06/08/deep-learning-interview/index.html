@@ -96,17 +96,17 @@
 
 
 
-  <meta name="description" content="常见面试问题过拟合/欠拟合过拟合的表现： 看loss train loss 不断下降，test loss不断下降，说明网络仍在学习; train loss 不断下降，test loss趋于不变，说明网络过拟合; train loss 趋于不变，test loss不断下降，说明数据集100%有问题; train loss 趋于不变，test loss趋于不变，说明学习遇到瓶颈，需要减小学习率或批量数">
+  <meta name="description" content="常见面试问题字节面试复盘MLP代替点积的效果一定好？（推翻NCF的最新论文） 如何证明NN能学到特征交叉？ 特征交叉的方式有哪些？ 如何设计实验证明BN对ICS有效？ 不同场景embedding怎么保证嵌入空间一致性？ （跨场景的vid embedding的使用方式） 召回离线评估 如何设计多样性评价指标？ 召回阶段和排序阶段的样本构造差异？ 随机负采样和曝光未点击负采样哪种方式效果更好？ TF模">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度学习面试问题总结">
 <meta property="og:url" content="https://yangj96.github.io/2020/06/08/deep-learning-interview/index.html">
 <meta property="og:site_name" content="Jingy&#39;s Blog">
-<meta property="og:description" content="常见面试问题过拟合/欠拟合过拟合的表现： 看loss train loss 不断下降，test loss不断下降，说明网络仍在学习; train loss 不断下降，test loss趋于不变，说明网络过拟合; train loss 趋于不变，test loss不断下降，说明数据集100%有问题; train loss 趋于不变，test loss趋于不变，说明学习遇到瓶颈，需要减小学习率或批量数">
+<meta property="og:description" content="常见面试问题字节面试复盘MLP代替点积的效果一定好？（推翻NCF的最新论文） 如何证明NN能学到特征交叉？ 特征交叉的方式有哪些？ 如何设计实验证明BN对ICS有效？ 不同场景embedding怎么保证嵌入空间一致性？ （跨场景的vid embedding的使用方式） 召回离线评估 如何设计多样性评价指标？ 召回阶段和排序阶段的样本构造差异？ 随机负采样和曝光未点击负采样哪种方式效果更好？ TF模">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-07-21T02:46:16.768Z">
+<meta property="og:updated_time" content="2021-01-18T09:43:15.528Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习面试问题总结">
-<meta name="twitter:description" content="常见面试问题过拟合/欠拟合过拟合的表现： 看loss train loss 不断下降，test loss不断下降，说明网络仍在学习; train loss 不断下降，test loss趋于不变，说明网络过拟合; train loss 趋于不变，test loss不断下降，说明数据集100%有问题; train loss 趋于不变，test loss趋于不变，说明学习遇到瓶颈，需要减小学习率或批量数">
+<meta name="twitter:description" content="常见面试问题字节面试复盘MLP代替点积的效果一定好？（推翻NCF的最新论文） 如何证明NN能学到特征交叉？ 特征交叉的方式有哪些？ 如何设计实验证明BN对ICS有效？ 不同场景embedding怎么保证嵌入空间一致性？ （跨场景的vid embedding的使用方式） 召回离线评估 如何设计多样性评价指标？ 召回阶段和排序阶段的样本构造差异？ 随机负采样和曝光未点击负采样哪种方式效果更好？ TF模">
 
 
 
@@ -403,7 +403,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-07-21 10:46:16" itemprop="dateModified" datetime="2020-07-21T10:46:16+08:00">2020-07-21</time>
+                <time title="修改时间：2021-01-18 17:43:15" itemprop="dateModified" datetime="2021-01-18T17:43:15+08:00">2021-01-18</time>
               
             
           </span>
@@ -449,7 +449,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">3k</span>
+                <span title="本文字数">3.9k</span>
               
 
               
@@ -463,7 +463,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">3 分钟</span>
+                <span title="阅读时长">4 分钟</span>
               
             </div>
           
@@ -483,7 +483,97 @@
       
 
       
-        <h3 id="常见面试问题"><a href="#常见面试问题" class="headerlink" title="常见面试问题"></a>常见面试问题</h3><h5 id="过拟合-欠拟合"><a href="#过拟合-欠拟合" class="headerlink" title="过拟合/欠拟合"></a>过拟合/欠拟合</h5><p>过拟合的表现：</p>
+        <h3 id="常见面试问题"><a href="#常见面试问题" class="headerlink" title="常见面试问题"></a>常见面试问题</h3><h3 id="字节面试复盘"><a href="#字节面试复盘" class="headerlink" title="字节面试复盘"></a>字节面试复盘</h3><p>MLP代替点积的效果一定好？（推翻NCF的最新论文）</p>
+<p>如何证明NN能学到特征交叉？</p>
+<p>特征交叉的方式有哪些？</p>
+<p>如何设计实验证明BN对ICS有效？</p>
+<p>不同场景embedding怎么保证嵌入空间一致性？</p>
+<p>（跨场景的vid embedding的使用方式）</p>
+<p>召回离线评估</p>
+<p>如何设计多样性评价指标？</p>
+<p>召回阶段和排序阶段的样本构造差异？</p>
+<p>随机负采样和曝光未点击负采样哪种方式效果更好？</p>
+<p>TF模型的上线方式（不用tf-serving）</p>
+<p>Xgb解决分类和回归问题的差异？多分类下节点的分裂方式？</p>
+<p>线上线下不一致问题的坑有哪些？如何解决？</p>
+<p>合并k个有序链表</p>
+<p>字符串s匹配pattern串</p>
+<p>python实现lr，kmeans</p>
+<p>找到数组中第一个未出现的正整数 LC41</p>
+<h3 id="百度面试复盘"><a href="#百度面试复盘" class="headerlink" title="百度面试复盘"></a>百度面试复盘</h3><p>推荐系统的bias有哪些？</p>
+<p>sampling bias</p>
+<p>position bias</p>
+<p>类似于example age， 使用<strong>「这是一种非常通用的来消除机器学习系统固有偏差的方法。另外训练和在线区别对待也非常值得借鉴，一些单侧特征，训练的时候把bias影响特征加进去，在线的时候则置0」</strong>，比如美团分享的消除广告position bias（位置给广告点击带来的偏差）也是类似的做法</p>
+<p>曝光bias 马太效应</p>
+<p>bias 和时长/分发量消偏平滑间的差异</p>
+<p>Parameter Server的实现原理</p>
+<p>分布式一致性 数据并行/模型并行</p>
+<p>解释共轭分布</p>
+<p>TDM召回</p>
+<p>EE召回的abtest结果分析</p>
+<p>​    baseline过低，召回占比提升对应的vv和完成率</p>
+<p>​    冷启动类实验设计的问题，消费相同内容池，消费侧指标持平</p>
+<p>python实现bandit算法</p>
+<p>FM 优化后复杂度O(KN) VS FM的训练复杂度？</p>
+<p>​    训练复杂度也为O(KN)</p>
+<p>手写一个栈，以O(1)时间维护栈中最大值</p>
+<p>内容：</p>
+<p>模型中台，视频内容理解，强化学习，ps架构</p>
+<p>阿里面试复盘</p>
+<p>阿里妈妈</p>
+<p>x属于(0,1)均匀分布，y属于(0,1)均匀分布，max(x,y)的期望</p>
+<p>搜索推荐</p>
+<p>wide&amp;deep系列讲解</p>
+<p>multi-head attention</p>
+<p>self-attention</p>
+<p>Hard-attention</p>
+<p>Soft-attention</p>
+<p>淘宝直播</p>
+<p>一面</p>
+<p>最大子数组和 注意下标</p>
+<p>二面</p>
+<p>softmax 溢出截断， 减最大值</p>
+<p>如何融合内容侧特征</p>
+<p>rerank listwise 模型</p>
+<p>算法题 ip地址匹配</p>
+<p>数学题 100个人比99次 赢家</p>
+<p>双栏feed流和沉浸式 特征的区别</p>
+<p>三面</p>
+<ol>
+<li><p>multi-task model如何同时处理分类和回归的target</p>
+</li>
+<li><p>user embedding和其他sparse feature大小</p>
+</li>
+</ol>
+<p>相差较大，如何处理</p>
+<p>快手面试复盘</p>
+<p>用两个栈实现对队列</p>
+<p>整数按位反转</p>
+<p>按数组分段反转链表</p>
+<p>python深拷贝 浅拷贝</p>
+<p>java 重载 重写</p>
+<p>腾讯面试复盘</p>
+<p>wxg一面</p>
+<p>x服从均匀分布(0,1)，y服从均匀分布(0,1)，求max(x, y)的期望</p>
+<p>二叉树的最大路径和</p>
+<p>wxg二面</p>
+<p>一个从负数到0到正数的数组，求数组中不同的绝对值的个数</p>
+<p>建堆的过程和时间复杂度</p>
+<p>cdg一面</p>
+<p>赛马问题</p>
+<p>广告和推荐的区别</p>
+<p>cdg二面</p>
+<p>递归，括号展开</p>
+<p>京东面试复盘</p>
+<p>贝叶斯概率，真阳性的概率</p>
+<p>abtest 的结果置信度</p>
+<p>线性筛素数</p>
+<p>微软面试复盘</p>
+<p>第一场</p>
+<p>序列化二叉树并恢复</p>
+<p>第二场</p>
+<p>二维矩阵和</p>
+<h5 id="过拟合-欠拟合"><a href="#过拟合-欠拟合" class="headerlink" title="过拟合/欠拟合"></a>过拟合/欠拟合</h5><p>过拟合的表现：</p>
 <p>看loss</p>
 <p>train loss 不断下降，test loss不断下降，说明网络仍在学习;</p>
 <p>train loss 不断下降，test loss趋于不变，说明网络过拟合;</p>
@@ -562,33 +652,6 @@
 <h5 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h5><p>尺寸计算：输出维度公式 (n + 2p - f) / s + 1</p>
 <p>采用same padding填充行数为 f - n % s</p>
 <p>参数数量：filter_size <em> filter_size </em> out_channel + out_channel(每个out_channel对应一个偏置量) </p>
-<h3 id="字节面试复盘"><a href="#字节面试复盘" class="headerlink" title="字节面试复盘"></a>字节面试复盘</h3><p>MLP代替点积的效果一定好？（推翻NCF的最新论文）</p>
-<p>如何证明NN能学到特征交叉？</p>
-<p>特征交叉的方式有哪些？</p>
-<p>如何设计实验证明BN对ICS有效？</p>
-<p>不同场景embedding怎么保证嵌入空间一致性？</p>
-<p>（跨场景的vid embedding的使用方式）</p>
-<p>召回离线评估</p>
-<p>如何设计多样性评价指标？</p>
-<p>召回阶段和排序阶段的样本构造差异？</p>
-<p>随机负采样和曝光未点击负采样哪种方式效果更好？</p>
-<p>TF模型的上线方式（不用tf-serving）</p>
-<p>Xgb解决分类和回归问题的差异？多分类下节点的分裂方式？</p>
-<p>线上线下不一致问题的坑有哪些？如何解决？</p>
-<p>合并k个有序链表</p>
-<p>字符串s匹配pattern串</p>
-<p>python实现lr，kmeans</p>
-<p>找到数组中第一个未出现的正整数 LC41</p>
-<h3 id="百度面试复盘"><a href="#百度面试复盘" class="headerlink" title="百度面试复盘"></a>百度面试复盘</h3><p>推荐系统的bias有哪些？</p>
-<p>bias 和时长/分发量消偏平滑间的差异</p>
-<p>Parameter Server的实现原理</p>
-<p>分布式一致性 数据并行/模型并行</p>
-<p>解释共轭分布</p>
-<p>TDM召回</p>
-<p>EE召回的abtest结果分析，baseline过低？</p>
-<p>python实现bandit算法</p>
-<p>FM 优化后复杂度O(KN) VS FM的训练复杂度？</p>
-<p>手写一个栈，以O(1)时间维护栈中最大值</p>
 
       
     </div>
@@ -628,10 +691,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/06/09/prob/" rel="prev" title="概率类面试题目总计">
-                概率类面试题目总计 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -701,7 +760,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -722,9 +781,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -790,7 +847,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#常见面试问题"><span class="nav-number">1.</span> <span class="nav-text">常见面试问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#过拟合-欠拟合"><span class="nav-number">1.0.1.</span> <span class="nav-text">过拟合/欠拟合</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#梯度爆炸的解决方法"><span class="nav-number">1.0.2.</span> <span class="nav-text">梯度爆炸的解决方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#梯度消失"><span class="nav-number">1.0.3.</span> <span class="nav-text">梯度消失</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ReLU取代Sigmoid的优点"><span class="nav-number">1.0.4.</span> <span class="nav-text">ReLU取代Sigmoid的优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Maxout"><span class="nav-number">1.0.5.</span> <span class="nav-text">Maxout</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#正则化范数"><span class="nav-number">1.0.6.</span> <span class="nav-text">正则化范数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#BN"><span class="nav-number">1.0.7.</span> <span class="nav-text">BN</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#优化算法"><span class="nav-number">1.0.8.</span> <span class="nav-text">优化算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#随机梯度下降（SGD）的“随机”性体现"><span class="nav-number">1.0.9.</span> <span class="nav-text">随机梯度下降（SGD）的“随机”性体现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SGD改进"><span class="nav-number">1.0.10.</span> <span class="nav-text">SGD改进</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#XGB"><span class="nav-number">1.0.11.</span> <span class="nav-text">XGB</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ROC-AUC"><span class="nav-number">1.0.12.</span> <span class="nav-text">ROC AUC</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#卷积"><span class="nav-number">1.0.13.</span> <span class="nav-text">卷积</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#字节面试复盘"><span class="nav-number">2.</span> <span class="nav-text">字节面试复盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#百度面试复盘"><span class="nav-number">3.</span> <span class="nav-text">百度面试复盘</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#常见面试问题"><span class="nav-number">1.</span> <span class="nav-text">常见面试问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字节面试复盘"><span class="nav-number">2.</span> <span class="nav-text">字节面试复盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#百度面试复盘"><span class="nav-number">3.</span> <span class="nav-text">百度面试复盘</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#过拟合-欠拟合"><span class="nav-number">3.0.1.</span> <span class="nav-text">过拟合/欠拟合</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#梯度爆炸的解决方法"><span class="nav-number">3.0.2.</span> <span class="nav-text">梯度爆炸的解决方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#梯度消失"><span class="nav-number">3.0.3.</span> <span class="nav-text">梯度消失</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ReLU取代Sigmoid的优点"><span class="nav-number">3.0.4.</span> <span class="nav-text">ReLU取代Sigmoid的优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Maxout"><span class="nav-number">3.0.5.</span> <span class="nav-text">Maxout</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#正则化范数"><span class="nav-number">3.0.6.</span> <span class="nav-text">正则化范数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#BN"><span class="nav-number">3.0.7.</span> <span class="nav-text">BN</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#优化算法"><span class="nav-number">3.0.8.</span> <span class="nav-text">优化算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#随机梯度下降（SGD）的“随机”性体现"><span class="nav-number">3.0.9.</span> <span class="nav-text">随机梯度下降（SGD）的“随机”性体现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SGD改进"><span class="nav-number">3.0.10.</span> <span class="nav-text">SGD改进</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#XGB"><span class="nav-number">3.0.11.</span> <span class="nav-text">XGB</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ROC-AUC"><span class="nav-number">3.0.12.</span> <span class="nav-text">ROC AUC</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#卷积"><span class="nav-number">3.0.13.</span> <span class="nav-text">卷积</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -810,7 +867,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -822,7 +879,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">85k</span>
+    <span title="站点总字数">86k</span>
   
 
   
