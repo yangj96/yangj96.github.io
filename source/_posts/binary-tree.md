@@ -1,5 +1,5 @@
 ---
-title: Leetcode二叉树题目总结
+title: 算法
 date: 2019-10-01 12:35:21
 categories: Leetcode
 ---

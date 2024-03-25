@@ -10,31 +10,33 @@ categories: Algorithm
 1. 二分
 2. 双指针
 3. 单调栈
-4. 单调
-5. 归并排序
-6. 快速排序&快速选择
-7. 堆
-8. 双指针/尺取法
-9. 单调栈/单调队列
-10. 回溯
-11. 递归/DFS
-12. BFS
-13. 并查集
-14. 位运算
-15. 高精度
-16. 初级数论
+4. 单调队列
+5. 二叉树
+6. 归并排序
+7. 快速排序&快速选择
+8. 堆
+9. 双指针/尺取法
+10. 单调栈/单调队列
+11. 回溯
+12. 递归/DFS
+13. BFS
+14. 并查集
+15. 位运算
+16. 高精度
+17. 初级数论
+18. 二叉树
 
 #### 二分
 
 二分本质不是单调性，只需要区间针对某个性质能够分成两段，一段满足一段不满足即可。
 
-找到能够划分区间左右两半的性质，如果if (check(mid)) 条件成立，判断答案在左区间还是右区间，如果答案在**左区间并且mid也可能是答案**，按模板**1**来划分；如果答案在**右区间并且mid也可能是答案**，按模板**2**来划分。
+找到能够划分区间左右两半的性质，如果if (check(mid)) 条件成立，判断答案在左区间还是右区间，如果答案在**左区间并且mid也可能是答案**，按模板**1**来划分；如果答案在**右区间并且mid也可能是答案**，按模板**2**来划分（）。
 
 模板1mid使用下中位数，模板2使用下中位数+1，终结条件为$low==high$，注意区间左右均为闭区间
 
-1. 版本1
-   最大值最小问题，第一个>=target的元素
-   区间[l, r]被划分成[l, mid]和[mid + 1, r]时使用，其更新操作是r = mid或者l = mid + 1。计算mid时不需要加1。
+**版本1**
+最大值最小问题，第一个>=target的元素，满足check条件的区间左边界
+区间[l, r]被划分成[l, mid]和[mid + 1, r]时使用，其更新操作是r = mid或者l = mid + 1。计算mid时不需要加1。
 
 ```
 int bsearch_1(int l, int r)
@@ -51,10 +53,10 @@ int bsearch_1(int l, int r)
 }
 ```
 
-1. 版本2
-   最小值最大问题，最后一个<= target的元素
-   区间[l, r]被划分成[l, mid - 1]和[mid, r]时使用，其更新操作是r = mid - 1或者l = mid。
-   因为r更新为mid-1，如果mid仍然计算下取整，则l和r差1时大者永远取不到，会死循环，因此计算mid时需要加1。
+**版本2**
+最小值最大问题，最后一个<= target的元素，找满足check条件的区间右边界
+区间[l, r]被划分成[l, mid - 1]和[mid, r]时使用，其更新操作是r = mid - 1或者l = mid。
+因为r更新为mid-1，如果mid仍然计算下取整，则l和r差1时大者永远取不到，会死循环，因此计算mid时需要加1。
 
 ```
 int bsearch_2(int l, int r)
@@ -70,7 +72,7 @@ int bsearch_2(int l, int r)
 }
 ```
 
-浮点数二分
+**浮点数二分**
 
 注意while判断条件考虑浮点误差应为`while (r - l > eps)`
 
@@ -88,6 +90,8 @@ double bsearch_3(double l, double r)
 }
 ```
 
+**旋转数组二分**
+
 
 
 #### 双指针
@@ -98,12 +102,15 @@ double bsearch_3(double l, double r)
 
 单数组 - 满足条件的子串
 
-两数组 - 关键是确定两指针的单向移动方向 
+两数组 - 关键是确定两指针的单向移动方向：快慢指针、左右指针
 
 ```
 for (int i = 0, j = 0; i < n; i++) {
-	while(j < i && check(i, j))
+	// i在前，j在后
+	while(j < i && check(i, j)) {
+		// 具体逻辑
 		j++;
+	}
 	// 具体逻辑
 }
 ```
@@ -116,23 +123,24 @@ for (int i = 0, j = 0; i < n; i++) {
 const int N = 100010;
 int a[N], cnt[N];
 
-int main() {
-    int n;
-    cin >> n;
-    for (int i = 0; i < n ;i++) {
-        cin >> a[i];
-    }
-    int res = 0;
-    for (int i = 0, j = 0; i < n; i++) {
-        cnt[a[i]]++;
-        while(j < i && cnt[a[i]] > 1) cnt[a[j++]]--;
-        res = max(res, i - j + 1);
-    }
-    cout << res << endl;
+int res = 0;
+for (int i = 0, j = 0; i < n; i++) {
+	cnt[a[i]]++;
+	while(j < i && cnt[a[i]] > 1) {
+		cnt[a[j]]--;
+		j++;
+	}
+	res = max(res, i - j + 1);
 }
 ```
 
-##### 
+##### 最长无重复字符子串
+
+
+
+
+
+
 
 #### 单调栈
 
@@ -224,6 +232,34 @@ cout << endl;
 ##### 和最大的子数组
 
 ##### 平均数最大子数组
+
+#### 二叉树
+
+二叉树的思路：
+
+
+
+
+
+**二叉搜索树的最近公共祖先**
+
+```c++
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+    TreeNode* ancestor = root;
+    while (true) {
+        if (p->val < ancestor->val && q->val < ancestor->val) {
+            ancestor = ancestor->left;
+        }
+        else if (p->val > ancestor->val && q->val > ancestor->val) {
+            ancestor = ancestor->right;
+        }
+        else {
+            break;
+        }
+    }
+    return ancestor;
+}
+```
 
 
 
@@ -1472,10 +1508,6 @@ void get_primes(int n) {
     }
 }
 ```
-
-
-
-
 
 ##### 快速幂
 
