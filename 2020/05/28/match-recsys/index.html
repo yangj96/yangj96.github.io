@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="Jingy&#39;s Blog">
 <meta property="og:description" content="通用召回（非个性化）全局热门召回 热门即以全局后验统计概率估计用户点击的概率 热点事件bert召回 实时爬取新闻话题并对其进行bert向量预存，使用DBSCAN进行密度聚类，每个聚类中心作为事件向量根据热度时间等计算热度值；在item的bert向量中检索相似向量召回 CB召回(content-based)属性标签召回tag、cate倒排 倒排优化： 问题：1. 点击率倒排，头部标题党；完成率倒排，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-10-19T04:22:25.175Z">
+<meta property="og:updated_time" content="2021-03-30T12:50:57.332Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="推荐系统召回算法总结">
 <meta name="twitter:description" content="通用召回（非个性化）全局热门召回 热门即以全局后验统计概率估计用户点击的概率 热点事件bert召回 实时爬取新闻话题并对其进行bert向量预存，使用DBSCAN进行密度聚类，每个聚类中心作为事件向量根据热度时间等计算热度值；在item的bert向量中检索相似向量召回 CB召回(content-based)属性标签召回tag、cate倒排 倒排优化： 问题：1. 点击率倒排，头部标题党；完成率倒排，">
@@ -403,7 +403,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-10-19 12:22:25" itemprop="dateModified" datetime="2020-10-19T12:22:25+08:00">2020-10-19</time>
+                <time title="修改时间：2021-03-30 20:50:57" itemprop="dateModified" datetime="2021-03-30T20:50:57+08:00">2021-03-30</time>
               
             
           </span>
@@ -449,7 +449,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">6.2k</span>
+                <span title="本文字数">6.5k</span>
               
 
               
@@ -525,9 +525,20 @@
 <p>解决：基于共现统计的cf在分母上乘视频的分发量抵消降权；item2vec本身集成word2vec高频负采样，这和数据的整体分布相关，如果参数设置不合理，分布和参数空间不match会折损训练效果；还有完成率建模带来的时长的bias，通常需要时长调权，归一化等</p>
 <p>User-based CF</p>
 <p>用户的相似度度量</p>
+<ul>
+<li>如何加权u和u共同商品的小众属性？</li>
+</ul>
 <p>jaccard对大数据量而言计算困难-&gt;simHash</p>
 <p>用户list2list建模，利用孪生网络（适合稀疏分类问题）以用户是否为同一个用户作为label提供监督，在线召回使用bagging，不同用户间的差异化权重可以利用attention机制等学习。</p>
 <h5 id="Model-based-CF"><a href="#Model-based-CF" class="headerlink" title="Model-based CF"></a>Model-based CF</h5><p>基于MF、SVD、pLSA、LDA的CF</p>
+<p>U2U2I存在未曝光的商品，针对(u, i)矩阵中未曝光补0，然后svd分解，低秩重构仅保留主成分得到R’</p>
+<p>类似于SVD分解得到的两个稠密矩阵，将其参数初始化，根据下面优化目标进行学习：</p>
+<p>最小化dist（R， R’)</p>
+<p>使得rank（R’） &lt;= K</p>
+<p>例如，负采样的MSE loss为：$L= -\Sigma_{(u, i \in \Omega)} \frac{1}{2}(R_{iu} - R_{ui}^{‘})$</p>
+<p>用户向量和物品向量内积为1 是否等价于空间上距离的相似性？</p>
+<p>满足低秩条件下才满足！</p>
+<p>模型学习的未曝光内容的相似性和其被负采样的label相互制约，抗噪</p>
 <h6 id="DSSM-DeepCF-MatchNet"><a href="#DSSM-DeepCF-MatchNet" class="headerlink" title="DSSM/DeepCF/MatchNet"></a>DSSM/DeepCF/MatchNet</h6><p>DSSM双塔，用户点击做正样本，全局随机采样负样本</p>
 <p>如果使用展现未点击作负样本，召回结果会偏向热门</p>
 <p>这样采样的方式，最终的结果，就是boost 高热，也就是实际更好（假设系统没有问题）的候选，会放大预估分，实际差一些的候选，会缩小预估分，最终有一定的概率能取到最优；</p>
@@ -707,7 +718,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -814,7 +825,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -826,7 +837,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">86k</span>
+    <span title="站点总字数">88k</span>
   
 
   
@@ -835,7 +846,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">1:18</span>
+    <span title="站点阅读时长">1:20</span>
   
 </div>
 
