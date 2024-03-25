@@ -164,9 +164,11 @@ ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
 
 两指针一快一满，快指针以两倍速度行走，必定相遇在环内
 
-相遇点单步遍历直至回到相同位置，可得环的长度n
+下图x+y必定为环的长度的整数倍，因为2(x+y) = x + y + nlen
 
-两指针重新从头部以相同速度行走，一指针先走n步，两指针相遇位置即环的入口
+此时慢指针回到开头 两指针同时重新走x步均回到b点，即环的入口
+
+![image-20201019130354546](/Users/jingy/Library/Application Support/typora-user-images/image-20201019130354546.png)
 
 ```
     ListNode *entryNodeOfLoop(ListNode *head) {
@@ -177,8 +179,10 @@ ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
         {
             first = first->next;
             second = second->next;
-            if (second) second = second->next;
-            else return 0;
+            if (second) 
+            	second = second->next;
+            else 
+            	return NULL; //没有环
 
             if (first == second)
             {

@@ -371,4 +371,6 @@ vector<vector<int>> printFromTopToBottom(TreeNode* root) {
 
 二叉搜索树与双向链表
 
-##### 
+每次递归返回一个pair<TreeNode\*, TreeNode\*>
+
+ 
