@@ -8,23 +8,34 @@ categories: Algorithm
 ### 目录
 
 1. 二分
+
 2. 双指针
-3. 单调栈
-4. 单调队列
-5. 二叉树
-6. 归并排序
-7. 快速排序&快速选择
-8. 堆
-9. 双指针/尺取法
-10. 单调栈/单调队列
-11. 回溯
-12. 递归/DFS
-13. BFS
-14. 并查集
-15. 位运算
-16. 高精度
-17. 初级数论
-18. 二叉树
+
+3. 单调队列
+
+4. 滑动窗口
+
+5. 单调栈
+
+6. 堆/优先队列
+
+7. 快速排序/快速选择
+
+8. 归并排序
+
+9. 二叉树
+
+10. 回溯/递归/DFS/BFS
+
+11. 图
+
+12. 并查集
+
+13. 动态规划
+
+14. 贪心
+
+      
 
 #### 二分
 
@@ -35,7 +46,7 @@ categories: Algorithm
 模板1mid使用下中位数，模板2使用下中位数+1，终结条件为$low==high$，注意区间左右均为闭区间
 
 **版本1**
-最大值最小问题，第一个>=target的元素，满足check条件的区间左边界
+最大值最小问题，第一个>=target的元素，满足check条件的**区间左边界**
 区间[l, r]被划分成[l, mid]和[mid + 1, r]时使用，其更新操作是r = mid或者l = mid + 1。计算mid时不需要加1。
 
 ```
@@ -54,7 +65,7 @@ int bsearch_1(int l, int r)
 ```
 
 **版本2**
-最小值最大问题，最后一个<= target的元素，找满足check条件的区间右边界
+最小值最大问题，最后一个<= target的元素，找满足check条件的**区间右边界**
 区间[l, r]被划分成[l, mid - 1]和[mid, r]时使用，其更新操作是r = mid - 1或者l = mid。
 因为r更新为mid-1，如果mid仍然计算下取整，则l和r差1时大者永远取不到，会死循环，因此计算mid时需要加1。
 
@@ -96,17 +107,17 @@ double bsearch_3(double l, double r)
 
 #### 双指针
 
-数组有序，利用某种单调性确保 i，j两指针保持相同的移动方向
-
 常见题型：
 
-单数组 - 满足条件的子串
+左右指针：三数之和、[盛最多水的容器](https://leetcode.cn/problems/container-with-most-water/)
 
-两数组 - 关键是确定两指针的单向移动方向：快慢指针、左右指针
+快慢指针：利用某种单调性确保 i，j两指针保持相同的移动方向
+
+原地移除数据元素、求满足条件的子串
 
 ```
 for (int i = 0, j = 0; i < n; i++) {
-	// i在前，j在后
+	// j在左，i在右
 	while(j < i && check(i, j)) {
 		// 具体逻辑
 		j++;
@@ -134,11 +145,63 @@ for (int i = 0, j = 0; i < n; i++) {
 }
 ```
 
-##### 最长无重复字符子串
+#### 单调队列
+
+```
+int hh = 0, tt = -1;
+for (int i = 0; i < n; i++) {
+	// 队头滑出
+	while(hh <= tt && check_out(hh, i)) hh++;
+	// 队尾保持单调性
+	while(hh <= tt && check(tt, i)) tt--;
+	q[++tt] = i; //注意区分队列中存放下标还是元素值
+}
+```
+
+##### 滑动窗口的最小值
+
+```
+int hh = 0, tt = -1;
+for (int i = 0; i < n; i++) {
+    // 下标间隔判断不是队列本身，而是队头和当前元素i的下标距离
+    while(hh <= tt && i - q[hh] + 1 > k) hh++;
+    while(hh <= tt && a[q[tt]] >= a[i]) tt--;
+    q[ ++ tt] = i;
+    if (i >= k - 1)
+    	cout << a[q[hh]] << " ";
+}
+cout << endl;
+```
+
+#### 滑动窗口
+
+```
+int left = 0, right = 0;
+
+while (left < right && right < nums.size()) {
+    // 增大窗口
+    window.add(nums[right]);
+    right++;
+    
+    while (window needs shrink) {
+        // 缩小窗口
+        window.remove(nums[left]);
+        left++;
+    }
+}
+```
+
+##### 最小覆盖子串
+
+##### 找到字符串中所有给定子串的字母异位子串
 
 
 
+##### 和为k的子数组
 
+注意这道题如果数组存在负数，右指针右移，左指针不满足右移的单调性，
+
+##### 平均数最大且长度为k的子数组
 
 
 
@@ -191,224 +254,6 @@ def largestRectangleArea(self, heights) -> int:
             res = max(res, (i - stack[-1] - 1) * heights[cur])
         stack.append(i)
     return res
-```
-
-#### 单调队列
-
-```
-int hh = 0, tt = -1;
-for (int i = 0; i < n; i++) {
-	// 队头滑出
-	while(hh <= tt && check_out(hh, i)) hh++;
-	// 队尾保持单调性
-	while(hh <= tt && check(tt, i)) tt--;
-	q[++tt] = i; //注意区分队列中存放下标还是元素值
-}
-```
-
-##### 滑动窗口的最小值
-
-```
-int hh = 0, tt = -1;
-for (int i = 0; i < n; i++) {
-    // 下标间隔判断不是队列本身，而是队头和当前元素i的下标距离
-    while(hh <= tt && i - q[hh] + 1 > k) hh++;
-    while(hh <= tt && a[q[tt]] >= a[i]) tt--;
-    q[ ++ tt] = i;
-    if (i >= k - 1)
-    	cout << a[q[hh]] << " ";
-}
-cout << endl;
-```
-
-##### 最小覆盖子串
-
-两个哈希表分别记录被覆盖子串的各字符出现次数和当前窗口各字符出现的次数
-
-滑动窗口right指针右移至所有字符被覆盖，然后left指针右移至满足条件最大值，直至right移动到末尾
-
-##### 找到字符串中所有给定子串的字母异位子串
-
-##### 和最大的子数组
-
-##### 平均数最大子数组
-
-#### 二叉树
-
-二叉树的思路：
-
-
-
-
-
-**二叉搜索树的最近公共祖先**
-
-```c++
-TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-    TreeNode* ancestor = root;
-    while (true) {
-        if (p->val < ancestor->val && q->val < ancestor->val) {
-            ancestor = ancestor->left;
-        }
-        else if (p->val > ancestor->val && q->val > ancestor->val) {
-            ancestor = ancestor->right;
-        }
-        else {
-            break;
-        }
-    }
-    return ancestor;
-}
-```
-
-
-
-#### 归并排序
-
-数组归并排序
-
-注意合并时所需额外空间的处理 `	vector<int> tmp(r - l + 1);`
-
-```
-void mergeSort(vector<int>& a, int l, int r) {
-	if (l >= r) return;
-	int mid = l + r >> 1;
-	mergeSort(a, l, mid);
-	mergeSort(a, mid + 1, r);
-	
-	vector<int> tmp(r - l + 1);
-	int k = 0, i = l, j = mid + 1;
-	while (i <= mid && j <= r) {
-		if (a[i] <= a[j]) tmp[k++] = a[i++];
-		else tmp[k++] = a[j++];
-	}
-	while(i <= mid) tmp[k++] = a[i++];
-	while(j <= r) tmp[k++] = a[j++];
-	for (int i = l, j = 0; i <= r; i++, j++) a[i] = tmp[j];
-}
-```
-
-##### 合并两个有序链表
-
-```
-struct ListNode {
-	int val;
-	ListNode* next;
-};
-
-ListNode* mergeList(ListNode* l1, ListNode* l2) {
-	ListNode* dummy = new ListNode(-1);
-	ListNode* cur = dummy;
-	while(l1 && l2) {
-		if (l1->val <= l2->val) {
-			cur->next = l1;
-			l1 = l1->next;
-			cur = cur->next;
-		} else {
-			cur->next = l2;
-			l2 = l2->next;
-			cur = cur->next;
-		}
-	}
-	while(l1) {
-		cur->next = l1;
-        l1 = l1->next;
-        cur = cur->next;
-	}
-	while(l2) {
-		cur->next = l2;
-        l2 = l2->next;
-        cur = cur->next;
-	}
-	return dummy->next;
-}
-```
-
-##### 链表归并排序
-
-快慢指针寻找链表中点
-
-##### 逆序对的数量
-
-分治：构成逆序对的两个数同在分治后的左侧区间或右侧区间，或者分别位于左右两个区间需要在归并时计算
-
-归并计算逆序对：对右侧区间的每个数计算左侧区间中大于它的数的个数，最后全部求和
-
-```C++
-long long mergeSort(int l, int r) {
-    if (l >= r) return 0;
-    int mid = l + r >> 1;
-    long long res = mergeSort(l, mid) + mergeSort(mid + 1, r);
-    int k = 0, i = l, j = mid + 1;
-  	vector<int> tmp(r - l + 1);
-    while (i <= mid && j <= r) {
-        if (a[i] <= a[j])
-            tmp[k++] = a[i++];
-        else {
-            res += mid - i + 1;
-            tmp[k++] = a[j++];
-        }
-    }
-    while(i <= mid) 
-        tmp[k++] = a[i++];
-    while(j <= r) 
-        tmp[k++] = a[j++];
-
-    for (int i = l, j = 0; i <= r; i++, j++) 
-        a[i] = tmp[j];
-
-    return res;
-}
-```
-
-
-
-##### 合并k个有序链表
-
-	分治或最小堆
-
-##### 
-
-#### 快速排序&快速选择
-
-快速排序 $O(nlgn)$
-
-```
-void qSort(int q[], int l, int r)
-{
-    if (l >= r) return;
-	// x选择q[l]或下中位数，递归子区间选[l, j], [j + 1, r]
-    int i = l - 1, j = r + 1, x = q[l + r >> 1];
-    while (i < j)
-    {
-        do i ++ ; while (q[i] < x);
-        do j -- ; while (q[j] > x);
-        if (i < j) swap(q[i], q[j]);
-    }
-    qSort(q, l, j), qSort(q, j + 1, r);
-}
-```
-
-快速选择$O(n)$
-
-```
-int qSelect(vector<int>& a, int l, int r, int k) {
-    if (l == r) 
-        return a[l];
-    int x = a[l], i = l - 1, j = r + 1;
-    while (i < j) {
-        while(a[++ i] < x);
-        while(a[-- j] > x);
-        if (i < j) {
-            swap(a[i], a[j]);
-        }
-    }
-    int cnt = j - l + 1;
-    if (cnt >= k)
-        return qSelect(a, l, j, k);
-    else
-        return qSelect(a, j + 1, r, k - cnt);
-}
 ```
 
 #### 堆
@@ -567,6 +412,182 @@ void insert(int num){
 double getMedian(){
     if (maxHeap.size() + minHeap.size() & 1) return maxHeap.top();
     else return (maxHeap.top() + minHeap.top()) / 2.0; 
+}
+```
+
+#### 快速排序/快速选择
+
+快速排序 $O(nlgn)$
+
+```
+void qSort(int q[], int l, int r)
+{
+    if (l >= r) return;
+	// x选择q[l]或下中位数，递归子区间选[l, j], [j + 1, r]
+    int i = l - 1, j = r + 1, x = q[l + r >> 1];
+    while (i < j)
+    {
+        do i ++ ; while (q[i] < x);
+        do j -- ; while (q[j] > x);
+        if (i < j) swap(q[i], q[j]);
+    }
+    qSort(q, l, j), qSort(q, j + 1, r);
+}
+```
+
+快速选择$O(n)$
+
+```
+int qSelect(vector<int>& a, int l, int r, int k) {
+    if (l == r) 
+        return a[l];
+    int x = a[l], i = l - 1, j = r + 1;
+    while (i < j) {
+        while(a[++ i] < x);
+        while(a[-- j] > x);
+        if (i < j) {
+            swap(a[i], a[j]);
+        }
+    }
+    int cnt = j - l + 1;
+    if (cnt >= k)
+        return qSelect(a, l, j, k);
+    else
+        return qSelect(a, j + 1, r, k - cnt);
+}
+```
+
+#### 归并排序
+
+数组归并排序
+
+注意合并时所需额外空间的处理 `	vector<int> tmp(r - l + 1);`
+
+```
+void mergeSort(vector<int>& a, int l, int r) {
+	if (l >= r) return;
+	int mid = l + r >> 1;
+	mergeSort(a, l, mid);
+	mergeSort(a, mid + 1, r);
+	
+	vector<int> tmp(r - l + 1);
+	int k = 0, i = l, j = mid + 1;
+	while (i <= mid && j <= r) {
+		if (a[i] <= a[j]) tmp[k++] = a[i++];
+		else tmp[k++] = a[j++];
+	}
+	while(i <= mid) tmp[k++] = a[i++];
+	while(j <= r) tmp[k++] = a[j++];
+	for (int i = l, j = 0; i <= r; i++, j++) a[i] = tmp[j];
+}
+```
+
+##### 合并两个有序链表
+
+```
+struct ListNode {
+	int val;
+	ListNode* next;
+};
+
+ListNode* mergeList(ListNode* l1, ListNode* l2) {
+	ListNode* dummy = new ListNode(-1);
+	ListNode* cur = dummy;
+	while(l1 && l2) {
+		if (l1->val <= l2->val) {
+			cur->next = l1;
+			l1 = l1->next;
+			cur = cur->next;
+		} else {
+			cur->next = l2;
+			l2 = l2->next;
+			cur = cur->next;
+		}
+	}
+	while(l1) {
+		cur->next = l1;
+        l1 = l1->next;
+        cur = cur->next;
+	}
+	while(l2) {
+		cur->next = l2;
+        l2 = l2->next;
+        cur = cur->next;
+	}
+	return dummy->next;
+}
+```
+
+##### 链表归并排序
+
+快慢指针寻找链表中点
+
+##### 逆序对的数量
+
+分治：构成逆序对的两个数同在分治后的左侧区间或右侧区间，或者分别位于左右两个区间需要在归并时计算
+
+归并计算逆序对：对右侧区间的每个数计算左侧区间中大于它的数的个数，最后全部求和
+
+```C++
+long long mergeSort(int l, int r) {
+    if (l >= r) return 0;
+    int mid = l + r >> 1;
+    long long res = mergeSort(l, mid) + mergeSort(mid + 1, r);
+    int k = 0, i = l, j = mid + 1;
+  	vector<int> tmp(r - l + 1);
+    while (i <= mid && j <= r) {
+        if (a[i] <= a[j])
+            tmp[k++] = a[i++];
+        else {
+            res += mid - i + 1;
+            tmp[k++] = a[j++];
+        }
+    }
+    while(i <= mid) 
+        tmp[k++] = a[i++];
+    while(j <= r) 
+        tmp[k++] = a[j++];
+
+    for (int i = l, j = 0; i <= r; i++, j++) 
+        a[i] = tmp[j];
+
+    return res;
+}
+```
+
+
+
+##### 合并k个有序链表
+
+	分治或最小堆
+
+#####
+
+#### 二叉树
+
+二叉树的思路：
+
+
+
+
+
+**二叉搜索树的最近公共祖先**
+
+```c++
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+    TreeNode* ancestor = root;
+    while (true) {
+        if (p->val < ancestor->val && q->val < ancestor->val) {
+            ancestor = ancestor->left;
+        }
+        else if (p->val > ancestor->val && q->val > ancestor->val) {
+            ancestor = ancestor->right;
+        }
+        else {
+            break;
+        }
+    }
+    return ancestor;
 }
 ```
 
@@ -851,6 +872,40 @@ int getMaximumGold(vector<vector<int>>& grid) {
 
 空间复杂度 $O(最大递归深度)$
 
+
+
+#### 图
+
+**图的表示：**
+
+邻接矩阵
+`int G [maxv][maxv] `或` <vector<vector<int> > G`
+
+邻接表
+`vector<int> G[maxv]`
+
+邻接表边带权：
+
+`struct edge {
+  int to;
+  int cost;
+}`
+`vector<edge> G[maxv]`
+
+``` 
+//读入
+cin >> V >> E;
+for (int i = 0; i < E; i++) {
+	int s, t;
+	cin >> s >> t;
+	G[s].push_back(G[t]);
+	//无向图
+	G[t].push_back(G[s]);
+}
+```
+
+
+
 #### BFS
 
 时间复杂度 $O(状态数*转移方式)$
@@ -944,8 +999,6 @@ void bfs(int sx,int sy)
     }
 }
 ```
-
-
 
 ##### 最小步数模型
 
@@ -1097,22 +1150,6 @@ int main() {
 }
 ```
 
-##### 多源BFS
-
-矩阵各点到多个候选起点的最短距离
-
-可假设一虚拟源点，将其与多个起点分别相连，则转换为单源BFS的最短距离，实际实现时只需要将多个起点在第一轮都加入队列即可
-
-##### 双端队列BFS
-
-适用于不同边权的情况
-
-##### BFS优化
-
-双向广搜
-
-A*
-
 #### 并查集
 
 静态连通性问题使用BFS/DFS，动态连通性问题使用并查集
@@ -1178,360 +1215,467 @@ POJ1182 食物链
 
 
 
+#### 动态规划
 
+1. 状态表示
 
-#### 位运算
+f(i, j) 表示集合[i, j]的某一属性，例如集合中的最大值、最小值或数量
 
-##### 取最靠右的一位1
+2. 状态计算
 
-```
-int lowbit(int x) {
-	return x & -x;
-}
-```
+根据集合的划分计算
 
-##### 二进制中1的个数
+时间复杂度：状态数目 * 状态转移方式
 
-```
-while(x) {
-	x -= lowbit(x);
-	res++;
-}
-```
+空间复杂度：子问题的个数
 
-##### 获取/设置右起第k位数
+##### 背包问题
 
-```
-// 获取第k位
-n >> k & 1
-// 设置第k位为1
-n | 1 << k
-```
+N个物品，体积为V的背包，每类物品体积为$v_i$，价值权重为$w_i$，求满足体积限制的背包的最大价值
 
+###### 01背包
 
+每类物品只能用一次
 
-#### 高精度
-
-##### 高精度加法
-
-数据范围为数字位数而非数字本身，使用string读入，vector逆序存储便于进位
+状态f(i, j) 表示从前i类物品中选，所选物品体积小于j的所有选法的集合中 价值最大选法的价值
 
 ```
-vector<int> add(vector<int> &a, vector<int> &b) {
-    if (a.size() < b.size())    
-        return add(b, a);
-    int t = 0;
-    vector<int> c;
-    for (int i = 0; i < a.size(); i++) {
-        t += a[i];
-        if (i < b.size()) t += b[i];
-        c.push_back(t % 10);
-        t /= 10;
+f[0][0-V] = 0
+for (int i = 1; i <= n; i++) 
+	for (int j = 0; j <= m; j++) {
+		f[i][j] = f[i-1][j];
+		if (j >= v[i]) f[i][j] = max(f[i][j], f[i - 1][j - v[i]] + w[i]);
+	}
+
+// 滚动数组优化，因为f中i只用到i-1且j只用到左侧j和j-v[i]，因此可用一维数组从大到小滚动优化
+f[0][0-V] = 0
+for (int i = 1; i <= n; i++) 
+	for (int j = m; j >= v[i]; j--) {
+		f[j] = max(f[j], f[j - v[i]] + w[i]);
+	}
+```
+
+###### 完全背包
+
+每类物品可以使用无限次，与01背包的区别主要在于集合的划分变为$f[i, j] = f[i-1, j-v[i]*k] + k*w[i]$
+
+![image](https://tva1.sinaimg.cn/large/0082zybply1gc2qahne9fj31760a0agz.jpg)
+
+因此完全背包的状态计算可以优化为$f[i, j] = max(f[i-1, j], f[i, j-v[i]] + w[i])$，优化后可以使用滚动数组进一步简化为一维，和01背包只有j的计算顺序不同
+
+
+
+###### 多重背包
+
+每类物品有$s_i$个，与完全背包状态划分计算相同，只不过k由$s[i]$约束.
+
+多重背包的优化 
+
+- 二进制拆分优化 
+
+  由 $O(NS)$优化至$O(N\lg S)$
+
+###### 分组背包
+
+每组物品只能选一个，状态f(i, j)的划分根据第i组物品选第k个来拆分计算
+
+```
+// f[i][j] = max(f[i-1][j], f[i-1][j - v[i][k]] + w[i][k])k
+```
+
+
+
+##### 计数DP
+
+方案数类初始化通常为f[0] = 1，因为空集也可以看作一种划分方案
+
+###### 整数划分方案数
+
+求1到n中任意个数之和为x的方案数
+
+1. 转换为完全背包问题，状态f(i, j)表示为从1-i个数中选择（每个数可选无数次）使得和恰好为j的方案数
+
+状态计算`f[i][j] = f[i-1][j] + f[i-1, j-i] + f[i-1][j-2*i] +... `
+
+`f[i][j] = f[i - 1][j] + f[i, j - i]`
+
+2. 状态f(i, j)表示所有总和为i恰好表示为j个数之和的方案数，状态计算根据j个数的最小值是否为1划分，对于最小值为1的情况，可以由去掉1的状态f(i - 1, j - 1)转移而来；对于最小值大于1的情况，可以由每个数减去1的状态f(i - j, j)转移而来
+
+`f[i][j] = f[i-1, j-1] + f[i - j][j]`
+
+
+
+##### 线性DP
+
+递推顺序是线性序列
+
+###### 数字三角形
+
+状态f(i, j) 表示从起点走到(i, j)的所有路径的集合
+
+注意 i 表示水平方向，j表示左下倾斜方向，初始化时需要注意`f[i][j+1]`右哨兵也会被用到
+
+ ```
+// f[i][j] = max(f[i-1][j-1], f[i-1][j]) + a[i][j]
+ ```
+
+###### 最长上升子序列
+
+状态f(i) 表示以i结尾的所有上升子序列的集合
+
+状态划分根据上一个数位置分类
+
+```
+f[i] = max(f[j] + 1), j = 0, 1, 2,...,i-1 && a[j] < a[i]
+```
+
+// TODO  优化
+
+状态f(i)表示长度为i+1的上升子序列中末尾元素的最小值
+
+由$O(n^2)$优化为$O(n\lg n)$
+
+
+
+###### 最长公共子序列
+
+f(i, j) 表示s1[1..i]和s2[1..j]的所有公共子序列
+
+状态划分根据s1[i]和s2[j]是否包含在子序列中分为四类：
+
+```
+f[i, j] = max(f[i-1][j], f[i][j-1], f[i-1][j-1] + 1, f[i-1][j-1]);
+```
+
+###### 编辑距离
+
+注意编辑距离的初始化
+
+```
+for (int i = 0; i <= p; i++) f[i][0] = i;
+for (int j = 0; j <= q; j++) f[0][j] = j;
+for (int i = 1; i <= p; i++) 
+    for (int j = 1; j <= q; j++) {
+        f[i][j] = min(f[i-1][j], f[i][j-1]) + 1;
+        if (s1[i-1] == s2[j-1]) 
+            f[i][j] = min(f[i][j], f[i-1][j-1]);
+        else 
+            f[i][j] = min(f[i][j], f[i-1][j-1] + 1);
     }
-    if (t) c.push_back(t);
-    return c;
+```
+
+
+
+##### 区间DP
+
+状态表示某区间，递推通常先循环区间长度，再循环区间左起点
+
+###### 石子合并
+
+状态f(i, j)表示将第 i 堆到第 j 堆合并的所有合并方式中代价的最小值，因此每个区间的状态初始化为正无穷
+
+状态划分根据最后一次合并的分界线的位置分类
+
+```
+for (int len = 2; len <= n; len++) 
+    for (int i = 1; i + len - 1 <= n; i++) {
+        int l = i, r = i + len - 1;
+        f[l][r] = 2e8;
+        for (int k = l; k < r; k++) {
+            int t = f[l][k] + f[k+1][r] + a[r] - a[l-1];
+            f[l][r] = min(f[l][r], t);
+        }
+    }
+```
+
+###### 能量项链
+
+###### 凸多边形的划分方案
+
+状态划分：根据[L, R]边所属的三角形的另一个顶点位置来划分
+
+```
+for (int len = 3; len <= n + 1; len ++ )
+        for (int l = 1; l + len - 1 <= n * 2; l ++ )
+        {
+            int r = l + len - 1;
+            for (int k = l + 1; k < r; k ++ )
+                f[l][r] = max(f[l][r], f[l][k] + f[k][r] + w[l] * w[k] * w[r]);
+        }
+```
+
+
+
+##### 数位DP
+
+数位DP通常用于解决两个整数a，b之间存在多少满足某个条件的数（且条件与数字每一位有关）的问题。
+假设给定数x，包含n位，表示为$t_nt_{n-1}...t_1$，那么当我们求解n位数字$t_nt_{n-1}...t_1$的状态所对应的答案时就需重复计算n-1位数字$t_{n-1}t_{n-2}...t_1$的状态所对应的答案，因此具有重复子问题。
+考虑DP状态为dp(idx, tight, sum)
+
+
+
+###### 计数问题
+
+给定两个整数 a 和 b，求 a 和 b 之间的所有数字中x的出现次数，x属于0到9
+
+count(int n, int x) 假设一个数为abcdefg，对1 <= pppxqqq <= abcdefg分类讨论：
+
+- 如果ppp = 000 到 abc-1:
+  - 如果x不为0, qqq可以取000到999, cnt = abc * 1000
+  - 如果x为0, qqq可以取000到999, 但由于x为0,ppp不能为0只能从001到abc-1, cnt = (abc-1)* 1000
+
+- 如果ppp = abc :
+  - d < x, cnt = 0
+  - d = x, qqq可以取000到efg, cnt = efg + 1
+  - d > x, qqq可以取000到999, cnt = 1000
+
+```
+int getNum(vector<int> &nums, int l, int r) {
+    int res = 0;
+    for (int i = l; i >= r; i--) {
+        res = res * 10 + nums[i];
+    }
+    return res;
+}
+
+int power10(int x) {
+    int res = 1;
+    while (x--) {
+        res *= 10;
+    }
+    return res;
+}
+
+int count (int n, int x) {
+    if (!n) return 0;
+    vector<int> nums;
+    do {
+        nums.push_back(n % 10);
+        n /= 10;
+    } while(n);
+    n = nums.size();
+    int res = 0;
+    for (int i = n - 1 - !x; i >= 0; i--) {
+        if (i < n - 1) {
+            res += getNum(nums, n-1, i+1) * power10(i);
+            if (!x) res -= power10(i);
+        }
+        if (nums[i] > x) res += power10(i);
+        if (nums[i] == x) res += getNum(nums, i-1, 0) + 1;
+    }
+    return res;
 }
 
 int main() {
-    string a, b;
-    cin >> a >> b;
-    vector<int> A;
-    vector<int> B;
-    for (int i = a.size() - 1; i >= 0; i--) A.push_back(a[i] - '0');
-    for (int i = b.size() - 1; i >= 0; i--) B.push_back(b[i] - '0');
-
-    vector<int> C = add(A, B);
-    reverse(C.begin(), C.end());
-    for (int i = 0; i < C.size(); i++) {
-        cout << C[i];
+    int a, b;
+    while (cin >> a >> b && (a || b)) {
+        if (a > b) swap(a, b);
+        for (int i = 0; i < 10; i++) {
+            cout << count(b, i) - count(a-1, i) << " ";
+        }
+        cout << endl;
     }
-    cout << endl;
 }
 ```
 
 
 
-##### 高精度减法
+##### 状态DP
 
-负号的判定 `cmp函数：依次判断长度和各个位置的数`
+状态DP的初始化通常将不合法状态的f值初始化为正无穷或负无穷
 
-减法进位的处理
+###### 不能打劫相邻位置的偷盗最大值
 
-```
-c.push_back((t + 10) % 10);
-if (t < 0) t = 1;
-else t = 0;
-```
+状态`f[i]`表示打劫第i家的最大值
 
-先导0的去除，注意最后结果是0要保留一位0
+`f[i] = max(f[i-1], f[i-2] + a[i])`
 
-`while(c.size() > 1 && c.back() == 0) c.pop_back();`
+
+
+状态`f[i]`拆分为两个状态，`f[i][0]`表示打劫至第i家且不选当前位置，`f[i][1]`表示打劫至第i家且选当前位置，状态机的边表示从当前i转移到i+1的路径
 
 ```
-bool cmp(vector<int> & a, vector<int> & b) {
-    if (a.size() != b.size()) 
-        return a.size() > b.size();
-    for (int i = a.size() - 1; i >= 0; i--) {
-        if (a[i] != b[i])
-            return a[i] > b[i];
+const int N = 100001;
+int a[N], f[N][2];
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n; 
+        for (int i = 0; i < n; i++) {
+            cin >> a[i];
+        }
+        f[0][0] = 0;
+        f[0][1] = a[0];
+        for (int i = 1; i < n; i++) {
+            f[i][0] = max(f[i-1][1], f[i-1][0]);
+            f[i][1] = f[i-1][0] + a[i];
+        }
+        cout << max(f[n-1][0], f[n-1][1]) << endl;
     }
+}
+```
+
+
+
+###### 股票买卖
+
+只能买卖一次 记录最小值和最大差值
+
+无限次买卖 贪心交易所有上涨交易
+
+
+
+最多进行k次交易
+
+手中持有股票状态为1，未持有股票状态为0
+
+f[i, j, 0]表示前i天已经进行j次交易且当前无股票
+
+f[i, j, 1]表示前i天正在进行j次交易且当前有股票
+
+![image-20200317113704313](https://tva1.sinaimg.cn/large/00831rSTgy1gcwrtqmbcjj30g2078wgm.jpg)
+
+
+
+
+
+
+
+含一天冷冻期
+
+f[i, 0]表示前i天且当前有股票
+
+f[i, 1]表示前i天且当前在冷冻期
+
+f[i, 2]表示前i天且当前无股票且不在冷冻期
+
+![image-20200317114017754](/Users/jingy/Library/Application Support/typora-user-images/image-20200317114017754.png)
+
+`f[i][0] = max(f[i-1][0], f[i-1][2] - w[i])`
+
+`f[i][1] = f[i-1][0] + w[i]`
+
+`f[i][2] = max(f[i-1][1], f[i-1][2])`
+
+##### 状态压缩DP
+
+状态表示中的某一下标表示的是由状压state表示的集合
+
+###### 集合类 - 最短Hamilton路径
+
+状态f(i, j)表示从0走到j，走过的点的集合是i的二进制表示的所有路径的集合的路径长度的最小值
+
+状态计算根据上一点的位置是0, 1,..., n-1划分
+
+`f[i][j] = min(f[i - {j}][k] + a[k][j]), k = 0, 1, 2,...,n-1`
+
+```
+const int N = 20, M = 1 << N;
+int a[N][N], f[M][N];
+
+int main() {
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; i++) 
+        for (int j = 0; j < n; j++) 
+            cin >> a[i][j];
+
+    memset(f, 0x3f, sizeof f);
+    f[1][0] = 0;
+    // f[i][j] 表示走过的点集合为i，走到点j的所有路径
+    // 根据上一点k的不同取法划分计算 f[i][j] = f[i - {j}][k] + a[k][j]
+    for (int i = 0; i < (1 << n); i++)
+        for (int j = 0; j < n; j++) 
+            // 注意判断状态的合法性
+            if (i >> j & 1) {
+                for (int k = 0; k < n; k++) 
+                    if (i >> k & 1) {
+                        f[i][j] = min(f[i][j], f[i - (1 << j)][k] + a[k][j]); 
+                    }
+            }
+    cout << f[(1 << n) - 1][n-1] << endl;
+}
+```
+
+
+
+###### 棋盘类 - 骨牌的完美覆盖
+
+状态f(i, j)表示第i列第j个状态，j状态位等于1表示上一列有横放格子，本列有格子捅出来
+
+```
+const int N = 12, M = 1 << 12;
+long long f[N][M];
+bool st[M];
+
+bool check(int j, int k, int n) {
+    int x = j | k;
+    int cnt = 0;
+    // 下面做法错误，因为没有考虑二进制状态表示中前导0为奇数个的情况
+    // do {
+    //     if (x % 2 == 0) cnt ++;
+    //     else {
+    //         if (cnt & 1) return false;
+    //         cnt = 0;
+    //     }
+    //     x /= 2;
+    // } while(x);
+    // if (cnt & 1) return false;
+    for (int i = 0; i < n; i++) {
+        if (x >> i & 1) {
+            if (cnt & 1) return false;
+            cnt = 0;
+        } else cnt ++;
+    }
+    if (cnt & 1) return false;
     return true;
 }
 
-vector<int> sub(vector<int> &a, vector<int> &b) {
-    int t = 0;
-    vector<int> c;
-    for (int i = 0; i < a.size(); i++) {
-        t = a[i] - t;
-        if (i < b.size()) t -= b[i];
-        c.push_back((t + 10) % 10);
-        if (t < 0) t = 1;
-        else t = 0;
-    }
-    while(c.size() > 1 && c.back() == 0) c.pop_back();
-    return c;
-}
-
 int main() {
-    string a, b;
-    cin >> a >> b;
-    vector<int> A;
-    vector<int> B;
-    vector<int> C;
-    for (int i = a.size() - 1; i >= 0; i--) {
-        A.push_back(a[i] - '0');
-    }
-    for (int i = b.size() - 1; i >= 0; i--) {
-        B.push_back(b[i] - '0');
-    }
-    if (cmp(A, B)) C = sub(A, B);
-    else {
-        C = sub(B, A);
-        cout << "-";
-    }
-    for (int i = C.size() - 1; i >= 0; i--) {
-        cout << C[i];
-    }
-    cout << endl;
-}
-```
-
-##### 高精度乘法
-
-高精度乘整数
-
-```
-vector<int> mul(vector<int> &a, int b) {
-    vector<int> c;
-    int t = 0;
-    for (int i = 0; i < a.size() || t; i++) {
-        if (i < a.size()) t += a[i] * b;
-        c.push_back(t % 10);
-        t /= 10;
-    }
-    return c;
-}
-```
-
-高精度乘高精度
-
-```
-vector<int> mul(vector<int> &a, vector<int> &b) {
-    vector<int> res(alen + blen, 0);
-    // i*j存放i+j
-    for (int i = 0; i < alen; i++) {
-        for (int j = 0; j < blen; j++) {
-  	          res[i + j] += a[i] * b[j];
+    int n, m;
+    while (cin >> n >> m && n || m) {
+        memset(f, 0, sizeof f);
+        f[0][0] = 1;
+        
+        for (int j = 0; j < (1 << n); j++) {
+            int cnt = 0;
+            st[j] = true;
+            for (int i = 0; i < n; i++) {
+                if (j >> i & 1) {
+                    if (cnt & 1) { 
+                        st[j]=false; 
+                        break;
+                    }
+                    cnt = 0;
+                } else cnt ++;
+            }
+            if (cnt & 1) st[j] = false;
         }
-    }
-    int t = 0;
-    for (int i = 0; i < (int)res.size(); i++) {
-	      t += res[i];
-	      res[i] = t % BASE;
-	      t /= BASE;
-    }
-    while (res.size() > 1 && res.back() == 0) {
-        res.pop_back();
-    }
-}
-```
-
-##### 高精度除法
-
-高精度除整数
-
-```
-vector<int> div(vector<int> &a, int b, int &r) {
-    vector<int> c;
-    r = 0;
-    for (int i = a.size() - 1; i >= 0; i--) {
-        r = r * 10 + a[i];
-        c.push_back(r / b);
-        r %= b;
-    }
-    reverse(c.begin(), c.end());
-    while(c.size() > 1 && c.back() == 0) c.pop_back();
-    return c;
-}
-```
-
-
-
-#### 初级数论
-
-##### 辗转相除法 
-
-###### 最大公约数  
-
-时间复杂度 $O(\lg max(a,b))$
-
-```
-int gcd(int a, int b) {
-	return b ? gcd(b, a % b) : a;
-}
-```
-
-###### 最大公倍数
-
-```
-int lcm(int a, int b) {
-	return a * b / gcd(a, b);
-}
-```
-
-###### 扩展欧几里得算法
-
-求x, y整数，使得ax + by = gcd(a, b)，时间复杂度 $O(\lg  max(a,b))$
-
->裴蜀定理
->有任意正整数a, b，gcd（a，b）= d，那么对于任意的整数x，y，ax+by都一定是d的倍数，特别地，一定存在整数x，y，使ax+by=d成立。
->推论
->a,b互素的充要条件是存在整数x，y使ax+by=1
-
-```
-int exgcd(int a, int b, int &x, int &y) {
-	if (!b) {
-		x = 1, y = 0;
-		return a;
-	}
-	int d = exgcd(b, a % b, y, x);
-	y -= a / b * x;
-	return d;
-}
-```
-
-
-
-##### 素数
-
-###### 素数判定 / 试除法
-
-试除法实现素数判定、约数枚举、整数分解的时间复杂度均为 $O(\sqrt n)$
-
-```
-bool isPrime(int x) {
-	if (x < 2) return false;
-	for (int i = 2; i <= x / i; i++) {
-		if (x % i == 0) return false;
-	}
-	return true;
-}
-```
-
-约数枚举
-
-```
-vector<int> divisor(int x) {
-	vector<int> res;
-	for (int i = 2; i <= x / i; i++) {
-		if (x % i == 0) {
-			res.push_back(i);
-			if (i != x / i) res.push_back(x / i);
-		}
-	}
-	return res;
-}
-```
-
-
-
-整数分解
-
-```
-map<int, int> prime_factor(int x) {
-	map<int, int> res;
-	for (int i = 2; i <= x / i; i++) {
-		while(x % i == 0) {
-			res[i]++;
-			x /= i;
-		}
-	}
-	if (x != 1) res[x] = 1;
-	return res;
-}
-```
-
-
-
-###### 素数筛法
-
-埃氏筛法 时间复杂度 $O(n \lg n lg n)$
-
-```
-int prime[N];
-int st[N];
-
-int sieve(int n) {
-	int p = 0;
-	for (int i = 2; i <= n; i++) {
-		if (st[i]) continue;
-		prime[p++] = i;
-		for (int j = i; j <= n; j += i) 
-			st[j] = true;
-		}
-	return p;
-}
-```
-
-![image-20200903155157579](/Users/bytedance/Library/Application Support/typora-user-images/image-20200903155157579.png)
-
-```
-vector<int> primes;
-bool st[N];
-void get_primes(int n) {
-    for (int i = 2; i <= n; i ++ ) {
-        if (!st[i]) primes[cnt ++ ] = i;
-        for (int j = 0; primes[j] <= n / i; j ++ ) {
-            st[primes[j] * i] = true;
-            if (i % primes[j] == 0) break;
-        }
+        
+        for (int i = 1; i <= m; i++) {
+            for (int j = 0; j < (1 << n); j++) {
+                for (int k = 0; k < (1 << n); k++) {
+                    // j 和 k 同一位不都为1
+                    // j 和 k 不能为连续奇数个0
+                    if (!(j & k) && st[j | k]) {
+                        f[i][j] += f[i-1][k];
+                    }
+                }
+            }
+        }    
+        
+        cout << f[m][0] << endl;
     }
 }
 ```
 
-##### 快速幂
-
-求$a^k\mod p$的值，反复平方法 时间复杂度 $O(\lg k)$
-
-预处理出 $a^{2^0} \mod p$, $a^{2^1} \mod p$, $a^{2^2} \mod p$,..., $a^{2^{lgk}} \mod p$的值（反复平方k次），然后根据底数不变指数相加，将k拆分为若干个2的次幂之和，则可以根据k的二进制形式将预处理的值按需相乘
-
-```
-typedef long long LL;
-
-ll mod_pow(ll a, ll k, ll p) {
-	ll res = 1;
-	while (k) {
-		if (k & 1) res = res * a % p;
-		a = a * a % p;
-		k >>= 1;
-	} 
-	return res;
-} 
-```
 
 
+##### 树形DP
 
-
+没有上司的舞会
 
 
 
