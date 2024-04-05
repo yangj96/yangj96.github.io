@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="目录 位运算 初级数论(辗转相除/素数/快速幂) 离散化 二分判定 区间合并/区间贪心调度 前缀和/差分 树状数组 线段树 图论 字符串匹配 Trie树 高精度  位运算取最靠右的一位1123int lowbit(int x) &amp;#123;	return x &amp;amp; -x;&amp;#125; 二进制中1的个数1234while(x) &amp;#123;	x -= lowbit(x);	res++;&amp;#12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法模版-中级篇">
+<meta property="og:url" content="https://yangj96.github.io/2020/02/03/algo-template2/index.html">
+<meta property="og:site_name" content="Jingy&#39;s Blog">
+<meta property="og:description" content="目录 位运算 初级数论(辗转相除/素数/快速幂) 离散化 二分判定 区间合并/区间贪心调度 前缀和/差分 树状数组 线段树 图论 字符串匹配 Trie树 高精度  位运算取最靠右的一位1123int lowbit(int x) &amp;#123;	return x &amp;amp; -x;&amp;#125; 二进制中1的个数1234while(x) &amp;#123;	x -= lowbit(x);	res++;&amp;#12">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://yangj96.github.io/Users/bytedance/Library/Application%20Support/typora-user-images/image-20200903155157579.png">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTly1gchu0dzxigj30yg0hw3zs.jpg">
+<meta property="og:updated_time" content="2024-04-01T15:51:13.845Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法模版-中级篇">
+<meta name="twitter:description" content="目录 位运算 初级数论(辗转相除/素数/快速幂) 离散化 二分判定 区间合并/区间贪心调度 前缀和/差分 树状数组 线段树 图论 字符串匹配 Trie树 高精度  位运算取最靠右的一位1123int lowbit(int x) &amp;#123;	return x &amp;amp; -x;&amp;#125; 二进制中1的个数1234while(x) &amp;#123;	x -= lowbit(x);	res++;&amp;#12">
+<meta name="twitter:image" content="https://yangj96.github.io/Users/bytedance/Library/Application%20Support/typora-user-images/image-20200903155157579.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://yangj96.github.io/2020/02/03/algo-template2/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>算法模版-中级篇 | Jingy's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jingy's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+  
+
+  
+
+  <a href="https://github.com/yangj96" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill: #222; color: #fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangj96.github.io/2020/02/03/algo-template2/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jing Yang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jingy's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">算法模版-中级篇
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-03 19:39:44" itemprop="dateCreated datePublished" datetime="2020-02-03T19:39:44+08:00">2020-02-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2024-04-01 23:51:13" itemprop="dateModified" datetime="2024-04-01T23:51:13+08:00">2024-04-01</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">21k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">19 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ol>
+<li>位运算</li>
+<li>初级数论(辗转相除/素数/快速幂)</li>
+<li>离散化</li>
+<li>二分判定</li>
+<li>区间合并/区间贪心调度</li>
+<li>前缀和/差分</li>
+<li>树状数组</li>
+<li>线段树</li>
+<li>图论</li>
+<li>字符串匹配</li>
+<li>Trie树</li>
+<li>高精度</li>
+</ol>
+<h4 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h4><h5 id="取最靠右的一位1"><a href="#取最靠右的一位1" class="headerlink" title="取最靠右的一位1"></a>取最靠右的一位1</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int lowbit(int x) &#123;</span><br><span class="line">	return x &amp; -x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="二进制中1的个数"><a href="#二进制中1的个数" class="headerlink" title="二进制中1的个数"></a>二进制中1的个数</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while(x) &#123;</span><br><span class="line">	x -= lowbit(x);</span><br><span class="line">	res++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="获取-设置右起第k位数"><a href="#获取-设置右起第k位数" class="headerlink" title="获取/设置右起第k位数"></a>获取/设置右起第k位数</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 获取第k位</span><br><span class="line">n &gt;&gt; k &amp; 1</span><br><span class="line">// 设置第k位为1</span><br><span class="line">n | 1 &lt;&lt; k</span><br></pre></td></tr></table></figure>
+<h4 id="初级数论"><a href="#初级数论" class="headerlink" title="初级数论"></a>初级数论</h4><h5 id="辗转相除法"><a href="#辗转相除法" class="headerlink" title="辗转相除法"></a>辗转相除法</h5><h6 id="最大公约数"><a href="#最大公约数" class="headerlink" title="最大公约数"></a>最大公约数</h6><p>时间复杂度 $O(\lg max(a,b))$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int gcd(int a, int b) &#123;</span><br><span class="line">	return b ? gcd(b, a % b) : a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="最大公倍数"><a href="#最大公倍数" class="headerlink" title="最大公倍数"></a>最大公倍数</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int lcm(int a, int b) &#123;</span><br><span class="line">	return a * b / gcd(a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="扩展欧几里得算法"><a href="#扩展欧几里得算法" class="headerlink" title="扩展欧几里得算法"></a>扩展欧几里得算法</h6><p>求x, y整数，使得ax + by = gcd(a, b)，时间复杂度 $O(\lg  max(a,b))$</p>
+<blockquote>
+<p>裴蜀定理<br>有任意正整数a, b，gcd（a，b）= d，那么对于任意的整数x，y，ax+by都一定是d的倍数，特别地，一定存在整数x，y，使ax+by=d成立。<br>推论<br>a,b互素的充要条件是存在整数x，y使ax+by=1</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">int exgcd(int a, int b, int &amp;x, int &amp;y) &#123;</span><br><span class="line">	if (!b) &#123;</span><br><span class="line">		x = 1, y = 0;</span><br><span class="line">		return a;</span><br><span class="line">	&#125;</span><br><span class="line">	int d = exgcd(b, a % b, y, x);</span><br><span class="line">	y -= a / b * x;</span><br><span class="line">	return d;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="素数"><a href="#素数" class="headerlink" title="素数"></a>素数</h5><h6 id="素数判定-试除法"><a href="#素数判定-试除法" class="headerlink" title="素数判定 / 试除法"></a>素数判定 / 试除法</h6><p>试除法实现素数判定、约数枚举、整数分解的时间复杂度均为 $O(\sqrt n)$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bool isPrime(int x) &#123;</span><br><span class="line">	if (x &lt; 2) return false;</span><br><span class="line">	for (int i = 2; i &lt;= x / i; i++) &#123;</span><br><span class="line">		if (x % i == 0) return false;</span><br><span class="line">	&#125;</span><br><span class="line">	return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>约数枚举</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; divisor(int x) &#123;</span><br><span class="line">	vector&lt;int&gt; res;</span><br><span class="line">	for (int i = 2; i &lt;= x / i; i++) &#123;</span><br><span class="line">		if (x % i == 0) &#123;</span><br><span class="line">			res.push_back(i);</span><br><span class="line">			if (i != x / i) res.push_back(x / i);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>整数分解</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">map&lt;int, int&gt; prime_factor(int x) &#123;</span><br><span class="line">	map&lt;int, int&gt; res;</span><br><span class="line">	for (int i = 2; i &lt;= x / i; i++) &#123;</span><br><span class="line">		while(x % i == 0) &#123;</span><br><span class="line">			res[i]++;</span><br><span class="line">			x /= i;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	if (x != 1) res[x] = 1;</span><br><span class="line">	return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="素数筛法"><a href="#素数筛法" class="headerlink" title="素数筛法"></a>素数筛法</h6><p>埃氏筛法 时间复杂度 $O(n \lg n lg n)$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">int prime[N];</span><br><span class="line">int st[N];</span><br><span class="line"></span><br><span class="line">int sieve(int n) &#123;</span><br><span class="line">	int p = 0;</span><br><span class="line">	for (int i = 2; i &lt;= n; i++) &#123;</span><br><span class="line">		if (st[i]) continue;</span><br><span class="line">		prime[p++] = i;</span><br><span class="line">		for (int j = i; j &lt;= n; j += i) </span><br><span class="line">			st[j] = true;</span><br><span class="line">		&#125;</span><br><span class="line">	return p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/Users/bytedance/Library/Application Support/typora-user-images/image-20200903155157579.png" alt="image-20200903155157579"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; primes;</span><br><span class="line">bool st[N];</span><br><span class="line">void get_primes(int n) &#123;</span><br><span class="line">    for (int i = 2; i &lt;= n; i ++ ) &#123;</span><br><span class="line">        if (!st[i]) primes[cnt ++ ] = i;</span><br><span class="line">        for (int j = 0; primes[j] &lt;= n / i; j ++ ) &#123;</span><br><span class="line">            st[primes[j] * i] = true;</span><br><span class="line">            if (i % primes[j] == 0) break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a>快速幂</h5><p>求$a^k\mod p$的值，反复平方法 时间复杂度 $O(\lg k)$</p>
+<p>预处理出 $a^{2^0} \mod p$, $a^{2^1} \mod p$, $a^{2^2} \mod p$,…, $a^{2^{lgk}} \mod p$的值（反复平方k次），然后根据底数不变指数相加，将k拆分为若干个2的次幂之和，则可以根据k的二进制形式将预处理的值按需相乘</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">typedef long long LL;</span><br><span class="line"></span><br><span class="line">ll mod_pow(ll a, ll k, ll p) &#123;</span><br><span class="line">	ll res = 1;</span><br><span class="line">	while (k) &#123;</span><br><span class="line">		if (k &amp; 1) res = res * a % p;</span><br><span class="line">		a = a * a % p;</span><br><span class="line">		k &gt;&gt;= 1;</span><br><span class="line">	&#125; </span><br><span class="line">	return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="离散化"><a href="#离散化" class="headerlink" title="离散化"></a>离散化</h4><p>待离散值排序、去重，然后二分求离散化对应坐标</p>
+<p>单值离散化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; all;</span><br><span class="line">sort(all.begin(), all.end());</span><br><span class="line">all.erase(unique(all.begin(), all.end()), all.end());</span><br><span class="line"></span><br><span class="line">// 待离散化值y-&gt;离散化后x</span><br><span class="line">int x = find(all.begin(), all.end(), y) - all.begin();</span><br><span class="line">// or</span><br><span class="line">int bs(int k) &#123;</span><br><span class="line">    int l = 0, r = all.size() - 1;</span><br><span class="line">    while(l &lt; r) &#123;</span><br><span class="line">        int mid = l + r &gt;&gt; 1;</span><br><span class="line">        if (all[mid] &gt;= k) r = mid;</span><br><span class="line">        else l = mid + 1;</span><br><span class="line">    &#125;</span><br><span class="line">    return r + 1;</span><br><span class="line">&#125;</span><br><span class="line">int x = bs(y);</span><br></pre></td></tr></table></figure>
+<p>线段坐标离散化</p>
+<p>每个端点需要考虑其本身和前后两点，从而将线段压缩</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">int compress(vector&lt;int&gt; &amp;x1, vector&lt;int&gt; &amp;x2, int w) &#123;</span><br><span class="line">	vector&lt;int&gt; all;</span><br><span class="line">	for (int i = 0; i &lt; x1.size(); i++) &#123;</span><br><span class="line">		for (int d = -1; d &lt;= 1; d++) &#123;</span><br><span class="line">			int tx1 = x1[i] + d, tx2 = x2[i] + d;</span><br><span class="line">			if (tx1 &gt;= 1 &amp;&amp; tx1 &lt;= w) all.push_back(tx1);</span><br><span class="line">			if (tx2 &gt;= 1 &amp;&amp; tx2 &lt;= w) all.push_back(tx2);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	sort(all.begin(), all.end());</span><br><span class="line">	all.erase(unique(all.begin(), all.end()), all.end());</span><br><span class="line">	</span><br><span class="line">	for (int i = 0; i &lt; x1.size(); i++) &#123;</span><br><span class="line">		x1[i] = find(all.begin(), all.end(), x1[i]) - all.begin();</span><br><span class="line">		x2[i] = find(all.begin(), all.end(), x2[i]) - all.begin();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	return all.size();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="二分判定"><a href="#二分判定" class="headerlink" title="二分判定"></a>二分判定</h4><p>给定N个数，将其分为X组，每组K = N / X个数且需要保证K个数互不重复，求出每组最大数和最小数间的差值，求能够实现的所有组该差值总和的最小值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">bool check(int n, int k, vector&lt;int&gt;&amp; a, int mid) &#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int xGroup(int n, int k, vector&lt;int&gt;&amp; a) &#123;</span><br><span class="line">	int maxn = 0, minn = 2e9;</span><br><span class="line">	for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">		minn = min(a[i], minn);</span><br><span class="line">		maxn = max(a[i], maxn);</span><br><span class="line">	&#125;</span><br><span class="line">	int l = 0, r = (maxn - minn) * (n / k);</span><br><span class="line">	while (l &lt; r) &#123;</span><br><span class="line">		int mid = l + r &gt;&gt; 1;</span><br><span class="line">		if (check(n, k, a, mid)) r = mid;</span><br><span class="line">		else l = mid + 1;</span><br><span class="line">	&#125;</span><br><span class="line">	return l;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="区间问题"><a href="#区间问题" class="headerlink" title="区间问题"></a>区间问题</h4><h5 id="区间合并"><a href="#区间合并" class="headerlink" title="区间合并"></a>区间合并</h5><p>按区间左端点排序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">void merge(vector&lt;PII&gt; &amp; segs) &#123;</span><br><span class="line">    vector&lt;PII&gt; res;</span><br><span class="line">    sort(segs.begin(), segs.end());</span><br><span class="line">    int st = -2e9, ed = -2e9; </span><br><span class="line">    for(auto seg : segs) &#123;</span><br><span class="line">        if (ed &lt; seg.first) &#123;</span><br><span class="line">            if (st != -2e9) </span><br><span class="line">                res.push_back(&#123;st, ed&#125;);</span><br><span class="line">            st = seg.first;</span><br><span class="line">            ed = seg.second;</span><br><span class="line">        &#125;</span><br><span class="line">        else </span><br><span class="line">            ed = max(ed, seg.second);</span><br><span class="line">    &#125;</span><br><span class="line">    if (st != -2e9) &#123;</span><br><span class="line">        res.push_back(&#123;st, ed&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    segs = res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="区间覆盖问题"><a href="#区间覆盖问题" class="headerlink" title="区间覆盖问题"></a>区间覆盖问题</h5><h6 id="求覆盖各区间的最少点数-每个区间至少包含一个点"><a href="#求覆盖各区间的最少点数-每个区间至少包含一个点" class="headerlink" title="求覆盖各区间的最少点数(每个区间至少包含一个点)"></a>求覆盖各区间的最少点数(每个区间至少包含一个点)</h6><p>按区间右端点排序，选取最右点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">typedef pair&lt;int, int&gt; PII;</span><br><span class="line"></span><br><span class="line">bool cmp(const PII &amp;a, const PII &amp;b) &#123;</span><br><span class="line">    return a.second &lt; b.second;</span><br><span class="line">&#125;</span><br><span class="line">int main() &#123;</span><br><span class="line">    int n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    int a, b;</span><br><span class="line">    vector&lt;PII&gt; v;</span><br><span class="line">    for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">        cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">        v.push_back(&#123;a, b&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    sort(v.begin(), v.end(), cmp);</span><br><span class="line">    int res = 0, ed = -2e9;</span><br><span class="line">    for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">        if (ed &lt; v[i].first) &#123;</span><br><span class="line">            ed = v[i].second;</span><br><span class="line">            res ++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; res &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="区间调度问题-求不相交区间的最多区间数目"><a href="#区间调度问题-求不相交区间的最多区间数目" class="headerlink" title="区间调度问题/求不相交区间的最多区间数目"></a>区间调度问题/求不相交区间的最多区间数目</h6><p>如果最多有x个不相交区间，那么就至少需要x个点覆盖所有区间，因为本题和上一题等价，只有区间边界可能略有不同</p>
+<p>选取结束时间最早的活动 -&gt; 按区间右端点排序，选取max_ed和下一个区间起始不相交的位置</p>
+<h6 id="求按照不相交区间分组的最少分组数目"><a href="#求按照不相交区间分组的最少分组数目" class="headerlink" title="求按照不相交区间分组的最少分组数目"></a>求按照不相交区间分组的最少分组数目</h6><p>按区间左端点排序，记录每个组的最右坐标，依次枚举每个区间能否加入各个组，如果不能则新开一组。实际上枚举每个区间是否有可加入的组只需要找右坐标最小的组即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#define  l first</span><br><span class="line">#define  r second</span><br><span class="line">typedef pair&lt;int, int&gt; PII;</span><br><span class="line">int main() &#123;</span><br><span class="line">    int n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    vector&lt;PII&gt; a(n);</span><br><span class="line">    for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">        int x, y;</span><br><span class="line">        cin &gt;&gt; x &gt;&gt; y;</span><br><span class="line">        a[i] = &#123;x, y&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    sort(a.begin(), a.end());</span><br><span class="line">    </span><br><span class="line">    priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; que;</span><br><span class="line">    for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">        if (que.empty() || a[i].l &lt;= que.top()) &#123;</span><br><span class="line">            que.push(a[i].r);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            que.pop();</span><br><span class="line">            que.push(a[i].r);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; que.size() &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="求覆盖指定线段的最少区间数目"><a href="#求覆盖指定线段的最少区间数目" class="headerlink" title="求覆盖指定线段的最少区间数目"></a>求覆盖指定线段的最少区间数目</h6><p>按区间左端点排序，依次枚举选取满足左端点在线段左侧的右端点最大的区间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">sort(range, range + n);</span><br><span class="line"></span><br><span class="line">int res = 0;</span><br><span class="line">bool success = false;</span><br><span class="line">for (int i = 0; i &lt; n; i ++ )</span><br><span class="line">&#123;</span><br><span class="line">    int j = i, r = -2e9;</span><br><span class="line">    while (j &lt; n &amp;&amp; range[j].l &lt;= st) &#123;</span><br><span class="line">        r = max(r, range[j].r);</span><br><span class="line">        j ++ ;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (r &lt; st) &#123;</span><br><span class="line">        res = -1;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    res ++ ;</span><br><span class="line">    if (r &gt;= ed) &#123;</span><br><span class="line">        success = true;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    st = r;</span><br><span class="line">    i = j - 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (!success) res = -1;</span><br><span class="line">cout &lt;&lt; res &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+<p>#####区间交集问题</p>
+<p>两区间[x1, y1]和[x2, y2]不存在交集的条件是 <code>y1 &lt; x2 || y2 &lt; x1</code>，反之，则交集区间是<code>[max(x1, x2), min(y1, y2)]</code></p>
+<h4 id="前缀和-差分"><a href="#前缀和-差分" class="headerlink" title="前缀和/差分"></a>前缀和/差分</h4><h5 id="一维前缀和"><a href="#一维前缀和" class="headerlink" title="一维前缀和"></a>一维前缀和</h5><p>为便于计算，下标从1开始</p>
+<p><code>s[0] = a[0] = 0</code></p>
+<p><code>s[i] = s[i-1] + a[i];</code></p>
+<p>求区间[l, r]元素和<code>s[r] - s[l-1]</code></p>
+<h5 id="二维前缀和"><a href="#二维前缀和" class="headerlink" title="二维前缀和"></a>二维前缀和</h5><p><code>s[i][j] = s[i-1][j] + s[i][j-1] - s[i-1][j-1] + a[i][j]</code></p>
+<p>求区间[(x1, y1), (x2, y2)]元素和<code>s[x2][y2] - s[x1-1][y1] - s[x1][y1-1] + s[x1-1][y1-1]</code></p>
+<h5 id="一维差分"><a href="#一维差分" class="headerlink" title="一维差分"></a>一维差分</h5><p>差分可看作前缀和的逆操作，可实现$O(1)$时间的区间修改和单点修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">void modify(int l, int r, int c) &#123;</span><br><span class="line">    b[l] += c;</span><br><span class="line">    b[r+1] -= c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 复原原矩阵更新后的值</span><br><span class="line">for (int i = 1; i &lt;= n; i++) &#123;</span><br><span class="line">    b[i] += b[i-1];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="二维差分"><a href="#二维差分" class="headerlink" title="二维差分"></a>二维差分</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">const int N = 1005; // 注意数组从1开始且设计N+1，N至少要大于等于2 </span><br><span class="line">int b[N][N];</span><br><span class="line"></span><br><span class="line">void modify(int x1, int y1, int x2, int y2, int c) &#123;</span><br><span class="line">    b[x1][y1] += c;</span><br><span class="line">    b[x2+1][y1] -= c;</span><br><span class="line">    b[x1][y2+1] -= c;</span><br><span class="line">    b[x2+1][y2+1] += c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 复原原矩阵更新后的值</span><br><span class="line">for (int i = 1; i &lt;= n; i++) &#123;</span><br><span class="line">  for (int j = 1; j &lt;= m; j++) &#123;</span><br><span class="line">  	b[i][j] += b[i-1][j] + b[i][j-1] - b[i-1][j-1];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="差分-贪心"><a href="#差分-贪心" class="headerlink" title="差分+贪心"></a>差分+贪心</h6><p><a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.acwing.com%2Fsolution%2FAcWing%2Fcontent%2F816%2F" target="_blank" rel="noopener">求区间内所有值通过区间加1/减1全部相等的最小变换次数</a></p>
+<h6 id="差分-前缀和"><a href="#差分-前缀和" class="headerlink" title="差分+前缀和"></a>差分+前缀和</h6><p><a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.acwing.com%2Fsolution%2FAcWing%2Fcontent%2F817%2F" target="_blank" rel="noopener">满足互相看见约束的序列各位置的最高可能高度</a></p>
+<h4 id="树状数组"><a href="#树状数组" class="headerlink" title="树状数组"></a>树状数组</h4><p>树状数组是支持区间单点修改的前缀和</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTly1gchu0dzxigj30yg0hw3zs.jpg" alt=""></p>
+<p>将上图所有区间从左至右按序排列，其区间长度的二进制表示为：<br>1,10,1, 100, 1,   10,  1,    1000<br>而图中区间标号对应的二进制表示为：<br>1,10,11,100,101,110,111,1000<br>用lowbit函数将区间标号映射为区间长度：区间长度即区间标号二进制表示从右往左出现第一个1以及这个1之后的那些0组成数的二进制对应的十进制的数。</p>
+<p>区间标号映射区间长度</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int lowbit(int x) &#123;</span><br><span class="line">	return x &amp; -x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>初始化空间$O(n)$，注意下标从1到n</p>
+<p>单点修改操作需要更新所有包含它的区间，时间复杂度$O(log n)$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int tr[N];</span><br><span class="line"></span><br><span class="line">void add(int x, int c) &#123;</span><br><span class="line">	for (int i = x; i &lt;= n; i += lowbit(i)) </span><br><span class="line">		tr[i] += c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>区间查询需要查询分支包含的所有区间，时间复杂度$O(log n)$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// a[1]...a[x]</span><br><span class="line">int presum(int x) &#123;</span><br><span class="line">  int res = 0;</span><br><span class="line">  for (int i = x; i; i -= lowbit(i))</span><br><span class="line">  	res += tr[i];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// a[i]...a[j]</span><br><span class="line">int sum(int i, int j)</span><br><span class="line">  return presum(j) - presum(i-1);</span><br></pre></td></tr></table></figure>
+<p>e.x. 计算右侧小于当前元素的个数</p>
+<h5 id="差分-树状数组"><a href="#差分-树状数组" class="headerlink" title="差分+树状数组"></a>差分+树状数组</h5><p>可实现区间修改、单点查询或区间修改、区间查询</p>
+<h5 id="二维树状数组"><a href="#二维树状数组" class="headerlink" title="二维树状数组"></a>二维树状数组</h5><h4 id="线段树"><a href="#线段树" class="headerlink" title="线段树"></a>线段树</h4><p>五类操作， 四倍空间，初始化复杂度$O(n)$，区间操作查询或更新复杂度均为$O(\lg n)$</p>
+<p>pushdown操作用于区间修改时的懒标记（仅支持单点修改时不需要），在区间修改和查询需要分裂区间前调用</p>
+<h5 id="支持单点修改的区间最大值查询"><a href="#支持单点修改的区间最大值查询" class="headerlink" title="支持单点修改的区间最大值查询"></a>支持单点修改的区间最大值查询</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">const int N = 200010;</span><br><span class="line">struct Node &#123;</span><br><span class="line">    int l, r;</span><br><span class="line">    int v;</span><br><span class="line">&#125;tr[N * 4];</span><br><span class="line"></span><br><span class="line">void pushup(int u) &#123;</span><br><span class="line">    tr[u].v = max(tr[u &lt;&lt; 1].v, tr[u &lt;&lt; 1 | 1].v);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void build(int u, int l, int r) &#123;</span><br><span class="line">    tr[u] = &#123;l, r&#125;;</span><br><span class="line">    if (l == r) return;</span><br><span class="line">    int mid = l + r &gt;&gt; 1;</span><br><span class="line">    build(u &lt;&lt; 1, l, mid);</span><br><span class="line">    build(u &lt;&lt; 1 | 1, mid + 1, r);</span><br><span class="line">    // 如果初始化时对v有修改，则需要调用pushup(u);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 单点修改</span><br><span class="line">void modify(int u, int x, int v) &#123;</span><br><span class="line">    if (tr[u].l == x &amp;&amp; tr[u].r == x) </span><br><span class="line">        tr[u].v = v;</span><br><span class="line">    else &#123;</span><br><span class="line">        int mid = tr[u].l + tr[u].r &gt;&gt; 1;</span><br><span class="line">        if (x &lt;= mid) modify(u &lt;&lt; 1, x, v);</span><br><span class="line">        else modify(u &lt;&lt; 1 | 1, x, v);</span><br><span class="line">        pushup(u);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int query(int u, int l, int r) &#123;</span><br><span class="line">    if (tr[u].l &gt;= l &amp;&amp; tr[u].r &lt;= r) </span><br><span class="line">        return tr[u].v;</span><br><span class="line">    int mid = tr[u].l + tr[u].r &gt;&gt; 1;</span><br><span class="line">    int v = 0;</span><br><span class="line">    // 注意递归调用的查询区间仍然是[l, r]，使用[l, mid]可以会放大空间</span><br><span class="line">    if (l &lt;= mid) v = query(u &lt;&lt; 1, l, r);</span><br><span class="line">    if (r &gt; mid) v = max(v, query(u &lt;&lt; 1 | 1, l, r));</span><br><span class="line">    return v;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main () &#123;</span><br><span class="line">    int m, p;</span><br><span class="line">    cin &gt;&gt; m &gt;&gt; p;</span><br><span class="line">    int n = 0, last = 0;</span><br><span class="line">    build(1, 1, m);</span><br><span class="line">    for (int i = 0; i &lt; m; i++) &#123;</span><br><span class="line">        char op;</span><br><span class="line">        int x;</span><br><span class="line">        cin &gt;&gt; op &gt;&gt; x;</span><br><span class="line">        if (op == &apos;Q&apos;) &#123;</span><br><span class="line">            last = query(1, n-x+1, n);</span><br><span class="line">            cout &lt;&lt; last &lt;&lt; endl;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            modify(1, n+1, (x + last) % p);</span><br><span class="line">            n++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="支持区间修改的区间和查询"><a href="#支持区间修改的区间和查询" class="headerlink" title="支持区间修改的区间和查询"></a>支持区间修改的区间和查询</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">const int N = 100010;</span><br><span class="line">typedef long long ll;</span><br><span class="line">int a[N];</span><br><span class="line">struct Node &#123;</span><br><span class="line">    int l, r;</span><br><span class="line">    ll sum, add;</span><br><span class="line">&#125;tr[N * 4];</span><br><span class="line"></span><br><span class="line">void pushup(int u) &#123;</span><br><span class="line">    tr[u].sum = tr[u&lt;&lt;1].sum + tr[u &lt;&lt; 1 | 1].sum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void pushdown(int u) &#123;</span><br><span class="line">    auto &amp;root = tr[u], &amp;left = tr[u&lt;&lt;1], &amp;right = tr[u &lt;&lt; 1 | 1];</span><br><span class="line">    if (root.add) &#123;</span><br><span class="line">        left.add += root.add;</span><br><span class="line">        left.sum += (ll)(left.r - left.l + 1) * root.add;</span><br><span class="line">        right.add += root.add;</span><br><span class="line">        right.sum += (ll)(right.r - right.l + 1) * root.add;</span><br><span class="line">        root.add = 0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void build(int u, int l, int r) &#123;</span><br><span class="line">    if (l == r) tr[u] = &#123;l, r, a[l], 0&#125;;</span><br><span class="line">    else &#123;</span><br><span class="line">        tr[u] = &#123;l, r&#125;;</span><br><span class="line">        int mid = l + r &gt;&gt; 1;</span><br><span class="line">        build(u &lt;&lt; 1, l, mid);</span><br><span class="line">        build(u &lt;&lt; 1 | 1, mid + 1, r);</span><br><span class="line">        pushup(u);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 区间修改</span><br><span class="line">void modify(int u, int l, int r, int d) &#123;</span><br><span class="line">    if (tr[u].l &gt;= l &amp;&amp; tr[u].r &lt;= r) &#123;</span><br><span class="line">        tr[u].sum += (ll)(tr[u].r - tr[u].l + 1) * d;</span><br><span class="line">        tr[u].add += d;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        pushdown(u);</span><br><span class="line">        int mid = tr[u].l + tr[u].r &gt;&gt; 1;</span><br><span class="line">        if (l &lt;= mid) modify(u &lt;&lt; 1, l, r, d);</span><br><span class="line">        if (r &gt; mid) modify(u &lt;&lt; 1 | 1, l, r, d);</span><br><span class="line">        pushup(u);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ll query(int u, int l, int r) &#123;</span><br><span class="line">    if (tr[u].l &gt;= l &amp;&amp; tr[u].r &lt;= r) </span><br><span class="line">        return tr[u].sum;</span><br><span class="line">    pushdown(u);</span><br><span class="line">    int mid = tr[u].l + tr[u].r &gt;&gt; 1;</span><br><span class="line">    ll v = 0;</span><br><span class="line">    if (l &lt;= mid) v = query(u &lt;&lt; 1, l, r);</span><br><span class="line">    if (r &gt; mid) v += query(u &lt;&lt; 1 | 1, l, r);</span><br><span class="line">    return v;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    int n, m;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    for (int i = 1; i &lt;= n; i++) </span><br><span class="line">        cin &gt;&gt; a[i];</span><br><span class="line"></span><br><span class="line">    build(1, 1, n);</span><br><span class="line">    while (m--) &#123;</span><br><span class="line">        int l, r, d;</span><br><span class="line">        char op;</span><br><span class="line">        cin &gt;&gt; op &gt;&gt; l &gt;&gt; r;</span><br><span class="line">        if (op == &apos;C&apos;) &#123;</span><br><span class="line">            cin &gt;&gt; d;</span><br><span class="line">            modify(1, l, r, d);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            cout &lt;&lt; query(1, l, r) &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="图论"><a href="#图论" class="headerlink" title="图论"></a>图论</h4><p>邻接矩阵<br><code>int G [maxv][maxv]</code>或<code>&lt;vector&lt;vector&lt;int&gt; &gt; G</code></p>
+<p>邻接表<br><code>vector&lt;int&gt; G[maxv]</code></p>
+<p><code>struct edge {
+  int to;
+  int cost;
+}</code><br><code>vector&lt;edge&gt; G[maxv]</code></p>
+<h5 id="BFS-DFS搜索"><a href="#BFS-DFS搜索" class="headerlink" title="BFS/DFS搜索"></a>BFS/DFS搜索</h5><p>时间复杂度均为$O(V+ E)$</p>
+<p>BFS优化：</p>
+<h5 id="多源BFS"><a href="#多源BFS" class="headerlink" title="多源BFS"></a>多源BFS</h5><p>矩阵各点到多个候选起点的最短距离</p>
+<p>可假设一虚拟源点，将其与多个起点分别相连，则转换为单源BFS的最短距离，实际实现时只需要将多个起点在第一轮都加入队列即可</p>
+<h5 id="双端队列BFS"><a href="#双端队列BFS" class="headerlink" title="双端队列BFS"></a>双端队列BFS</h5><p>适用于不同边权的情况</p>
+<h5 id="BFS优化"><a href="#BFS优化" class="headerlink" title="BFS优化"></a>BFS优化</h5><p>双向广搜</p>
+<p>A*</p>
+<h5 id="染色法判定二分图"><a href="#染色法判定二分图" class="headerlink" title="染色法判定二分图"></a>染色法判定二分图</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; G[maxv];</span><br><span class="line">int color[maxv];</span><br><span class="line">int V;</span><br><span class="line"></span><br><span class="line">bool dfs(int v, int c) &#123;</span><br><span class="line">	color[v] = c;</span><br><span class="line">	for (int i = 0; i &lt; G[v].size(); i++) &#123;</span><br><span class="line">		if (color[G[v][i]] == c) return false;</span><br><span class="line">		if (color[G[v][i] == 0 &amp;&amp; !dfs(G[v][i], -c)) return false;</span><br><span class="line">	&#125;</span><br><span class="line">	return true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bool check() &#123;</span><br><span class="line">	bool flag = true;</span><br><span class="line">	for (int i = 0; i &lt; V; i++)</span><br><span class="line">		if (color[i] == 0)</span><br><span class="line">			if (!dfs(i, 1)) &#123;</span><br><span class="line">				flag = false;</span><br><span class="line">				break;</span><br><span class="line">			&#125;</span><br><span class="line">	return flag;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h5><p>拓扑图（可以拓扑排序的图） 等价于有向无环图DAG</p>
+<p>将入度为0点入队，出队去边减去相关入度将入度为0点入队，队列元素即拓扑序，队列元素小于顶点数说明可能存在重边和自环，拓扑序列不存在</p>
+<p>$O(V+E)$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">const int N = 100001;</span><br><span class="line">vector&lt;int&gt; G[N];</span><br><span class="line">int d[N]; // 入度数</span><br><span class="line">int n, m;</span><br><span class="line">// 使用stl queue元素会pop出队需要另开数组单独记录结果或者直接使用数组模拟队列</span><br><span class="line">vector&lt;int&gt; res; </span><br><span class="line"></span><br><span class="line">bool topsort() &#123;</span><br><span class="line">    queue&lt;int&gt; q;</span><br><span class="line">    // 如果最终拓扑序需要按字典序输出，则将队列改为小根堆</span><br><span class="line">    for (int i = 1; i &lt;= n; i++) </span><br><span class="line">        if (!d[i]) &#123;</span><br><span class="line">            q.push(i);</span><br><span class="line">            res.push_back(i);</span><br><span class="line">        &#125;</span><br><span class="line">    while (q.size()) &#123;</span><br><span class="line">        int t = q.front();</span><br><span class="line">        q.pop();</span><br><span class="line">        for (int i = 0; i &lt; G[t].size(); i++)</span><br><span class="line">            if (--d[G[t][i]] == 0) &#123;</span><br><span class="line">                q.push(G[t][i]);</span><br><span class="line">                res.push_back(G[t][i]);</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return res.size() == n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    for (int i = 0; i &lt; m; i++) &#123;</span><br><span class="line">        int a, b;</span><br><span class="line">        cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">        G[a].push_back(b);</span><br><span class="line">        d[b]++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if (!topsort()) cout &lt;&lt; -1 &lt;&lt; endl;</span><br><span class="line">    else &#123;</span><br><span class="line">        for (int i = 0; i &lt; n; i++) </span><br><span class="line">            cout &lt;&lt; res[i] &lt;&lt; &quot; &quot;;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="最短路问题"><a href="#最短路问题" class="headerlink" title="最短路问题"></a>最短路问题</h5><h6 id="Bellman-Ford-允许负环"><a href="#Bellman-Ford-允许负环" class="headerlink" title="Bellman-Ford 允许负环"></a>Bellman-Ford 允许负环</h6><p>每条边松弛|V| -1次（最坏情况下每次循环只松弛了一条边）之后如果存在不满足三角不等式的结点v.d &gt; u.d + w(u,v)说明存在负权重环</p>
+<p>时间复杂度$O(VE)$</p>
+<p>优化 - 拓扑排序后按序松弛</p>
+<h6 id="Dijkstra-不许负权重边"><a href="#Dijkstra-不许负权重边" class="headerlink" title="Dijkstra 不许负权重边"></a>Dijkstra 不许负权重边</h6><p>维护一个已求出最短路径节点的集合S，以v.d为key构造最小堆，每次选择V-S中的最小堆顶，将其加入S并松弛所有与其相邻的边。注意第一次执行循环extract-min得到的是源点s</p>
+<p>优先队列实现时间复杂度$O(VE)$</p>
+<h6 id="Floyd-适用负权重边，不允许存在负权重环"><a href="#Floyd-适用负权重边，不允许存在负权重环" class="headerlink" title="Floyd 适用负权重边，不允许存在负权重环"></a>Floyd 适用负权重边，不允许存在负权重环</h6><p> 时间复杂度$O(V^3)$</p>
+<h5 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h5><p>Kruskal算法：集合A是森林，按权重从低到高考察每条边，如果它将两棵不同的树连接起来就加入到森林A里并完成两棵树的合并</p>
+<p>Prim算法：集合A是一棵树，每次加入连接集合A和A之外结点的所有边中权重最小的边</p>
+<p>用并查集和优先队列分别实现，时间复杂度均为$O(ElgV)$</p>
+<h4 id="字符串匹配"><a href="#字符串匹配" class="headerlink" title="字符串匹配"></a>字符串匹配</h4><h5 id="暴力"><a href="#暴力" class="headerlink" title="暴力"></a>暴力</h5><p>时间复杂度$O(n-m+1)*m$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">for (int i = 1; i &lt;= (n - m + 1); i++) &#123;</span><br><span class="line">	bool flag = true;</span><br><span class="line">	for (int j = 1; j &lt;= m; j++) </span><br><span class="line">		if (s[i + j - 1] != p[j]) &#123;</span><br><span class="line">			flag = false;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br><span class="line">return flag;</span><br></pre></td></tr></table></figure>
+<h5 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h5><p>前缀函数 $\pi[q]$是能构成$P_q (即P[1…q])$<strong>真</strong>后缀的P的最长前缀长度<br>$\pi[q] = max(k : k &lt; q 且 P_k \sqsupset P_q)$</p>
+<p>next[i]表示以p[i]结尾的p的子串的前缀函数值，即next[i] = j 表示 p[1…j] == p[i - j + 1…i]</p>
+<p>预处理阶段摊还分析，时间复杂度$\Theta(m)$，因为j最多++ m次，因此while循环最多执行m次，同理匹配阶段时间复杂度$\Theta(n)$</p>
+<p>字符串下标从1开始，next[1] = 0</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 待匹配串s，模式串p，下标从1开始</span></span><br><span class="line"><span class="keyword">int</span> n+<span class="number">1</span> = s.size();</span><br><span class="line"><span class="keyword">int</span> m+<span class="number">1</span> = p.size();</span><br><span class="line"><span class="comment">// 求next数组, next[1] = 0</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>, j = <span class="number">0</span>; i &lt;= m; i++) &#123;</span><br><span class="line">  <span class="keyword">while</span>(j &amp;&amp; p[i] != p[j+<span class="number">1</span>]) j = ne[j];</span><br><span class="line">  <span class="keyword">if</span> (p[i] == p[j+<span class="number">1</span>]) j++;</span><br><span class="line">  ne[i] = j;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// kmp匹配</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, j = <span class="number">0</span>; i &lt;= n; i++) &#123;</span><br><span class="line">  <span class="comment">// j表示当前模版串下一个要匹配位置的前一位</span></span><br><span class="line">  <span class="comment">// j == 0 表示j退回到起点</span></span><br><span class="line">  <span class="comment">// 如果j下一个位置不能匹配，则匹配串需要后移j-next[j]步，新的匹配末端位置即j-(j-next[j])</span></span><br><span class="line">  <span class="keyword">while</span>(j &amp;&amp; s[i] != p[j+<span class="number">1</span>]) j = ne[j];</span><br><span class="line">  <span class="keyword">if</span> (s[i] == p[j+<span class="number">1</span>]) j++;</span><br><span class="line">  <span class="keyword">if</span> (j == m) &#123;</span><br><span class="line">    j = ne[j];</span><br><span class="line">    <span class="comment">// 匹配成功后的逻辑</span></span><br><span class="line">		<span class="comment">//e.x. cout &lt;&lt; i - m &lt;&lt; endl;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>字符串下标从0开始，next[0] = -1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ne[0] = -1;</span><br><span class="line">for (int i = 1, j = -1; i &lt; m; i ++ )</span><br><span class="line">&#123;</span><br><span class="line">    while (j &gt;= 0 &amp;&amp; p[j + 1] != p[i]) j = ne[j];</span><br><span class="line">    if (p[j + 1] == p[i]) j ++ ;</span><br><span class="line">    ne[i] = j;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">for (int i = 0, j = -1; i &lt; n; i ++ )</span><br><span class="line">&#123;</span><br><span class="line">    while (j &amp;&amp; s[i] != p[j + 1]) j = ne[j];</span><br><span class="line">    if (s[i] == p[j + 1]) j ++ ;</span><br><span class="line">    if (j == m - 1) cout &lt;&lt; i - j &lt;&lt; &apos; &apos;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Trie-树"><a href="#Trie-树" class="headerlink" title="Trie 树"></a>Trie 树</h4><p>高效存储和查询字符串的集合</p>
+<p>插入和查询时间复杂度$O(\log n)$，时间复杂度$O(n^2)$</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">100010</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> son[N][<span class="number">26</span>]; <span class="comment">// Trie树每个节点的字节点，此处英文字母只包含26个小写字母</span></span><br><span class="line"><span class="keyword">int</span> cnt[N];<span class="comment">// 以当前这个点结尾的单词数量</span></span><br><span class="line"><span class="keyword">int</span> idx; <span class="comment">// 表示层数下标，0号既是空节点也是Trie树的根节点</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="built_in">string</span> str)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> p = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str.size(); i++) &#123;</span><br><span class="line">		<span class="keyword">int</span> u = str[i] - <span class="string">'a'</span>;</span><br><span class="line">		<span class="keyword">if</span> (!son[p][u]) son[p][u] = ++idx;</span><br><span class="line">    p = son[p][u];</span><br><span class="line">	&#125;</span><br><span class="line">  cnt[p] ++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">query</span><span class="params">(<span class="built_in">string</span> str)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> p = <span class="number">0</span>; </span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str.size(); i++) &#123;</span><br><span class="line">    <span class="keyword">int</span> u = str[i] - <span class="string">'a'</span>;</span><br><span class="line">    <span class="keyword">if</span> (!son[p][u]) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    p = son[p][u];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> cnt[p];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="高精度"><a href="#高精度" class="headerlink" title="高精度"></a>高精度</h4><h5 id="高精度加法"><a href="#高精度加法" class="headerlink" title="高精度加法"></a>高精度加法</h5><p>数据范围为数字位数而非数字本身，使用string读入，vector逆序存储便于进位</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; add(vector&lt;int&gt; &amp;a, vector&lt;int&gt; &amp;b) &#123;</span><br><span class="line">    if (a.size() &lt; b.size())    </span><br><span class="line">        return add(b, a);</span><br><span class="line">    int t = 0;</span><br><span class="line">    vector&lt;int&gt; c;</span><br><span class="line">    for (int i = 0; i &lt; a.size(); i++) &#123;</span><br><span class="line">        t += a[i];</span><br><span class="line">        if (i &lt; b.size()) t += b[i];</span><br><span class="line">        c.push_back(t % 10);</span><br><span class="line">        t /= 10;</span><br><span class="line">    &#125;</span><br><span class="line">    if (t) c.push_back(t);</span><br><span class="line">    return c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    string a, b;</span><br><span class="line">    cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">    vector&lt;int&gt; A;</span><br><span class="line">    vector&lt;int&gt; B;</span><br><span class="line">    for (int i = a.size() - 1; i &gt;= 0; i--) A.push_back(a[i] - &apos;0&apos;);</span><br><span class="line">    for (int i = b.size() - 1; i &gt;= 0; i--) B.push_back(b[i] - &apos;0&apos;);</span><br><span class="line"></span><br><span class="line">    vector&lt;int&gt; C = add(A, B);</span><br><span class="line">    reverse(C.begin(), C.end());</span><br><span class="line">    for (int i = 0; i &lt; C.size(); i++) &#123;</span><br><span class="line">        cout &lt;&lt; C[i];</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="高精度减法"><a href="#高精度减法" class="headerlink" title="高精度减法"></a>高精度减法</h5><p>负号的判定 <code>cmp函数：依次判断长度和各个位置的数</code></p>
+<p>减法进位的处理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">c.push_back((t + 10) % 10);</span><br><span class="line">if (t &lt; 0) t = 1;</span><br><span class="line">else t = 0;</span><br></pre></td></tr></table></figure>
+<p>先导0的去除，注意最后结果是0要保留一位0</p>
+<p><code>while(c.size() &gt; 1 &amp;&amp; c.back() == 0) c.pop_back();</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">bool cmp(vector&lt;int&gt; &amp; a, vector&lt;int&gt; &amp; b) &#123;</span><br><span class="line">    if (a.size() != b.size()) </span><br><span class="line">        return a.size() &gt; b.size();</span><br><span class="line">    for (int i = a.size() - 1; i &gt;= 0; i--) &#123;</span><br><span class="line">        if (a[i] != b[i])</span><br><span class="line">            return a[i] &gt; b[i];</span><br><span class="line">    &#125;</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vector&lt;int&gt; sub(vector&lt;int&gt; &amp;a, vector&lt;int&gt; &amp;b) &#123;</span><br><span class="line">    int t = 0;</span><br><span class="line">    vector&lt;int&gt; c;</span><br><span class="line">    for (int i = 0; i &lt; a.size(); i++) &#123;</span><br><span class="line">        t = a[i] - t;</span><br><span class="line">        if (i &lt; b.size()) t -= b[i];</span><br><span class="line">        c.push_back((t + 10) % 10);</span><br><span class="line">        if (t &lt; 0) t = 1;</span><br><span class="line">        else t = 0;</span><br><span class="line">    &#125;</span><br><span class="line">    while(c.size() &gt; 1 &amp;&amp; c.back() == 0) c.pop_back();</span><br><span class="line">    return c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    string a, b;</span><br><span class="line">    cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">    vector&lt;int&gt; A;</span><br><span class="line">    vector&lt;int&gt; B;</span><br><span class="line">    vector&lt;int&gt; C;</span><br><span class="line">    for (int i = a.size() - 1; i &gt;= 0; i--) &#123;</span><br><span class="line">        A.push_back(a[i] - &apos;0&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">    for (int i = b.size() - 1; i &gt;= 0; i--) &#123;</span><br><span class="line">        B.push_back(b[i] - &apos;0&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">    if (cmp(A, B)) C = sub(A, B);</span><br><span class="line">    else &#123;</span><br><span class="line">        C = sub(B, A);</span><br><span class="line">        cout &lt;&lt; &quot;-&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    for (int i = C.size() - 1; i &gt;= 0; i--) &#123;</span><br><span class="line">        cout &lt;&lt; C[i];</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="高精度乘法"><a href="#高精度乘法" class="headerlink" title="高精度乘法"></a>高精度乘法</h5><p>高精度乘整数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; mul(vector&lt;int&gt; &amp;a, int b) &#123;</span><br><span class="line">    vector&lt;int&gt; c;</span><br><span class="line">    int t = 0;</span><br><span class="line">    for (int i = 0; i &lt; a.size() || t; i++) &#123;</span><br><span class="line">        if (i &lt; a.size()) t += a[i] * b;</span><br><span class="line">        c.push_back(t % 10);</span><br><span class="line">        t /= 10;</span><br><span class="line">    &#125;</span><br><span class="line">    return c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>高精度乘高精度</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; mul(vector&lt;int&gt; &amp;a, vector&lt;int&gt; &amp;b) &#123;</span><br><span class="line">    vector&lt;int&gt; res(alen + blen, 0);</span><br><span class="line">    // i*j存放i+j</span><br><span class="line">    for (int i = 0; i &lt; alen; i++) &#123;</span><br><span class="line">        for (int j = 0; j &lt; blen; j++) &#123;</span><br><span class="line">  	          res[i + j] += a[i] * b[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    int t = 0;</span><br><span class="line">    for (int i = 0; i &lt; (int)res.size(); i++) &#123;</span><br><span class="line">	      t += res[i];</span><br><span class="line">	      res[i] = t % BASE;</span><br><span class="line">	      t /= BASE;</span><br><span class="line">    &#125;</span><br><span class="line">    while (res.size() &gt; 1 &amp;&amp; res.back() == 0) &#123;</span><br><span class="line">        res.pop_back();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="高精度除法"><a href="#高精度除法" class="headerlink" title="高精度除法"></a>高精度除法</h5><p>高精度除整数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; div(vector&lt;int&gt; &amp;a, int b, int &amp;r) &#123;</span><br><span class="line">    vector&lt;int&gt; c;</span><br><span class="line">    r = 0;</span><br><span class="line">    for (int i = a.size() - 1; i &gt;= 0; i--) &#123;</span><br><span class="line">        r = r * 10 + a[i];</span><br><span class="line">        c.push_back(r / b);</span><br><span class="line">        r %= b;</span><br><span class="line">    &#125;</span><br><span class="line">    reverse(c.begin(), c.end());</span><br><span class="line">    while(c.size() &gt; 1 &amp;&amp; c.back() == 0) c.pop_back();</span><br><span class="line">    return c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/31/algo-template1/" rel="next" title="算法模版-初级篇">
+                <i class="fa fa-chevron-left"></i> 算法模版-初级篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/28/kg-recsys/" rel="prev" title="知识图谱在推荐系统的应用">
+                知识图谱在推荐系统的应用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jing Yang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:jingy.ella@gmail.com" title="E-Mail &rarr; mailto:jingy.ella@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#位运算"><span class="nav-number">1.1.</span> <span class="nav-text">位运算</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#取最靠右的一位1"><span class="nav-number">1.1.1.</span> <span class="nav-text">取最靠右的一位1</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二进制中1的个数"><span class="nav-number">1.1.2.</span> <span class="nav-text">二进制中1的个数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#获取-设置右起第k位数"><span class="nav-number">1.1.3.</span> <span class="nav-text">获取/设置右起第k位数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初级数论"><span class="nav-number">1.2.</span> <span class="nav-text">初级数论</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#辗转相除法"><span class="nav-number">1.2.1.</span> <span class="nav-text">辗转相除法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#最大公约数"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">最大公约数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#最大公倍数"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">最大公倍数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#扩展欧几里得算法"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">扩展欧几里得算法</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#素数"><span class="nav-number">1.2.2.</span> <span class="nav-text">素数</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#素数判定-试除法"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">素数判定 / 试除法</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#素数筛法"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">素数筛法</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#快速幂"><span class="nav-number">1.2.3.</span> <span class="nav-text">快速幂</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#离散化"><span class="nav-number">1.3.</span> <span class="nav-text">离散化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二分判定"><span class="nav-number">1.4.</span> <span class="nav-text">二分判定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#区间问题"><span class="nav-number">1.5.</span> <span class="nav-text">区间问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#区间合并"><span class="nav-number">1.5.1.</span> <span class="nav-text">区间合并</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#区间覆盖问题"><span class="nav-number">1.5.2.</span> <span class="nav-text">区间覆盖问题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#求覆盖各区间的最少点数-每个区间至少包含一个点"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">求覆盖各区间的最少点数(每个区间至少包含一个点)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#区间调度问题-求不相交区间的最多区间数目"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">区间调度问题/求不相交区间的最多区间数目</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#求按照不相交区间分组的最少分组数目"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">求按照不相交区间分组的最少分组数目</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#求覆盖指定线段的最少区间数目"><span class="nav-number">1.5.2.4.</span> <span class="nav-text">求覆盖指定线段的最少区间数目</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#前缀和-差分"><span class="nav-number">1.6.</span> <span class="nav-text">前缀和/差分</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#一维前缀和"><span class="nav-number">1.6.1.</span> <span class="nav-text">一维前缀和</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二维前缀和"><span class="nav-number">1.6.2.</span> <span class="nav-text">二维前缀和</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#一维差分"><span class="nav-number">1.6.3.</span> <span class="nav-text">一维差分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二维差分"><span class="nav-number">1.6.4.</span> <span class="nav-text">二维差分</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#差分-贪心"><span class="nav-number">1.6.4.1.</span> <span class="nav-text">差分+贪心</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#差分-前缀和"><span class="nav-number">1.6.4.2.</span> <span class="nav-text">差分+前缀和</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#树状数组"><span class="nav-number">1.7.</span> <span class="nav-text">树状数组</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#差分-树状数组"><span class="nav-number">1.7.1.</span> <span class="nav-text">差分+树状数组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二维树状数组"><span class="nav-number">1.7.2.</span> <span class="nav-text">二维树状数组</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线段树"><span class="nav-number">1.8.</span> <span class="nav-text">线段树</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#支持单点修改的区间最大值查询"><span class="nav-number">1.8.1.</span> <span class="nav-text">支持单点修改的区间最大值查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#支持区间修改的区间和查询"><span class="nav-number">1.8.2.</span> <span class="nav-text">支持区间修改的区间和查询</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#图论"><span class="nav-number">1.9.</span> <span class="nav-text">图论</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#BFS-DFS搜索"><span class="nav-number">1.9.1.</span> <span class="nav-text">BFS/DFS搜索</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多源BFS"><span class="nav-number">1.9.2.</span> <span class="nav-text">多源BFS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#双端队列BFS"><span class="nav-number">1.9.3.</span> <span class="nav-text">双端队列BFS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#BFS优化"><span class="nav-number">1.9.4.</span> <span class="nav-text">BFS优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#染色法判定二分图"><span class="nav-number">1.9.5.</span> <span class="nav-text">染色法判定二分图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#拓扑排序"><span class="nav-number">1.9.6.</span> <span class="nav-text">拓扑排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最短路问题"><span class="nav-number">1.9.7.</span> <span class="nav-text">最短路问题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Bellman-Ford-允许负环"><span class="nav-number">1.9.7.1.</span> <span class="nav-text">Bellman-Ford 允许负环</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Dijkstra-不许负权重边"><span class="nav-number">1.9.7.2.</span> <span class="nav-text">Dijkstra 不许负权重边</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Floyd-适用负权重边，不允许存在负权重环"><span class="nav-number">1.9.7.3.</span> <span class="nav-text">Floyd 适用负权重边，不允许存在负权重环</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最小生成树"><span class="nav-number">1.9.8.</span> <span class="nav-text">最小生成树</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串匹配"><span class="nav-number">1.10.</span> <span class="nav-text">字符串匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#暴力"><span class="nav-number">1.10.1.</span> <span class="nav-text">暴力</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#KMP"><span class="nav-number">1.10.2.</span> <span class="nav-text">KMP</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Trie-树"><span class="nav-number">1.11.</span> <span class="nav-text">Trie 树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#高精度"><span class="nav-number">1.12.</span> <span class="nav-text">高精度</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#高精度加法"><span class="nav-number">1.12.1.</span> <span class="nav-text">高精度加法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#高精度减法"><span class="nav-number">1.12.2.</span> <span class="nav-text">高精度减法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#高精度乘法"><span class="nav-number">1.12.3.</span> <span class="nav-text">高精度乘法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#高精度除法"><span class="nav-number">1.12.4.</span> <span class="nav-text">高精度除法</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jing Yang</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">93k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">1:25</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v6.7.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=6.7.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
