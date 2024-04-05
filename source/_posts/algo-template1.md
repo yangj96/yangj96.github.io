@@ -15,27 +15,33 @@ categories: Algorithm
 
 4. 滑动窗口
 
-5. 单调栈
+5. 哈希
 
-6. 堆/优先队列
+6. 单调栈
 
-7. 快速排序/快速选择
+7. 二叉树
 
-8. 归并排序
+8. 快速排序/快速选择
 
-9. 二叉树
+9. 堆/优先队列
 
-10. 回溯/递归/DFS/BFS
+10. 归并排序
 
-11. 图
+11. 回溯/递归/DFS
 
-12. 并查集
+12. BFS
 
-13. 动态规划
+13. 图
 
-14. 贪心
+14. 并查集
 
-      
+15. 动态规划
+
+16. 贪心
+
+17. 数组trick
+
+    ​    
 
 #### 二分
 
@@ -193,15 +199,117 @@ while (left < right && right < nums.size()) {
 
 ##### 最小覆盖子串
 
+```C++
+string minWindow(string s, string t) {
+    unordered_map<char, int> hash;
+    for (auto &c : t) {
+        hash[c]++;
+    }
+    int cnt = hash.size();
+    int l = 0, r = 0, valid = 0;
+    string res;
+    int minLen = 1e9;
+    while (r < s.size()) {
+        if (hash[s[r]] == 1) valid++;
+        hash[s[r]]--;
+        // 窗口满足覆盖条件时，尽可能缩小长度
+        while (valid == cnt && hash[s[l]] < 0) {
+            hash[s[l]]++;
+            l++;
+        }
+        if (valid == cnt) {
+            if (res.empty() || r - l + 1 < minLen) {
+                res = s.substr(l, r - l + 1);
+                minLen = r - l + 1;
+            }
+        }
+        r++;
+    }
+    return res;
+}
+```
+
 ##### 找到字符串中所有给定子串的字母异位子串
 
-
+```C++
+vector<int> findAnagrams(string s, string p) {
+    unordered_map<char, int> umap;
+    int cnt = 0;
+    for (auto &c : p) {
+        if (!umap[c]) cnt++;
+        umap[c]++;
+    }
+    int valid = 0;
+    vector<int> res;
+    for (int i = 0, j = 0; i < s.size(); i++) {
+        umap[s[i]]--;
+        if (umap[s[i]] == 0) valid++;
+        // 长度为k的子数组/子串，可直接根据窗口长度判断是否需要缩小窗口
+        while (i - j + 1 > p.size()) {
+            if (umap[s[j]] == 0) valid--;
+            umap[s[j]]++;
+            j++;
+        }
+        if (valid == cnt) res.push_back(j);
+    }
+    return res;
+}
+```
 
 ##### 和为k的子数组
 
-注意这道题如果数组存在负数，右指针右移，左指针不满足右移的单调性，
+注意这道题如果数组存在负数，则右指针右移，左指针不满足右移的单调性，不能使用滑动窗口。应使用前缀和+哈希：
 
-##### 平均数最大且长度为k的子数组
+```
+    int subarraySum(vector<int>& a, int k) {
+        int n = a.size();
+        vector<int> sum(n+1, 0);
+        for (int i = 1; i <= n; i++) {
+            sum[i] = sum[i-1] + a[i-1];
+        }
+        unordered_map<int, int> hash;
+        int res = 0;
+        hash[0] = 1;
+        for (int i = 1; i <= n; i++) {
+            res+= hash[sum[i] - k];
+            hash[sum[i]]++;
+        }
+        return res;
+    }
+```
+
+#### 哈希
+
+常见题目：两数之和、和为k的子数组、字母异位词分组、最长连续序列
+
+**最长连续序列**
+
+```
+int longestConsecutive(vector<int>& nums) {
+    int res = 0;
+    // unordered_map<int, int> tr_left, tr_right;
+    // for (auto& x: nums) {
+    //     int left = tr_right[x - 1];
+    //     int right = tr_left[x + 1];
+    //     tr_left[x - left] = max(tr_left[x - left], left + 1 + right);
+    //     tr_right[x + right] = max(tr_right[x + right], left + 1 + right);
+    //     res = max(res, left + 1 + right);
+    // }
+    unordered_set<int> set(nums.begin(), nums.end());
+    for (auto& x: nums) {
+        if (set.find(x-1) != set.end()) continue;
+        int cur = 1, curVal = x;
+        while (set.find(curVal+1) != set.end()) {
+            cur++;
+            curVal++;
+        }
+        res = max(res, cur);
+    }
+    return res;
+}
+```
+
+
 
 
 
@@ -256,7 +364,156 @@ def largestRectangleArea(self, heights) -> int:
     return res
 ```
 
-#### 堆
+
+
+#### 二叉树
+
+数据结构的遍历形式主要分为迭代和递归，二叉树由于其非线性，只能采用递归遍历形式：
+
+```cpp
+void traverse(TreeNode* root) {
+    // 前序位置
+    traverse(root->left);
+    // 中序位置
+    traverse(root->right);
+    // 后序位置
+}
+```
+
+二叉树的解题思路分为两种：一是递归遍历二叉树，二是分解子问题。回溯通常定义一个返回值为空的函数做递归遍历，分治定义的函数返回子树的计算结果。以前序遍历为例：
+
+```
+// 回溯思想
+vector<int> preorder(TreeNode* root) {
+    vector<int> res;
+    traverse(root, res);
+    return res;
+}
+void traverse(TreeNode* root, vector<int>& res) {
+    if (root == NULL) {
+        return;
+    }
+    res.push_back(root->val);
+    traverse(root->left);
+    traverse(root->right);
+}
+
+// 分治思想
+vector<int> preorder(TreeNode* root) {
+    vector<int> res;
+    if (root == NULL) {
+        return res;
+    }
+    res.push_back(root->val);
+    vector<int> left = preorder(root->left);
+    vector<int> right = preorder(root->right);
+    // 后序位置可以通过函数返回值获取子树传递回来的数据
+    res.insert(res.end(), left.begin(), left.end());
+    res.insert(res.end(), right.begin(), right.end());
+    return res;
+}
+```
+
+二叉树的层序遍历：本质是BFS
+
+```
+vector<vector<int>> levelTraverse(TreeNode* root) {
+		vector<vector<int>> res;
+    if (root == NULL) return res;
+    queue<TreeNode*> que;
+    que.push(root);
+    
+    while (!que.empty()) {
+    		int sz = que.size();
+    		vector<int> tmp;
+        for (int i = 0; i < sz; i++) {
+            TreeNode* cur = que.front();
+            tmp.push_back(cur->val);
+            que.pop();
+            if (cur->left) que.push(cur->left);
+            if (cur->right) que.push(cur->right);
+        }
+        res.push_back(tmp);
+    }
+    return res;
+}
+```
+
+
+
+二叉搜索树：左子树均小于根节点，右子树均大于根节点
+
+**二叉搜索树的最近公共祖先**
+
+```c++
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+    TreeNode* ancestor = root;
+    while (true) {
+        if (p->val < ancestor->val && q->val < ancestor->val) {
+            ancestor = ancestor->left;
+        }
+        else if (p->val > ancestor->val && q->val > ancestor->val) {
+            ancestor = ancestor->right;
+        }
+        else {
+            break;
+        }
+    }
+    return ancestor;
+}
+```
+
+
+
+#### 快速排序/快速选择
+
+快速排序 $O(nlgn)$
+
+```
+void qSort(int q[], int l, int r)
+{
+    if (l >= r) return;
+	// x选择q[l]或下中位数，递归子区间选[l, j], [j + 1, r]
+    int i = l - 1, j = r + 1, x = q[l + r >> 1];
+    while (i < j)
+    {
+        do i ++ ; while (q[i] < x);
+        do j -- ; while (q[j] > x);
+        if (i < j) swap(q[i], q[j]);
+    }
+    qSort(q, l, j), qSort(q, j + 1, r);
+}
+```
+
+快速选择$O(n)$
+
+```
+int qSelect(vector<int>& a, int l, int r, int k) {
+    if (l == r) 
+        return a[l];
+    int x = a[l], i = l - 1, j = r + 1;
+    while (i < j) {
+        while(a[++ i] < x);
+        while(a[-- j] > x);
+        if (i < j) {
+            swap(a[i], a[j]);
+        }
+    }
+    int cnt = j - l + 1;
+    if (cnt >= k)
+        return qSelect(a, l, j, k);
+    else
+        return qSelect(a, j + 1, r, k - cnt);
+}
+```
+
+#### 
+
+#### 堆/优先队列
+
+堆是满足任一父节点大于/小于其子节点的完全二叉树。
+
+
 
 插入元素 右下插入
 
@@ -415,48 +672,6 @@ double getMedian(){
 }
 ```
 
-#### 快速排序/快速选择
-
-快速排序 $O(nlgn)$
-
-```
-void qSort(int q[], int l, int r)
-{
-    if (l >= r) return;
-	// x选择q[l]或下中位数，递归子区间选[l, j], [j + 1, r]
-    int i = l - 1, j = r + 1, x = q[l + r >> 1];
-    while (i < j)
-    {
-        do i ++ ; while (q[i] < x);
-        do j -- ; while (q[j] > x);
-        if (i < j) swap(q[i], q[j]);
-    }
-    qSort(q, l, j), qSort(q, j + 1, r);
-}
-```
-
-快速选择$O(n)$
-
-```
-int qSelect(vector<int>& a, int l, int r, int k) {
-    if (l == r) 
-        return a[l];
-    int x = a[l], i = l - 1, j = r + 1;
-    while (i < j) {
-        while(a[++ i] < x);
-        while(a[-- j] > x);
-        if (i < j) {
-            swap(a[i], a[j]);
-        }
-    }
-    int cnt = j - l + 1;
-    if (cnt >= k)
-        return qSelect(a, l, j, k);
-    else
-        return qSelect(a, j + 1, r, k - cnt);
-}
-```
-
 #### 归并排序
 
 数组归并排序
@@ -561,35 +776,7 @@ long long mergeSort(int l, int r) {
 
 	分治或最小堆
 
-#####
-
-#### 二叉树
-
-二叉树的思路：
-
-
-
-
-
-**二叉搜索树的最近公共祖先**
-
-```c++
-TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-    TreeNode* ancestor = root;
-    while (true) {
-        if (p->val < ancestor->val && q->val < ancestor->val) {
-            ancestor = ancestor->left;
-        }
-        else if (p->val > ancestor->val && q->val > ancestor->val) {
-            ancestor = ancestor->right;
-        }
-        else {
-            break;
-        }
-    }
-    return ancestor;
-}
-```
+####
 
 
 
@@ -872,40 +1059,6 @@ int getMaximumGold(vector<vector<int>>& grid) {
 
 空间复杂度 $O(最大递归深度)$
 
-
-
-#### 图
-
-**图的表示：**
-
-邻接矩阵
-`int G [maxv][maxv] `或` <vector<vector<int> > G`
-
-邻接表
-`vector<int> G[maxv]`
-
-邻接表边带权：
-
-`struct edge {
-  int to;
-  int cost;
-}`
-`vector<edge> G[maxv]`
-
-``` 
-//读入
-cin >> V >> E;
-for (int i = 0; i < E; i++) {
-	int s, t;
-	cin >> s >> t;
-	G[s].push_back(G[t]);
-	//无向图
-	G[t].push_back(G[s]);
-}
-```
-
-
-
 #### BFS
 
 时间复杂度 $O(状态数*转移方式)$
@@ -984,6 +1137,7 @@ void bfs(int sx,int sy)
     queue<P> que;
     que.push(make_pair(sx, sy));
     field[sx][sy]='.';
+    
     while (!que.empty()) {
         PII p = que.front();
         que.pop();
@@ -1149,6 +1303,42 @@ int main() {
     return 0;
 }
 ```
+
+
+
+#### 图
+
+**图的表示：**
+
+邻接矩阵
+`int G [maxv][maxv] `或` <vector<vector<int> > G`
+
+邻接表
+`vector<int> G[maxv]`
+
+邻接表边带权：
+
+`struct edge {
+  int to;
+  int cost;
+}`
+`vector<edge> G[maxv]`
+
+``` 
+//读入
+cin >> V >> E;
+for (int i = 0; i < E; i++) {
+	int s, t;
+	cin >> s >> t;
+	G[s].push_back(G[t]);
+	//无向图
+	G[t].push_back(G[s]);
+}
+```
+
+
+
+
 
 #### 并查集
 
