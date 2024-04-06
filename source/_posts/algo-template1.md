@@ -39,8 +39,6 @@ categories: Algorithm
 
 16. 贪心
 
-17. 数组trick
-
     ​    
 
 #### 二分
@@ -439,29 +437,7 @@ vector<vector<int>> levelTraverse(TreeNode* root) {
 }
 ```
 
-
-
-二叉搜索树：左子树均小于根节点，右子树均大于根节点
-
-**二叉搜索树的最近公共祖先**
-
-```c++
-TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-    TreeNode* ancestor = root;
-    while (true) {
-        if (p->val < ancestor->val && q->val < ancestor->val) {
-            ancestor = ancestor->left;
-        }
-        else if (p->val > ancestor->val && q->val > ancestor->val) {
-            ancestor = ancestor->right;
-        }
-        else {
-            break;
-        }
-    }
-    return ancestor;
-}
-```
+二叉搜索树：1）左子树均小于根节点，右子树均大于根节点。2）BST的左子树和右子树也是BST。
 
 
 
@@ -1060,6 +1036,14 @@ int getMaximumGold(vector<vector<int>>& grid) {
 空间复杂度 $O(最大递归深度)$
 
 #### BFS
+
+BFS求无权图的最短路：
+
+```
+
+```
+
+
 
 时间复杂度 $O(状态数*转移方式)$
 

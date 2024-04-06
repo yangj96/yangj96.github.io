@@ -1,8 +1,47 @@
 ---
-title: Leetcode笔记
+title: Leetcode Trick题目总结
 date: 2019-11-15 12:08:15
 tags: Leetcode
 ---
+
+##### LC41 缺失的第一个正整数
+
+下标置换
+让n出现在nums[n-1]的位置上，0和负数忽略，注意while循环的判断一定要思考循环是否能有效终止，第二种情况如果交换的两个数相同，则while循环会变为死循环
+
+```C++
+while (nums[i] > 0 && mums[i] <= n && nums[i] != nums[nums[i] - 1]) {
+  swap(nums[i], nums[nums[i] - 1]);
+}
+// or
+ while (nums[i] >= 0 && nums[i] < n && nums[i] != i && nums[i] != nums[nums[i]])
+  swap(nums[i], nums[nums[i]]);
+```
+
+或者如果不想考虑下标和正整数元素的差1，可以先将所有元素值减1，负数不处理，但此时要注意INT_MIN不能减。
+
+```
+   int firstMissingPositive(vector<int>& nums) {
+        int n = nums.size();
+        if (!n) return 1;
+        for (auto &x : nums) {
+            if (x != INT_MIN) x--;
+        }
+        for (int i = 0; i < n; i++) {
+            while (nums[i] >= 0 && nums[i] < n && nums[i] != i && nums[i] != nums[nums[i]]) {
+                int tmp = nums[nums[i]];
+                nums[nums[i]] = nums[i];
+                nums[i] = tmp;
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            if (nums[i] != i) return i + 1;
+        }
+        return n + 1;
+    }
+```
+
+
 
 ##### LC23 合并k个有序链表
 
@@ -17,23 +56,6 @@ struct Cmp {
 }
 注意判读p->next不为空再加入优先队列
 ```
-
-
-
-##### LC 41 缺失的第一个正整数
-
-下标置换
-让n出现在nums[n-1]的位置上，0和负数忽略，注意while循环的判断一定要思考循环是否能有效终止，第二种情况如果交换的两个数相同，则while循环会变为死循环
-
-```C++
-while (nums[i] > 0 && mums[i] <= n && nums[i] != nums[nums[i] - 1]) {
-  swap(nums[i], nums[nums[i] - 1]);
-}
-// or
- while (nums[i] >= 0 && nums[i] < n && nums[i] != i && nums[i] != nums[nums[i]])
-  swap(nums[i], nums[nums[i]]);
-```
-或者如果不想考虑下标和正整数元素的差1，可以先将所有元素值减1，负数不处理，但此时要注意INT_MIN不能减。
 
 
 

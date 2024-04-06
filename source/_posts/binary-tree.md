@@ -1,10 +1,167 @@
 ---
-title: leetcode二叉树
+title: 二叉树题目总结
 date: 2019-10-01 12:35:21
 categories: Leetcode
 ---
 
-Leetcode二叉树常见题目：
+二叉树常见题目总结：
+
+1. 二叉树遍历/分解
+2. 二叉树花式遍历
+3. 二叉树构造
+4. 二叉树序列化
+5. 二叉搜索树
+   1. BST性质利用
+   2. BST判定/增删改查
+   3. BST构造
+
+#### 二叉树遍历/分解
+
+**二叉树的深度**
+
+每个节点仅被遍历一次，所以时间复杂度是 O(n)
+
+    int maxDepth(TreeNode* root) {
+        return root ? max(maxDepth(root->left), maxDepth(root->right)) + 1 : 0;
+    }
+
+**二叉树翻转**
+
+每个节点仅被遍历一次，所以时间复杂度是 O(n)
+
+```
+// 递归
+TreeNode* invertTree(TreeNode* root) {
+    if (!root) return 0;
+    swap(root->left, root->right);
+    invertTree(root->left);
+    invertTree(root->right);
+    return root;
+}
+// 分解
+TreeNode* invertTree(TreeNode* root) {
+    if (root == NULL) {
+        return NULL;
+    }
+    TreeNode* left = invertTree(root->left);
+    TreeNode* right = invertTree(root->right);
+    root->left = right;
+    root->right = left;
+    return root;
+}
+```
+
+**填充节点的右侧指针**
+
+```
+// 递归
+Node* connect(Node* root) {
+    if (root == nullptr) return nullptr;
+    traverse(root->left, root->right);
+    return root;
+}
+
+void traverse(Node* node1, Node* node2) {
+    if (node1 == nullptr || node2 == nullptr) {
+        return;
+    }
+    node1->next = node2;
+    
+    traverse(node1->left, node1->right);
+    traverse(node2->left, node2->right);
+    traverse(node1->right, node2->left);
+}
+// 层序遍历，每个节点仅会遍历一次，遍历时修改指针的时间复杂度是 O(1)，总时间复杂度是 O(n)
+void connect(TreeLinkNode *root)
+{
+    if (!root) return;
+    TreeLinkNode *last = root;
+    while (last->left) // 直到遍历到叶节点
+    {
+        for (TreeLinkNode *p = last; p; p = p->next)
+        {
+            p->left->next = p->right;
+            if (p->next) p->right->next = p->next->left;
+            else p->right->next = 0;
+        }
+        last = last->left;
+    }
+}
+// 层序遍历，非完美二叉树
+Node* connect(Node *root) {
+    auto head = root;
+    while (root)
+    {
+        Node *dummy = new Node(0);
+        Node *tail = dummy;
+        while (root)
+        {
+            if (root->left)
+            {
+                tail->next = root->left;
+                tail = tail->next;
+            }
+            if (root->right)
+            {
+                tail->next = root->right;
+                tail = tail->next;
+            }
+            root = root->next;
+        }
+        root = dummy->next;
+    }
+    return head;
+}
+```
+
+
+
+#### 二叉树花式遍历
+
+**zigzag遍历**
+
+```
+vector<int> get_val(vector<TreeNode*> level)
+{
+    vector<int> res;
+    for (auto &u : level)
+        res.push_back(u->val);
+    return res;
+}
+
+vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+    vector<vector<int>>res;
+    if (!root) return res;
+    vector<TreeNode*>level;
+    level.push_back(root);
+    res.push_back(get_val(level));
+    bool zigzag = true;
+    while (true)
+    {
+        vector<TreeNode*> newLevel;
+        for (auto &u : level)
+        {
+            if (u->left) newLevel.push_back(u->left);
+            if (u->right) newLevel.push_back(u->right);
+        }
+        if (newLevel.size())
+        {
+            vector<int>temp = get_val(newLevel);
+            if (zigzag)
+                reverse(temp.begin(), temp.end());
+            res.push_back(temp);
+            level = newLevel;
+        }
+        else break;
+        zigzag = !zigzag;
+    }
+    return res;
+}
+```
+
+
+
+#### 二叉树构造
 
 ##### 重建二叉树
 
@@ -34,59 +191,6 @@ Leetcode二叉树常见题目：
 ```
 
 非递归版本
-
-
-
-##### 判定二叉搜索树后序序列的合法性
-
-注意dfs中[l,r]只包含一个元素的边界判断和子区间递归要剔除根节点
-
-```
-vector<int> seq;
-bool verifySequenceOfBST(vector<int> sequence) {
-    seq = sequence;
-    if (seq.size() == 0) return true;
-    return dfs(0, seq.size() - 1);
-}
-bool dfs(int l, int r) {
-    if (l >= r) return true;
-    int x = seq[r];
-    int k = l;
-    while (k < r && seq[k] < x) k++;
-    for (int i = k; i < r; i++)
-        if (seq[i] < x) return false;
-    return dfs(l, k-1) && dfs(k, r-1);
-}};
-```
-
-##### 二叉搜索树的第k个结点
-
-中序遍历的第k个节点，即第k小的结点
-
-    /**
-     * Definition for a binary tree node.
-     * struct TreeNode {
-     *     int val;
-     *     TreeNode *left;
-     *     TreeNode *right;
-     *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-     * };
-     */
-    TreeNode *ans;
-    
-    TreeNode* kthNode(TreeNode* root, int k) {
-        dfs(root, k);
-        return ans;
-    }
-    
-    void dfs(TreeNode *root, int &k)
-    {
-        if (!k || !root) return;
-        dfs(root->left, k);
-        --k;
-        if (!k) ans = root;
-        else dfs(root->right, k);
-    }
 
 
 
@@ -161,13 +265,6 @@ bool isSymmetric(TreeNode* root) {
         return l->val == r->val && dfs(l->right, r->left) && dfs(l->left, r->right);
     }
 
-
-##### 二叉树的深度
-
-    int treeDepth(TreeNode* root) {
-        if (!root) return 0;
-        return max(treeDepth(root->left), treeDepth(root->right)) + 1;
-    }
 ##### 平衡二叉树判定
 
     bool ans = true;
@@ -365,12 +462,107 @@ vector<vector<int>> printFromTopToBottom(TreeNode* root) {
 }
 ```
 
+#### 二叉树序列化
+
 序列化二叉树
+
+
+
+#### 二叉搜索树
+
+
 
 
 
 二叉搜索树与双向链表
 
 每次递归返回一个pair<TreeNode\*, TreeNode\*>
+
+
+
+##### BST性质利用
+
+**二叉搜索树的最近公共祖先**
+
+```c++
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+    TreeNode* ancestor = root;
+    while (true) {
+        if (p->val < ancestor->val && q->val < ancestor->val) {
+            ancestor = ancestor->left;
+        }
+        else if (p->val > ancestor->val && q->val > ancestor->val) {
+            ancestor = ancestor->right;
+        }
+        else {
+            break;
+        }
+    }
+    return ancestor;
+}
+```
+
+##### 二叉搜索树的第k个结点
+
+中序遍历的第k个节点，即第k小的结点
+
+    /**
+     * Definition for a binary tree node.
+     * struct TreeNode {
+     *     int val;
+     *     TreeNode *left;
+     *     TreeNode *right;
+     *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+     * };
+     */
+    TreeNode *ans;
+    
+    TreeNode* kthNode(TreeNode* root, int k) {
+        dfs(root, k);
+        return ans;
+    }
+    
+    void dfs(TreeNode *root, int &k)
+    {
+        if (!k || !root) return;
+        dfs(root->left, k);
+        --k;
+        if (!k) ans = root;
+        else dfs(root->right, k);
+    }
+
+
+
+
+
+##### BST判定
+
+##### 判定二叉搜索树后序序列的合法性
+
+注意dfs中[l,r]只包含一个元素的边界判断和子区间递归要剔除根节点
+
+```
+vector<int> seq;
+bool verifySequenceOfBST(vector<int> sequence) {
+    seq = sequence;
+    if (seq.size() == 0) return true;
+    return dfs(0, seq.size() - 1);
+}
+bool dfs(int l, int r) {
+    if (l >= r) return true;
+    int x = seq[r];
+    int k = l;
+    while (k < r && seq[k] < x) k++;
+    for (int i = k; i < r; i++)
+        if (seq[i] < x) return false;
+    return dfs(l, k-1) && dfs(k, r-1);
+}};
+```
+
+##### BST增删改查
+
+##### 
+
+
 
  

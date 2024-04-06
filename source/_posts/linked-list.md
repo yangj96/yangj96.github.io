@@ -1,10 +1,10 @@
 ---
-title: Leetcode链表题目总结
+title: 链表题目总结
 date: 2019-03-25 10:38:08
 categories: Leetcode
 ---
 
-Leetcode链表题常用方法总结：
+链表题目常用方法总结：
 
 1. dummy node 常用于链表的head可能被修改或删除的情况，可简化单链表没有前向指针所带来的问题，通常使用current = dummy进行遍历，最终返回 dummy->next
 
