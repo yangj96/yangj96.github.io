@@ -96,20 +96,20 @@
 
 
 
-  <meta name="description" content="目录 二分  双指针  单调队列  滑动窗口  哈希  单调栈  二叉树  快速排序/快速选择  堆/优先队列  归并排序  回溯/递归/DFS  BFS  图  并查集  动态规划  贪心  数组trick ​       二分二分本质不是单调性，只需要区间针对某个性质能够分成两段，一段满足一段不满足即可。 找到能够划分区间左右两半的性质，如果if (check(mid)) 条件成立，判断答案在">
+  <meta name="description" content="目录 二分  双指针  单调队列  滑动窗口  哈希  单调栈  二叉树  快速排序/快速选择  堆/优先队列  归并排序  回溯/递归/DFS  BFS  图  并查集  动态规划  贪心 ​       二分二分本质不是单调性，只需要区间针对某个性质能够分成两段，一段满足一段不满足即可。 找到能够划分区间左右两半的性质，如果if (check(mid)) 条件成立，判断答案在左区间还是右区间，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="算法模版-初级篇">
 <meta property="og:url" content="https://yangj96.github.io/2019/12/31/algo-template1/index.html">
 <meta property="og:site_name" content="Jingy&#39;s Blog">
-<meta property="og:description" content="目录 二分  双指针  单调队列  滑动窗口  哈希  单调栈  二叉树  快速排序/快速选择  堆/优先队列  归并排序  回溯/递归/DFS  BFS  图  并查集  动态规划  贪心  数组trick ​       二分二分本质不是单调性，只需要区间针对某个性质能够分成两段，一段满足一段不满足即可。 找到能够划分区间左右两半的性质，如果if (check(mid)) 条件成立，判断答案在">
+<meta property="og:description" content="目录 二分  双指针  单调队列  滑动窗口  哈希  单调栈  二叉树  快速排序/快速选择  堆/优先队列  归并排序  回溯/递归/DFS  BFS  图  并查集  动态规划  贪心 ​       二分二分本质不是单调性，只需要区间针对某个性质能够分成两段，一段满足一段不满足即可。 找到能够划分区间左右两半的性质，如果if (check(mid)) 条件成立，判断答案在左区间还是右区间，">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/0082zybply1gc2qahne9fj31760a0agz.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcwrtqmbcjj30g2078wgm.jpg">
 <meta property="og:image" content="https://yangj96.github.io/Users/jingy/Library/Application%20Support/typora-user-images/image-20200317114017754.png">
-<meta property="og:updated_time" content="2024-04-05T10:09:12.032Z">
+<meta property="og:updated_time" content="2024-04-06T03:37:12.540Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法模版-初级篇">
-<meta name="twitter:description" content="目录 二分  双指针  单调队列  滑动窗口  哈希  单调栈  二叉树  快速排序/快速选择  堆/优先队列  归并排序  回溯/递归/DFS  BFS  图  并查集  动态规划  贪心  数组trick ​       二分二分本质不是单调性，只需要区间针对某个性质能够分成两段，一段满足一段不满足即可。 找到能够划分区间左右两半的性质，如果if (check(mid)) 条件成立，判断答案在">
+<meta name="twitter:description" content="目录 二分  双指针  单调队列  滑动窗口  哈希  单调栈  二叉树  快速排序/快速选择  堆/优先队列  归并排序  回溯/递归/DFS  BFS  图  并查集  动态规划  贪心 ​       二分二分本质不是单调性，只需要区间针对某个性质能够分成两段，一段满足一段不满足即可。 找到能够划分区间左右两半的性质，如果if (check(mid)) 条件成立，判断答案在左区间还是右区间，">
 <meta name="twitter:image" content="https://tva1.sinaimg.cn/large/0082zybply1gc2qahne9fj31760a0agz.jpg">
 
 
@@ -407,7 +407,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2024-04-05 18:09:12" itemprop="dateModified" datetime="2024-04-05T18:09:12+08:00">2024-04-05</time>
+                <time title="修改时间：2024-04-06 11:37:12" itemprop="dateModified" datetime="2024-04-06T11:37:12+08:00">2024-04-06</time>
               
             
           </span>
@@ -453,7 +453,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">37k</span>
+                <span title="本文字数">36k</span>
               
 
               
@@ -467,7 +467,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">34 分钟</span>
+                <span title="阅读时长">33 分钟</span>
               
             </div>
           
@@ -519,8 +519,6 @@
 <li><p>动态规划</p>
 </li>
 <li><p>贪心</p>
-</li>
-<li><p>数组trick</p>
 <p>​    </p>
 </li>
 </ol>
@@ -562,9 +560,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">// 回溯思想</span><br><span class="line">vector&lt;int&gt; preorder(TreeNode* root) &#123;</span><br><span class="line">    vector&lt;int&gt; res;</span><br><span class="line">    traverse(root, res);</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line">void traverse(TreeNode* root, vector&lt;int&gt;&amp; res) &#123;</span><br><span class="line">    if (root == NULL) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    res.push_back(root-&gt;val);</span><br><span class="line">    traverse(root-&gt;left);</span><br><span class="line">    traverse(root-&gt;right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 分治思想</span><br><span class="line">vector&lt;int&gt; preorder(TreeNode* root) &#123;</span><br><span class="line">    vector&lt;int&gt; res;</span><br><span class="line">    if (root == NULL) &#123;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">    res.push_back(root-&gt;val);</span><br><span class="line">    vector&lt;int&gt; left = preorder(root-&gt;left);</span><br><span class="line">    vector&lt;int&gt; right = preorder(root-&gt;right);</span><br><span class="line">    // 后序位置可以通过函数返回值获取子树传递回来的数据</span><br><span class="line">    res.insert(res.end(), left.begin(), left.end());</span><br><span class="line">    res.insert(res.end(), right.begin(), right.end());</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>二叉树的层序遍历：本质是BFS</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;int&gt;&gt; levelTraverse(TreeNode* root) &#123;</span><br><span class="line">		vector&lt;vector&lt;int&gt;&gt; res;</span><br><span class="line">    if (root == NULL) return res;</span><br><span class="line">    queue&lt;TreeNode*&gt; que;</span><br><span class="line">    que.push(root);</span><br><span class="line">    </span><br><span class="line">    while (!que.empty()) &#123;</span><br><span class="line">    		int sz = que.size();</span><br><span class="line">    		vector&lt;int&gt; tmp;</span><br><span class="line">        for (int i = 0; i &lt; sz; i++) &#123;</span><br><span class="line">            TreeNode* cur = que.front();</span><br><span class="line">            tmp.push_back(cur-&gt;val);</span><br><span class="line">            que.pop();</span><br><span class="line">            if (cur-&gt;left) que.push(cur-&gt;left);</span><br><span class="line">            if (cur-&gt;right) que.push(cur-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">        res.push_back(tmp);</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>二叉搜索树：左子树均小于根节点，右子树均大于根节点</p>
-<p><strong>二叉搜索树的最近公共祖先</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TreeNode* <span class="title">lowestCommonAncestor</span><span class="params">(TreeNode* root, TreeNode* p, TreeNode* q)</span> </span>&#123;</span><br><span class="line">    TreeNode* ancestor = root;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p-&gt;val &lt; ancestor-&gt;val &amp;&amp; q-&gt;val &lt; ancestor-&gt;val) &#123;</span><br><span class="line">            ancestor = ancestor-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (p-&gt;val &gt; ancestor-&gt;val &amp;&amp; q-&gt;val &gt; ancestor-&gt;val) &#123;</span><br><span class="line">            ancestor = ancestor-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ancestor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>二叉搜索树：1）左子树均小于根节点，右子树均大于根节点。2）BST的左子树和右子树也是BST。</p>
 <h4 id="快速排序-快速选择"><a href="#快速排序-快速选择" class="headerlink" title="快速排序/快速选择"></a>快速排序/快速选择</h4><p>快速排序 $O(nlgn)$</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">void qSort(int q[], int l, int r)</span><br><span class="line">&#123;</span><br><span class="line">    if (l &gt;= r) return;</span><br><span class="line">	// x选择q[l]或下中位数，递归子区间选[l, j], [j + 1, r]</span><br><span class="line">    int i = l - 1, j = r + 1, x = q[l + r &gt;&gt; 1];</span><br><span class="line">    while (i &lt; j)</span><br><span class="line">    &#123;</span><br><span class="line">        do i ++ ; while (q[i] &lt; x);</span><br><span class="line">        do j -- ; while (q[j] &gt; x);</span><br><span class="line">        if (i &lt; j) swap(q[i], q[j]);</span><br><span class="line">    &#125;</span><br><span class="line">    qSort(q, l, j), qSort(q, j + 1, r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>快速选择$O(n)$</p>
@@ -628,7 +624,9 @@
 <p>寻找矩阵中价值最大的路径</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">int n, m;</span><br><span class="line">int dfs(int x, int y, vector&lt;vector&lt;int&gt;&gt;&amp; grid) &#123;</span><br><span class="line">    int dx[4] = &#123;0, 0, 1, -1&#125;;</span><br><span class="line">    int dy[4] = &#123;1, -1, 0, 0&#125;;</span><br><span class="line">    int tmp = grid[x][y]; </span><br><span class="line">    int res = tmp, ans = 0;</span><br><span class="line">    grid[x][y] = 0;</span><br><span class="line">    for (int i = 0; i &lt; 4; i++) &#123;</span><br><span class="line">        int nx = x + dx[i], ny = y + dy[i];</span><br><span class="line">        if (nx &gt;= 0 &amp;&amp; nx &lt; n &amp;&amp; ny &gt;= 0 &amp;&amp; ny &lt; m &amp;&amp; grid[nx][ny]) &#123;</span><br><span class="line">            ans = max(ans, dfs(nx, ny, grid));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    grid[x][y] = tmp;</span><br><span class="line">    res += ans;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int getMaximumGold(vector&lt;vector&lt;int&gt;&gt;&amp; grid) &#123;</span><br><span class="line">    n = grid.size();</span><br><span class="line">    if (!n) return 0;</span><br><span class="line">    m = grid[0].size();</span><br><span class="line">    int res = 0;</span><br><span class="line">    for (int i = 0; i &lt; n; i++) </span><br><span class="line">        for (int j = 0; j &lt; m; j++) &#123;</span><br><span class="line">            if (grid[i][j]) &#123;</span><br><span class="line">                res = max(res, dfs(i, j, grid));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="递归-DFS"><a href="#递归-DFS" class="headerlink" title="递归/DFS"></a>递归/DFS</h4><p>空间复杂度 $O(最大递归深度)$</p>
-<h4 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h4><p>时间复杂度 $O(状态数*转移方式)$</p>
+<h4 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h4><p>BFS求无权图的最短路：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>时间复杂度 $O(状态数*转移方式)$</p>
 <p>空间复杂度 $O(状态数)$</p>
 <h5 id="最短距离模型"><a href="#最短距离模型" class="headerlink" title="最短距离模型"></a>最短距离模型</h5><h6 id="迷宫起点到终点的最少步数"><a href="#迷宫起点到终点的最少步数" class="headerlink" title="迷宫起点到终点的最少步数"></a>迷宫起点到终点的最少步数</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">const int INF = 1e8;</span><br><span class="line">typedef pair&lt;int, int&gt; PII;</span><br><span class="line">queue&lt;PII&gt; que;</span><br><span class="line">char maze[N][M];</span><br><span class="line">int d[N][M];</span><br><span class="line">int dx[4] = &#123;1, 0, -1, 0&#125;;</span><br><span class="line">int dy[4] = &#123;0, 1, 0, -1&#125;;</span><br><span class="line"></span><br><span class="line">for (int i = 0; i &lt; n; i ++) &#123;</span><br><span class="line">	for (int j = 0; j &lt; m; j++) &#123;</span><br><span class="line">		d[i][j] = INF;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int sx, sy, gx, gy;</span><br><span class="line">que.push(PII(sx, sy));</span><br><span class="line">d[sx][sy] = 0;</span><br><span class="line"></span><br><span class="line">while(!que.empty()) &#123;</span><br><span class="line">    PII p = que.front();</span><br><span class="line">    que.pop();</span><br><span class="line">	if (p.first == gx &amp;&amp; p.second == gy) break;</span><br><span class="line">	</span><br><span class="line">	for (int i = 0; i &lt; 4; i++) &#123;</span><br><span class="line">		int nx = p.first + dx[i];</span><br><span class="line">		int ny = p.second + dy[i];</span><br><span class="line">		if (nx &gt;= 0 &amp;&amp; nx &lt; n &amp;&amp; ny &gt;= 0 &amp;&amp; ny &lt; m &amp;&amp; maze[nx][ny] != &apos;#&apos; &amp;&amp; d[nx][ny] == INF) &#123;</span><br><span class="line">			que.push(PII(nx, ny));</span><br><span class="line">			d[nx][ny] = d[p.first][p.second] + 1;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="Flood-Fill-连通域计数"><a href="#Flood-Fill-连通域计数" class="headerlink" title="Flood Fill/连通域计数"></a>Flood Fill/连通域计数</h5><p>DFS和BFS均可实现，可在线性时间找到某个点的连通块，但DFS数据较大可能会爆栈</p>
@@ -997,7 +995,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">93k</span>
+    <span title="站点总字数">97k</span>
   
 
   
@@ -1006,7 +1004,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">1:25</span>
+    <span title="站点阅读时长">1:28</span>
   
 </div>
 

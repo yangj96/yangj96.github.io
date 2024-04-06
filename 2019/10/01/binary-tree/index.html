@@ -96,17 +96,17 @@
 
 
 
-  <meta name="description" content="Leetcode二叉树常见题目： 重建二叉树递归版本 利用哈希数组记录中序遍历中每个值对应的位置 123456789101112131415161718unordered_map&amp;lt;int,int&amp;gt; pos;TreeNode* buildTree(vector&amp;lt;int&amp;gt;&amp;amp; preorder, vector&amp;lt;int&amp;gt;&amp;amp; inorder) &amp;#123;">
+  <meta name="description" content="二叉树常见题目总结：  二叉树遍历/分解 二叉树花式遍历 二叉树构造 二叉树序列化 二叉搜索树 BST性质利用 BST判定/增删改查 BST构造    二叉树遍历/分解二叉树的深度 每个节点仅被遍历一次，所以时间复杂度是 O(n) int maxDepth(TreeNode* root) {     return root ? max(maxDepth(root-&amp;gt;left), maxDep">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode二叉树">
+<meta property="og:title" content="二叉树题目总结">
 <meta property="og:url" content="https://yangj96.github.io/2019/10/01/binary-tree/index.html">
 <meta property="og:site_name" content="Jingy&#39;s Blog">
-<meta property="og:description" content="Leetcode二叉树常见题目： 重建二叉树递归版本 利用哈希数组记录中序遍历中每个值对应的位置 123456789101112131415161718unordered_map&amp;lt;int,int&amp;gt; pos;TreeNode* buildTree(vector&amp;lt;int&amp;gt;&amp;amp; preorder, vector&amp;lt;int&amp;gt;&amp;amp; inorder) &amp;#123;">
+<meta property="og:description" content="二叉树常见题目总结：  二叉树遍历/分解 二叉树花式遍历 二叉树构造 二叉树序列化 二叉搜索树 BST性质利用 BST判定/增删改查 BST构造    二叉树遍历/分解二叉树的深度 每个节点仅被遍历一次，所以时间复杂度是 O(n) int maxDepth(TreeNode* root) {     return root ? max(maxDepth(root-&amp;gt;left), maxDep">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2024-03-25T16:19:40.782Z">
+<meta property="og:updated_time" content="2024-04-05T14:06:25.825Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="leetcode二叉树">
-<meta name="twitter:description" content="Leetcode二叉树常见题目： 重建二叉树递归版本 利用哈希数组记录中序遍历中每个值对应的位置 123456789101112131415161718unordered_map&amp;lt;int,int&amp;gt; pos;TreeNode* buildTree(vector&amp;lt;int&amp;gt;&amp;amp; preorder, vector&amp;lt;int&amp;gt;&amp;amp; inorder) &amp;#123;">
+<meta name="twitter:title" content="二叉树题目总结">
+<meta name="twitter:description" content="二叉树常见题目总结：  二叉树遍历/分解 二叉树花式遍历 二叉树构造 二叉树序列化 二叉搜索树 BST性质利用 BST判定/增删改查 BST构造    二叉树遍历/分解二叉树的深度 每个节点仅被遍历一次，所以时间复杂度是 O(n) int maxDepth(TreeNode* root) {     return root ? max(maxDepth(root-&amp;gt;left), maxDep">
 
 
 
@@ -123,7 +123,7 @@
   };
 </script>
 
-  <title>leetcode二叉树 | Jingy's Blog</title>
+  <title>二叉树题目总结 | Jingy's Blog</title>
   
 
 
@@ -360,7 +360,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">leetcode二叉树
+          <h1 class="post-title" itemprop="name headline">二叉树题目总结
 
               
             
@@ -403,7 +403,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2024-03-26 00:19:40" itemprop="dateModified" datetime="2024-03-26T00:19:40+08:00">2024-03-26</time>
+                <time title="修改时间：2024-04-05 22:06:25" itemprop="dateModified" datetime="2024-04-05T22:06:25+08:00">2024-04-05</time>
               
             
           </span>
@@ -449,7 +449,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">7.9k</span>
+                <span title="本文字数">12k</span>
               
 
               
@@ -463,7 +463,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">11 分钟</span>
               
             </div>
           
@@ -483,39 +483,36 @@
       
 
       
-        <p>Leetcode二叉树常见题目：</p>
-<h5 id="重建二叉树"><a href="#重建二叉树" class="headerlink" title="重建二叉树"></a>重建二叉树</h5><p>递归版本</p>
+        <p>二叉树常见题目总结：</p>
+<ol>
+<li>二叉树遍历/分解</li>
+<li>二叉树花式遍历</li>
+<li>二叉树构造</li>
+<li>二叉树序列化</li>
+<li>二叉搜索树<ol>
+<li>BST性质利用</li>
+<li>BST判定/增删改查</li>
+<li>BST构造</li>
+</ol>
+</li>
+</ol>
+<h4 id="二叉树遍历-分解"><a href="#二叉树遍历-分解" class="headerlink" title="二叉树遍历/分解"></a>二叉树遍历/分解</h4><p><strong>二叉树的深度</strong></p>
+<p>每个节点仅被遍历一次，所以时间复杂度是 O(n)</p>
+<pre><code>int maxDepth(TreeNode* root) {
+    return root ? max(maxDepth(root-&gt;left), maxDepth(root-&gt;right)) + 1 : 0;
+}
+</code></pre><p><strong>二叉树翻转</strong></p>
+<p>每个节点仅被遍历一次，所以时间复杂度是 O(n)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 递归</span><br><span class="line">TreeNode* invertTree(TreeNode* root) &#123;</span><br><span class="line">    if (!root) return 0;</span><br><span class="line">    swap(root-&gt;left, root-&gt;right);</span><br><span class="line">    invertTree(root-&gt;left);</span><br><span class="line">    invertTree(root-&gt;right);</span><br><span class="line">    return root;</span><br><span class="line">&#125;</span><br><span class="line">// 分解</span><br><span class="line">TreeNode* invertTree(TreeNode* root) &#123;</span><br><span class="line">    if (root == NULL) &#123;</span><br><span class="line">        return NULL;</span><br><span class="line">    &#125;</span><br><span class="line">    TreeNode* left = invertTree(root-&gt;left);</span><br><span class="line">    TreeNode* right = invertTree(root-&gt;right);</span><br><span class="line">    root-&gt;left = right;</span><br><span class="line">    root-&gt;right = left;</span><br><span class="line">    return root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>填充节点的右侧指针</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">// 递归</span><br><span class="line">Node* connect(Node* root) &#123;</span><br><span class="line">    if (root == nullptr) return nullptr;</span><br><span class="line">    traverse(root-&gt;left, root-&gt;right);</span><br><span class="line">    return root;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void traverse(Node* node1, Node* node2) &#123;</span><br><span class="line">    if (node1 == nullptr || node2 == nullptr) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    node1-&gt;next = node2;</span><br><span class="line">    </span><br><span class="line">    traverse(node1-&gt;left, node1-&gt;right);</span><br><span class="line">    traverse(node2-&gt;left, node2-&gt;right);</span><br><span class="line">    traverse(node1-&gt;right, node2-&gt;left);</span><br><span class="line">&#125;</span><br><span class="line">// 层序遍历，每个节点仅会遍历一次，遍历时修改指针的时间复杂度是 O(1)，总时间复杂度是 O(n)</span><br><span class="line">void connect(TreeLinkNode *root)</span><br><span class="line">&#123;</span><br><span class="line">    if (!root) return;</span><br><span class="line">    TreeLinkNode *last = root;</span><br><span class="line">    while (last-&gt;left) // 直到遍历到叶节点</span><br><span class="line">    &#123;</span><br><span class="line">        for (TreeLinkNode *p = last; p; p = p-&gt;next)</span><br><span class="line">        &#123;</span><br><span class="line">            p-&gt;left-&gt;next = p-&gt;right;</span><br><span class="line">            if (p-&gt;next) p-&gt;right-&gt;next = p-&gt;next-&gt;left;</span><br><span class="line">            else p-&gt;right-&gt;next = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        last = last-&gt;left;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 层序遍历，非完美二叉树</span><br><span class="line">Node* connect(Node *root) &#123;</span><br><span class="line">    auto head = root;</span><br><span class="line">    while (root)</span><br><span class="line">    &#123;</span><br><span class="line">        Node *dummy = new Node(0);</span><br><span class="line">        Node *tail = dummy;</span><br><span class="line">        while (root)</span><br><span class="line">        &#123;</span><br><span class="line">            if (root-&gt;left)</span><br><span class="line">            &#123;</span><br><span class="line">                tail-&gt;next = root-&gt;left;</span><br><span class="line">                tail = tail-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            if (root-&gt;right)</span><br><span class="line">            &#123;</span><br><span class="line">                tail-&gt;next = root-&gt;right;</span><br><span class="line">                tail = tail-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            root = root-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        root = dummy-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    return head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="二叉树花式遍历"><a href="#二叉树花式遍历" class="headerlink" title="二叉树花式遍历"></a>二叉树花式遍历</h4><p><strong>zigzag遍历</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; get_val(vector&lt;TreeNode*&gt; level)</span><br><span class="line">&#123;</span><br><span class="line">    vector&lt;int&gt; res;</span><br><span class="line">    for (auto &amp;u : level)</span><br><span class="line">        res.push_back(u-&gt;val);</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vector&lt;vector&lt;int&gt;&gt; zigzagLevelOrder(TreeNode* root) &#123;</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt;res;</span><br><span class="line">    if (!root) return res;</span><br><span class="line">    vector&lt;TreeNode*&gt;level;</span><br><span class="line">    level.push_back(root);</span><br><span class="line">    res.push_back(get_val(level));</span><br><span class="line">    bool zigzag = true;</span><br><span class="line">    while (true)</span><br><span class="line">    &#123;</span><br><span class="line">        vector&lt;TreeNode*&gt; newLevel;</span><br><span class="line">        for (auto &amp;u : level)</span><br><span class="line">        &#123;</span><br><span class="line">            if (u-&gt;left) newLevel.push_back(u-&gt;left);</span><br><span class="line">            if (u-&gt;right) newLevel.push_back(u-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">        if (newLevel.size())</span><br><span class="line">        &#123;</span><br><span class="line">            vector&lt;int&gt;temp = get_val(newLevel);</span><br><span class="line">            if (zigzag)</span><br><span class="line">                reverse(temp.begin(), temp.end());</span><br><span class="line">            res.push_back(temp);</span><br><span class="line">            level = newLevel;</span><br><span class="line">        &#125;</span><br><span class="line">        else break;</span><br><span class="line">        zigzag = !zigzag;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="二叉树构造"><a href="#二叉树构造" class="headerlink" title="二叉树构造"></a>二叉树构造</h4><h5 id="重建二叉树"><a href="#重建二叉树" class="headerlink" title="重建二叉树"></a>重建二叉树</h5><p>递归版本</p>
 <p>利用哈希数组记录中序遍历中每个值对应的位置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">unordered_map&lt;int,int&gt; pos;</span><br><span class="line"></span><br><span class="line">TreeNode* buildTree(vector&lt;int&gt;&amp; preorder, vector&lt;int&gt;&amp; inorder) &#123;</span><br><span class="line">    int n = preorder.size();</span><br><span class="line">    for (int i = 0; i &lt; n; i ++ )</span><br><span class="line">        pos[inorder[i]] = i;</span><br><span class="line">    return dfs(preorder, inorder, 0, n - 1, 0, n - 1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TreeNode* dfs(vector&lt;int&gt;&amp;pre, vector&lt;int&gt;&amp;in, int pl, int pr, int il, int ir)</span><br><span class="line">&#123;</span><br><span class="line">    if (pl &gt; pr) return NULL;</span><br><span class="line">    int k = pos[pre[pl]] - il;</span><br><span class="line">    TreeNode* root = new TreeNode(pre[pl]);</span><br><span class="line">    root-&gt;left = dfs(pre, in, pl + 1, pl + k, il, il + k - 1);</span><br><span class="line">    root-&gt;right = dfs(pre, in, pl + k + 1, pr, il + k + 1, ir);</span><br><span class="line">    return root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>非递归版本</p>
-<h5 id="判定二叉搜索树后序序列的合法性"><a href="#判定二叉搜索树后序序列的合法性" class="headerlink" title="判定二叉搜索树后序序列的合法性"></a>判定二叉搜索树后序序列的合法性</h5><p>注意dfs中[l,r]只包含一个元素的边界判断和子区间递归要剔除根节点</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; seq;</span><br><span class="line">bool verifySequenceOfBST(vector&lt;int&gt; sequence) &#123;</span><br><span class="line">    seq = sequence;</span><br><span class="line">    if (seq.size() == 0) return true;</span><br><span class="line">    return dfs(0, seq.size() - 1);</span><br><span class="line">&#125;</span><br><span class="line">bool dfs(int l, int r) &#123;</span><br><span class="line">    if (l &gt;= r) return true;</span><br><span class="line">    int x = seq[r];</span><br><span class="line">    int k = l;</span><br><span class="line">    while (k &lt; r &amp;&amp; seq[k] &lt; x) k++;</span><br><span class="line">    for (int i = k; i &lt; r; i++)</span><br><span class="line">        if (seq[i] &lt; x) return false;</span><br><span class="line">    return dfs(l, k-1) &amp;&amp; dfs(k, r-1);</span><br><span class="line">&#125;&#125;;</span><br></pre></td></tr></table></figure>
-<h5 id="二叉搜索树的第k个结点"><a href="#二叉搜索树的第k个结点" class="headerlink" title="二叉搜索树的第k个结点"></a>二叉搜索树的第k个结点</h5><p>中序遍历的第k个节点，即第k小的结点</p>
-<pre><code>/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
-TreeNode *ans;
-
-TreeNode* kthNode(TreeNode* root, int k) {
-    dfs(root, k);
-    return ans;
-}
-
-void dfs(TreeNode *root, int &amp;k)
-{
-    if (!k || !root) return;
-    dfs(root-&gt;left, k);
-    --k;
-    if (!k) ans = root;
-    else dfs(root-&gt;right, k);
-}
-</code></pre><h5 id="和为某一定值的二叉树路径"><a href="#和为某一定值的二叉树路径" class="headerlink" title="和为某一定值的二叉树路径"></a>和为某一定值的二叉树路径</h5><p>DFS</p>
+<h5 id="和为某一定值的二叉树路径"><a href="#和为某一定值的二叉树路径" class="headerlink" title="和为某一定值的二叉树路径"></a>和为某一定值的二叉树路径</h5><p>DFS</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;int&gt;&gt; ans;</span><br><span class="line">vector&lt;int&gt; path;</span><br><span class="line">vector&lt;vector&lt;int&gt;&gt; findPath(TreeNode* root, int sum) &#123;</span><br><span class="line">    dfs(root, sum);</span><br><span class="line">    return ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void dfs(TreeNode* root, int sum) &#123;</span><br><span class="line">    if (!root) return;</span><br><span class="line">    path.push_back(root-&gt;val);</span><br><span class="line">    sum -= root-&gt;val;</span><br><span class="line">    if (!root-&gt;left &amp;&amp; !root-&gt;right &amp;&amp; !sum) ans.push_back(path);</span><br><span class="line">    dfs(root-&gt;left, sum);</span><br><span class="line">    dfs(root-&gt;right, sum);</span><br><span class="line">    path.pop_back();</span><br><span class="line">    // sum值传递可以不恢复</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="判断对称二叉树"><a href="#判断对称二叉树" class="headerlink" title="判断对称二叉树"></a>判断对称二叉树</h5><ul>
 <li><p>单队列迭代，相邻两个队列成员应该一致</p>
@@ -536,10 +533,6 @@ void dfs(TreeNode *root, int &amp;k)
 bool dfs(TreeNode* l, TreeNode* r) {
     if (!l || !r) return !l &amp;&amp; !r;
     return l-&gt;val == r-&gt;val &amp;&amp; dfs(l-&gt;right, r-&gt;left) &amp;&amp; dfs(l-&gt;left, r-&gt;right);
-}
-</code></pre><h5 id="二叉树的深度"><a href="#二叉树的深度" class="headerlink" title="二叉树的深度"></a>二叉树的深度</h5><pre><code>int treeDepth(TreeNode* root) {
-    if (!root) return 0;
-    return max(treeDepth(root-&gt;left), treeDepth(root-&gt;right)) + 1;
 }
 </code></pre><h5 id="平衡二叉树判定"><a href="#平衡二叉树判定" class="headerlink" title="平衡二叉树判定"></a>平衡二叉树判定</h5><pre><code>bool ans = true;
 
@@ -627,9 +620,39 @@ vector&lt;vector&lt;int&gt;&gt; printFromTopToBottom(TreeNode* root) {
 <li>在每行末尾添加null标记</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;int&gt;&gt; printFromTopToBottom(TreeNode* root) &#123;</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; res;</span><br><span class="line">    if (!root) return res;</span><br><span class="line">    queue&lt;TreeNode*&gt; que;</span><br><span class="line">    que.push(root);</span><br><span class="line">    que.push(nullptr);</span><br><span class="line">    vector&lt;int&gt; level;</span><br><span class="line">    </span><br><span class="line">    while(que.size()) &#123;</span><br><span class="line">        auto p = que.front();</span><br><span class="line">        que.pop();</span><br><span class="line">        if (!p) &#123;</span><br><span class="line">            if (level.empty()) break;</span><br><span class="line">            res.push_back(level);</span><br><span class="line">            level.clear();</span><br><span class="line">            que.push(nullptr);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            level.push_back(p-&gt;val);</span><br><span class="line">            if (p-&gt;left) que.push(p-&gt;left);</span><br><span class="line">            if (p-&gt;right) que.push(p-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>序列化二叉树</p>
-<p>二叉搜索树与双向链表</p>
+<h4 id="二叉树序列化"><a href="#二叉树序列化" class="headerlink" title="二叉树序列化"></a>二叉树序列化</h4><p>序列化二叉树</p>
+<h4 id="二叉搜索树"><a href="#二叉搜索树" class="headerlink" title="二叉搜索树"></a>二叉搜索树</h4><p>二叉搜索树与双向链表</p>
 <p>每次递归返回一个pair&lt;TreeNode*, TreeNode*&gt;</p>
+<h5 id="BST性质利用"><a href="#BST性质利用" class="headerlink" title="BST性质利用"></a>BST性质利用</h5><p><strong>二叉搜索树的最近公共祖先</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TreeNode* <span class="title">lowestCommonAncestor</span><span class="params">(TreeNode* root, TreeNode* p, TreeNode* q)</span> </span>&#123;</span><br><span class="line">    TreeNode* ancestor = root;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p-&gt;val &lt; ancestor-&gt;val &amp;&amp; q-&gt;val &lt; ancestor-&gt;val) &#123;</span><br><span class="line">            ancestor = ancestor-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (p-&gt;val &gt; ancestor-&gt;val &amp;&amp; q-&gt;val &gt; ancestor-&gt;val) &#123;</span><br><span class="line">            ancestor = ancestor-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ancestor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="二叉搜索树的第k个结点"><a href="#二叉搜索树的第k个结点" class="headerlink" title="二叉搜索树的第k个结点"></a>二叉搜索树的第k个结点</h5><p>中序遍历的第k个节点，即第k小的结点</p>
+<pre><code>/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+TreeNode *ans;
+
+TreeNode* kthNode(TreeNode* root, int k) {
+    dfs(root, k);
+    return ans;
+}
+
+void dfs(TreeNode *root, int &amp;k)
+{
+    if (!k || !root) return;
+    dfs(root-&gt;left, k);
+    --k;
+    if (!k) ans = root;
+    else dfs(root-&gt;right, k);
+}
+</code></pre><h5 id="BST判定"><a href="#BST判定" class="headerlink" title="BST判定"></a>BST判定</h5><h5 id="判定二叉搜索树后序序列的合法性"><a href="#判定二叉搜索树后序序列的合法性" class="headerlink" title="判定二叉搜索树后序序列的合法性"></a>判定二叉搜索树后序序列的合法性</h5><p>注意dfs中[l,r]只包含一个元素的边界判断和子区间递归要剔除根节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; seq;</span><br><span class="line">bool verifySequenceOfBST(vector&lt;int&gt; sequence) &#123;</span><br><span class="line">    seq = sequence;</span><br><span class="line">    if (seq.size() == 0) return true;</span><br><span class="line">    return dfs(0, seq.size() - 1);</span><br><span class="line">&#125;</span><br><span class="line">bool dfs(int l, int r) &#123;</span><br><span class="line">    if (l &gt;= r) return true;</span><br><span class="line">    int x = seq[r];</span><br><span class="line">    int k = l;</span><br><span class="line">    while (k &lt; r &amp;&amp; seq[k] &lt; x) k++;</span><br><span class="line">    for (int i = k; i &lt; r; i++)</span><br><span class="line">        if (seq[i] &lt; x) return false;</span><br><span class="line">    return dfs(l, k-1) &amp;&amp; dfs(k, r-1);</span><br><span class="line">&#125;&#125;;</span><br></pre></td></tr></table></figure>
+<h5 id="BST增删改查"><a href="#BST增删改查" class="headerlink" title="BST增删改查"></a>BST增删改查</h5><p>##### </p>
 
       
     </div>
@@ -670,8 +693,8 @@ vector&lt;vector&lt;int&gt;&gt; printFromTopToBottom(TreeNode* root) {
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/11/15/leetcode-notes/" rel="prev" title="Leetcode笔记">
-                Leetcode笔记 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/11/15/leetcode-notes/" rel="prev" title="Leetcode Trick题目总结">
+                Leetcode Trick题目总结 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -831,7 +854,7 @@ vector&lt;vector&lt;int&gt;&gt; printFromTopToBottom(TreeNode* root) {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#重建二叉树"><span class="nav-number">1.</span> <span class="nav-text">重建二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#判定二叉搜索树后序序列的合法性"><span class="nav-number">2.</span> <span class="nav-text">判定二叉搜索树后序序列的合法性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二叉搜索树的第k个结点"><span class="nav-number">3.</span> <span class="nav-text">二叉搜索树的第k个结点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#和为某一定值的二叉树路径"><span class="nav-number">4.</span> <span class="nav-text">和为某一定值的二叉树路径</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#判断对称二叉树"><span class="nav-number">5.</span> <span class="nav-text">判断对称二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二叉树的深度"><span class="nav-number">6.</span> <span class="nav-text">二叉树的深度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#平衡二叉树判定"><span class="nav-number">7.</span> <span class="nav-text">平衡二叉树判定</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二叉树的下一个结点"><span class="nav-number">8.</span> <span class="nav-text">二叉树的下一个结点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#生成镜像二叉树"><span class="nav-number">9.</span> <span class="nav-text">生成镜像二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#同构二叉树"><span class="nav-number">10.</span> <span class="nav-text">同构二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#树的子结构"><span class="nav-number">11.</span> <span class="nav-text">树的子结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二叉树的花样遍历"><span class="nav-number">12.</span> <span class="nav-text">二叉树的花样遍历</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#按之字形顺序打印二叉树"><span class="nav-number">13.</span> <span class="nav-text">按之字形顺序打印二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分行打印二叉树"><span class="nav-number">14.</span> <span class="nav-text">分行打印二叉树</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉树遍历-分解"><span class="nav-number">1.</span> <span class="nav-text">二叉树遍历/分解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉树花式遍历"><span class="nav-number">2.</span> <span class="nav-text">二叉树花式遍历</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉树构造"><span class="nav-number">3.</span> <span class="nav-text">二叉树构造</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#重建二叉树"><span class="nav-number">3.1.</span> <span class="nav-text">重建二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#和为某一定值的二叉树路径"><span class="nav-number">3.2.</span> <span class="nav-text">和为某一定值的二叉树路径</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#判断对称二叉树"><span class="nav-number">3.3.</span> <span class="nav-text">判断对称二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#平衡二叉树判定"><span class="nav-number">3.4.</span> <span class="nav-text">平衡二叉树判定</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二叉树的下一个结点"><span class="nav-number">3.5.</span> <span class="nav-text">二叉树的下一个结点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#生成镜像二叉树"><span class="nav-number">3.6.</span> <span class="nav-text">生成镜像二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#同构二叉树"><span class="nav-number">3.7.</span> <span class="nav-text">同构二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#树的子结构"><span class="nav-number">3.8.</span> <span class="nav-text">树的子结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二叉树的花样遍历"><span class="nav-number">3.9.</span> <span class="nav-text">二叉树的花样遍历</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#按之字形顺序打印二叉树"><span class="nav-number">3.10.</span> <span class="nav-text">按之字形顺序打印二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分行打印二叉树"><span class="nav-number">3.11.</span> <span class="nav-text">分行打印二叉树</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉树序列化"><span class="nav-number">4.</span> <span class="nav-text">二叉树序列化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉搜索树"><span class="nav-number">5.</span> <span class="nav-text">二叉搜索树</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#BST性质利用"><span class="nav-number">5.1.</span> <span class="nav-text">BST性质利用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二叉搜索树的第k个结点"><span class="nav-number">5.2.</span> <span class="nav-text">二叉搜索树的第k个结点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#BST判定"><span class="nav-number">5.3.</span> <span class="nav-text">BST判定</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#判定二叉搜索树后序序列的合法性"><span class="nav-number">5.4.</span> <span class="nav-text">判定二叉搜索树后序序列的合法性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#BST增删改查"><span class="nav-number">5.5.</span> <span class="nav-text">BST增删改查</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -863,7 +886,7 @@ vector&lt;vector&lt;int&gt;&gt; printFromTopToBottom(TreeNode* root) {
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">93k</span>
+    <span title="站点总字数">97k</span>
   
 
   
@@ -872,7 +895,7 @@ vector&lt;vector&lt;int&gt;&gt; printFromTopToBottom(TreeNode* root) {
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">1:25</span>
+    <span title="站点阅读时长">1:28</span>
   
 </div>
 
